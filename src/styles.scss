@@ -1,1 +1,181 @@
-/* You can add global styles to this file, and also import other style files */
+/*general style of the app*/
+
+
+/*colors for app*/
+
+$colorblue:#3598dc;
+$colorred:#e7505a;
+$colorgreen:#32c5d2;
+$coloryellow:#F1C40F;
+$colorwhite:#fff;
+$colorlightgrey:#eee;
+$colorblack:#2b3643;
+$colorwhiteopacity:rgba(255, 255, 255, .7);
+$colordarkgray:#BEBFC1;
+$colorindigo:#3F51B5;
+
+/*style for buttons colors*/
+
+.btn_primary,
+.btn_danger,
+.btn_warning,
+.btn_success,
+.btn_info {
+    color: $colorwhite;
+}
+
+.btn_primary {
+    background: $colorblue;
+}
+
+.btn_danger {
+    background: $colorred;
+}
+
+.btn_success {
+    background: $colorgreen;
+}
+
+.btn_warning {
+    background: $coloryellow;
+}
+
+
+/*font style*/
+
+$roboto:'Roboto',
+sans-serif;
+$oswaldo:'Oswald',
+sans-serif;
+
+/*mixin of shadows*/
+
+@mixin box-shadow() {
+    -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .12), 0 4px 10px rgba(0, 0, 0, .24);
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .12), 0 4px 10px rgba(0, 0, 0, .24);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .12), 0 4px 10px rgba(0, 0, 0, .24);
+}
+
+@mixin generar-btn($color) {
+    background: $color;
+    border: none;
+    color: $colorwhite;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+}
+
+
+/*general style*/
+
+body {
+    background: $colorlightgrey;
+}
+
+.container-modified {
+    width: 95%;
+    background: $colorwhite;
+    padding: 1em;
+    margin: 20px auto;
+    @include box-shadow();
+}
+
+.container-modified:first-child {
+    margin-top: 60px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: $colorblack;
+    font-family: $oswaldo;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    padding-bottom: .2em;
+}
+
+h1.title {
+    font-size: 1.8em;
+}
+
+
+/*general style for input*/
+
+textarea,
+input,
+select {
+    font-size: .8em !important;
+    border-radius: 0 !important;
+}
+
+.input-modified {
+    padding: 0 .3em !important;
+    line-height: inherit !important;
+    height: 24px !important;
+}
+
+label {
+    padding: 0 ! important;
+    font-family: 'Roboto', sans-serif;
+}
+
+.textarea-modified {
+    min-height: 70px;
+    max-height: 70px;
+}
+
+
+/*general style for cards*/
+
+.card-modified {
+    background: #fff;
+    padding: 1em;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.ng-invalid.ng-touched:not(form) {
+    background: #fff url('C:/xampp/htdocs/app-sip/src/assets/images/error.png') no-repeat 98% center;
+    border-color: $colorred;
+}
+
+
+/*general style for error message*/
+
+.error_message {
+    position: absolute;
+    color: $colorred;
+    font-size: .8em;
+    bottom: -15px;
+}
+
+.label-required::after {
+    content: '*';
+    display: inline-block;
+    color: $colorred;
+    margin-left: .2em;
+}
+
+table thead tr>th {
+    line-height: .5em;
+    text-align: center;
+    background: $colorblack;
+    color: $colorwhite;
+}
+
+.btn_add {
+    @include generar-btn($colorgreen)
+}
+
+.btn_delete {
+    @include generar-btn($colorred)
+}
+
+.btn_edit {
+    @include generar-btn($colorblue)
+}
+
+.info {
+    font-weight: bold;
+}

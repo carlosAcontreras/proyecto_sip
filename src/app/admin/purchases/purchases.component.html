@@ -1,0 +1,131 @@
+<div class="container-fluid container-modified" (keydown)="someMethod($event)">
+    <div class="col-12">
+        <h3 class="mb-3 title">Compras</h3>
+    </div>
+    <div class="col-12">
+        <form id="form">
+            <div class="form-group row" id="purchase">
+                <label for=" " class="col-2 col-form-label">Orden Compra</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value="{{consecutive}}" id="">
+                    <input class="form-control input-modified" type="text" value="{{company}}" name="id_company" id="">
+                </div>
+                <label for=" " class="col-2 col-form-label">Proveedor</label>
+                <div class="col-2">
+                    <input class="form-control input-modified provider" type="text" name="name_provider" id="provider">
+                    <input class="form-control input-modified provider hiden" type="text" name="provider" id="providerhiden">
+                </div>
+                <label for=" " class="col-2 col-form-label">Fecha</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" name="date" id="date">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+
+                <label for=" " class="col-2 col-form-label">Fecha Entrega</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" name="deliver_date" id="deliver_date">
+                </div>
+                <label for=" " class="col-2 col-form-label">Estado/Orden</label>
+                <div class="col-2">
+                    <select class="form-control input-modified" name="state_purc">
+                        <option *ngFor="let state_moves of state_moves" value="{{state_moves.idstate_moves}}">{{state_moves.name_moves}}</option>
+                    </select>
+                </div>
+
+                <label for=" " class="col-2 col-form-label">Almacen</label>
+                <div class="col-2">
+                    <select class="form-control input-modified" name="cellar">
+                        <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}">{{cellar.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <button class="btn btn_primary btn-sm" disabled={{buttonDisabled}} (click)="savepurchase()">Guardar</button>
+        <button class="btn btn_success btn-sm" (click)="add()">Actualizar</button>
+        <button class="btn btn_danger btn-sm">Eliminar</button>
+    </div>
+</div>
+
+
+<div class="container-fluid container-modified" (keydown)="someMethod($event)">
+    <div class="col-12">
+        <div class="form-group">
+            <form id="table">
+                <div class="datagrid">
+                    <table id="tabla" class="table table-striped table-hover table-bordered table-relative">
+                        <thead>
+                            <tr>
+                                <th>Eliminar</th>
+                                <th>Codigo</th>
+                                <th>Descripcion</th>
+                                <th>Can Solicitada</th>
+                                <th>Can Recibida</th>
+                                <th>Valor Uni</th>
+                                <th>Desc</th>
+                                <th>Iva</th>
+                                <th>Vlr con Iva</th>
+                                <th>Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="item_actividad eliminar_tr">
+                                <td>
+                                    <button class="btn_delete" id="delet">
+                                    <i class="fa fa fa-trash-o" aria-hidden="true"></i>
+                            </button>
+                                </td>
+
+                                <td>
+                                    <input class="code_provider form-control purchase input-modified" type="text" name="code">
+                                    <input class="form-control purchase hiden input-modified" type="text" name="idcode">
+                                </td>
+
+                                <td>
+                                    <input class="description form-control purchase input-modified" type="text" name="description">
+                                </td>
+
+                                <td>
+                                    <input class="request_amount form-control purchase input-modified" type="text" name="request_amount">
+                                </td>
+                                <td>
+                                    <input class="amount_receipt form-control purchase input-modified" type="text" name="amount_receipt">
+                                </td>
+                                <td>
+                                    <input class="unit_value form-control purchase input-modified" type="text" name="unit_value">
+                                </td>
+                                <td>
+                                    <input class="discount form-control purchase input-modified" type="text" name="discount">
+                                </td>
+                                <td>
+                                    <input class="iva form-control purchase input-modified" type="text" name="iva">
+                                </td>
+                                <td class="vlr_iva text-center">$0</td>
+                                <td class="vlr_total text-center">$0</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-end pr-3">
+                    <div class="resumen mr-5">
+                        <p class="info">SUBTOTAL</p>
+                        <p class="info">IVA</p>
+                        <p class="info">TOTAL</p>
+                    </div>
+                    <div class="resumen text-right">
+                        <p class="sub_total">0</p>
+                        <p class="sub_iva">0</p>
+                        <p class="total">0</p>
+                    </div>
+                </div>
+            </form>
+            <div>
+                <button class="btn_add" (click)="addtr() "><i class="fa fa-plus "></i></button>
+            </div>
+        </div>
+
+    </div>
+</div>

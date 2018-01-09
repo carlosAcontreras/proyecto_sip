@@ -1,0 +1,56 @@
+@import '../../styles';
+.container-forms {
+    background: $colorwhite;
+    @include box-shadow();
+    margin-top: 100px;
+}
+
+.forms-text {
+    background: linear-gradient(to left top, #100F0F, $colorblack);
+    h1,
+    p {
+        color: $colorwhite;
+    }
+}
+
+.forms-content {
+    .input_login,
+    .select_login {
+        border: none;
+        border-bottom: 1px solid $colordarkgray;
+        border-radius: 0;
+        position: relative;
+    }
+    .input_login:focus,
+    .select_login:focus {
+        border-bottom: 1px solid $colorblack;
+    }
+    button.btn_login {
+        border: 1px solid $colorblack;
+        background: $colorwhite;
+        color: $colorblack;
+        margin-top: 30px;
+        width: 150px;
+        transition: all 1s ease-in-out;
+        border-radius: 20px;
+        &:hover {
+            background: linear-gradient(to left top, #100F0F, $colorblack);
+            color: $colorwhite;
+        }
+    }
+    .change-password {
+        color: $colorblue;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}
+
+.copy {
+    color: $colordarkgray;
+    font-size: 1.3em;
+}
+
+.error_login {
+    color: $colorred;
+    font-size: .8em;
+}

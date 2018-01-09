@@ -1,0 +1,106 @@
+<div class="container-fluid container-modified">
+    <div class="col-12">
+        <h3 class="mb-3 title">Materiales</h3>
+    </div>
+
+    <div class="col-12">
+        <form #form_materials="ngForm">
+            <div class="form-group row">
+                <label for=" " class="col-2 col-form-label label-required">Codigo</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" (valueChanged)="valueChanged($event)" ngui-auto-complete [(ngModel)]="material_models.code" placeholder="codigo" [source]="search_codigo" list-formatter="value" path-to-data="results" value-property-name="value"
+                        display-property-name="value" min-chars="2" name="code" #code="ngModel" required />
+                    <span *ngIf="code.errors?.required && code.touched" class="error_message">el campo es requerido</span>
+                    <input class="form-control input-modified" value="{{material_models.idmateriales}}" [(ngModel)]="material_models.idmateriales" name="idmateriales" />
+                </div>
+                <label for=" " class="col-2 col-form-label label-required">Descripcion</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" value="{{material_models.description}}" [(ngModel)]="material_models.description" name="description" #description="ngModel" required />
+                    <span *ngIf="description.errors?.required && description.touched" class="error_message">el campo es requerido</span>
+                </div>
+                <label for=" " class="col-2 col-form-label label-required">Unidad</label>
+                <div class="col-2">
+                    <select class="form-control input-modified" [(ngModel)]="material_models.unity" name="unity" #unity="ngModel" required>
+                    <option *ngFor="let unity of list_unity" value="{{unity.idUnity}}" [selected]="material_models.unity === unity.idUnity">{{unity.name_Unity}}</option>
+                    </select>
+                    <span *ngIf="unity.errors?.required && unity.touched" class="error_message">el campo es requerido</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for=" " class="col-2 col-form-label label-required">Estado</label>
+                <div class="col-2">
+                    <select class="form-control input-modified" name="state" [(ngModel)]="material_models.state" #state="ngModel" required>
+                        <option *ngFor="let status of list_status" value="{{status.idstate}}" [selected]="status.idstate === material_models.state">{{status.state}}</option>
+                    </select>
+                    <span *ngIf="state.errors?.required && state.touched" class="error_message">el campo es requerido</span>
+                </div>
+                <label for=" " class="col-2 col-form-label label-required">Tipo/Insumo</label>
+                <div class="col-2 ">
+                    <select class="form-control input-modified" name="input_type" [(ngModel)]="material_models.input_type" #input_type="ngModel" required>
+                        <option *ngFor="let type of list_type" value="{{type.idType_input}}" [selected]="type.idType_input === material_models.input_type">{{type.name_Type}}</option>
+                    </select>
+                    <span *ngIf="input_type.errors?.required && input_type.touched" class="error_message">el campo es requerido</span>
+                </div>
+                <label for=" " class="col-2 col-form-label">Min/Inventario</label>
+                <div class="col-2 ">
+                    <input class="form-control input-modified" type="text" value="{{material_models.minimum_inventory}}" [(ngModel)]="material_models.minimum_inventory" name="minimum_inventory" #minimum_inventory="ngModel" number>
+                    <span *ngIf="minimum_inventory.errors?.number && minimum_inventory.touched" class="error_message">el valor ingresado no es un numero valido</span>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for=" " class="col-2 col-form-label">Valor/Promedio</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value="{{material_models.average_value}}" [(ngModel)]="material_models.average_value" name="average_value" #average_value="ngModel" number>
+                    <span *ngIf="average_value.errors?.number && average_value.touched" class="error_message">el valor ingresado no es un numero valido</span>
+                </div>
+                <label for=" " class="col-2 col-form-label">Iva</label>
+                <div class="col-2">
+
+                    <input class="form-control input-modified" type="text" value="{{material_models.iva}}" [(ngModel)]="material_models.iva" name="iva" #iva="ngModel" number>
+                    <span *ngIf="iva.errors?.number && iva.touched" class="error_message">el valor ingresado no es un numero valido</span>
+                </div>
+                <label for=" " class="col-2 col-form-label">Control/Series</label>
+                <div class="col-2 text-center">
+                    <input type="checkbox" class="" [checked]="material_models.serie === 1" [(ngModel)]="material_models.serie" name="serie">
+                </div>
+            </div>
+
+            <button class="btn btn_primary btn-sm" [disabled]="!form_materials.valid || permisos.save === 0" (click)="query_materials(form_materials.value)">Guardar</button>
+            <button class="btn btn_success btn-sm" [disabled]="!form_materials.valid || permisos.save === 0" (click)="update_materials(form_materials.value)">Actualizar</button>
+            <button class="btn btn_danger btn-sm" [disabled]="!form_materials.valid || permisos.save === 0" (click)="delete_materials(form_materials.value)">Eliminar</button>
+        </form>
+    </div>
+</div>
+
+<div class="container-fluid container-modified">
+    <table id="table_materials" class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Empresa</th>
+                <th>Nombre</th>
+                <th>Almacen</th>
+                <th>Codigo</th>
+                <th>Inventario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <button class="btn_add"><i class="fa fa-plus"></i></button>
+                    <button class="btn_delete"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn_edit"><i class="fa fa-pencil-square-o"></i></button>
+                </td>
+                <td>valor</td>
+                <td>valor</td>
+                <td>valor</td>
+                <td>valor</td>
+                <td>valor</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

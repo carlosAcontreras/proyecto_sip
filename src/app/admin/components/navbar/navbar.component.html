@@ -1,0 +1,83 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse bg-faded fixed-top shadow2">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand navbar__icon" href="#">SIP</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown px-2">
+                <a class="nav-link dropdown-toggle" id="Inventory" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Inventarios
+                </a>
+                <div class="dropdown-menu" aria-labelledby="Inventory">
+                    <a class="dropdown-item" [routerLink]="['/admin/materiales']">Materiales</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/compras']">Compras</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/ingresos']">Ingresos</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/despachos']">Despachos</a>
+                    <a class="dropdown-item" href="#">Devoluciones</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/traslados']">Traslados</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/control-series']">Control Series</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown px-2">
+                <a class="nav-link dropdown-toggle" id="administration" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Administración
+                </a>
+                <div class="dropdown-menu" aria-labelledby="administration">
+                    <a class="dropdown-item" [routerLink]="['/admin/usuarios']">Usuario</a>
+                    <a class="dropdown-item" href="#">Perfil</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/proveedores']">Proveedores</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/contratos']">Contratos</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/empresas']">Empresas</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/bodegas']">Bodegas</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown px-2">
+                <a class="nav-link dropdown-toggle" id="lists" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Listas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="lists">
+                    <a class="dropdown-item" [routerLink]="['/admin/item-cobro']">Item Cobro</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/listas-maestras']">Listas Maestras</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown px-2">
+                <a class="nav-link dropdown-toggle" id="works" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Obras
+                </a>
+                <div class="dropdown-menu" aria-labelledby="works">
+                    <a class="dropdown-item" [routerLink]="['/admin/documentos-epm']">Documentos Epm</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/obra-interna']">Obras Internas</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/obra-externa']">Obras Externas</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/operaciones']">Operaciones</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/asignacion']">Asignación de Encargados</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/programacion-masiva']">Programación Masiva</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/importar-obra']">Importar Obra</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/pago-actividades']">Pago Actividades</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/impresion']">Impresion</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/acta-materiales']">Extraer Datos</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/programacion']">Programación</a>
+
+                </div>
+            </li>
+            <li class="nav-item dropdown px-2">
+                <a class="nav-link dropdown-toggle" id="querys" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Consultas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="querys">
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav px-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Nombre Usuario
+                    </a>
+                <div class="dropdown-menu" aria-labelledby="user">
+                    <a class="dropdown-item" href="#" (click)="sesionDestroy()">Cerrar Sesión</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

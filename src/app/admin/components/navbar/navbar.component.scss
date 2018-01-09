@@ -1,0 +1,21 @@
+@import '../../../../styles';
+.dropdown-menu .dropdown-item,
+.navbar {
+    font-family: $roboto;
+    font-size: .9em;
+}
+
+.navbar {
+    background: $colorblack !important;
+    padding: 0;
+}
+
+.navbar__icon {
+    font-size: 1.8em;
+    padding: 6px;
+    padding-left: 30px;
+}
+
+.navbar-inverse .navbar-nav .nav-link {
+    color: $colorwhiteopacity;
+}
