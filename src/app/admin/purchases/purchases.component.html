@@ -1,4 +1,4 @@
-<div class="container-fluid container-modified" >
+<div class="container-fluid container-modified">
     <div class="col-12">
         <h3 class="mb-3 title">Compras</h3>
     </div>
@@ -53,64 +53,68 @@
 <div class="container-fluid container-modified" (keydown)="someMethod($event)">
     <div class="col-12">
         <div class="form-group">
-        
-                <div class="datagrid">
-                    <table id="table" class="table table-striped table-hover table-bordered table-relative">
-                        <thead>
-                            <tr>
-                                <th>Eliminar</th>
-                                <th>Codigo</th>
-                                <th>Descripcion</th>
-                                <th>Can Solicitada</th>
-                                <th>Can Recibida</th>
-                                <th>Valor Uni</th>
-                                <th>Desc</th>
-                                <th>Iva</th>
-                                <th>Vlr con Iva</th>
-                                <th>Sub Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                              <tr class="item_actividad eliminar_tr" *ngFor="let newrow of rowDataHomeForm; let homeFormIndex = index">
-                                <td class="text-center">
-                           
-                           <button class="btn_delete" (click)="deleteRowHomeForm(homeFormIndex)" type="button"  style="padding: 2px"><i class="fa fa-trash"></i></button>
-                                </td>
 
-                                <td>
-                                    <input class="code_provider form-control purchase input-modified" type="text" name="code">
-                                    <input class="form-control purchase hiden input-modified" type="text" name="idcode">
-                                </td>
+            <div class="datagrid">
+                <table id="table" class="table table-striped table-hover table-bordered table-relative">
+                    <thead>
+                        <tr>
+                            <th>Eliminar</th>
+                            <th>Codigo</th>
+                            <th>Descripcion</th>
+                            <th>Can Solicitada</th>
+                            <th>Can Recibida</th>
+                            <th>Valor Uni</th>
+                            <th>Desc</th>
+                            <th>Iva</th>
+                            <th>Vlr con Iva</th>
+                            <th>Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="item_actividad eliminar_tr" *ngFor="let newrow of rowDataHomeForm; let homeFormIndex = index">
+                            <td class="text-center">
 
-                                <td>
-                                    <input class="description form-control purchase input-modified" type="text" name="description">
-                                </td>
+                                <button class="btn_delete" (click)="deleteRowHomeForm(homeFormIndex)" type="button" style="padding: 2px">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
 
-                                <td>
-                                    <input class="request_amount form-control purchase input-modified" type="text" name="request_amount">
-                                </td>
-                                <td>
-                                    <input class="amount_receipt form-control purchase input-modified" type="text" name="amount_receipt">
-                                </td>
-                                <td>
-                                    <input class="unit_value form-control purchase input-modified" type="text" name="unit_value">
-                                </td>
-                                <td>
-                                    <input class="discount form-control purchase input-modified" type="text" name="discount">
-                                </td>
-                                <td>
-                                    <input class="iva form-control purchase input-modified" type="text" name="iva">
-                                </td>
-                                <td class="vlr_iva text-center">$0</td>
-                                <td class="vlr_total text-center">$0</td>
+                            <td>
+                                <input class="code_provider form-control purchase input-modified" type="text" name="code">
+                                <input class="form-control purchase hiden input-modified" type="text" name="idcode">
+                            </td>
 
-                            </tr>
-                        </tbody>
-                    </table>
-   <div>
-                <button class="btn_add" (click)='addRowHomeCampusProvinceAreaForm()'><i class="fa fa-plus "></i></button>
-            </div>
-             
+                            <td>
+                                <input class="description form-control purchase input-modified" type="text" name="description">
+                            </td>
+
+                            <td>
+                                <input class="request_amount form-control purchase input-modified" type="text" name="request_amount">
+                            </td>
+                            <td>
+                                <input class="amount_receipt form-control purchase input-modified" type="text" name="amount_receipt">
+                            </td>
+                            <td>
+                                <input class="unit_value form-control purchase input-modified" type="text" name="unit_value">
+                            </td>
+                            <td>
+                                <input class="discount form-control purchase input-modified" type="text" name="discount">
+                            </td>
+                            <td>
+                                <input class="iva form-control purchase input-modified" type="text" name="iva">
+                            </td>
+                            <td class="vlr_iva text-center">$0</td>
+                            <td class="vlr_total text-center">$0</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <button class="btn_add" (click)='addRowHomeCampusProvinceAreaForm()'>
+                        <i class="fa fa-plus "></i>
+                    </button>
+                </div>
+
                 <div class="d-flex justify-content-end pr-3">
                     <div class="resumen mr-5">
                         <p class="info">SUBTOTAL</p>
@@ -123,8 +127,8 @@
                         <p class="total">0</p>
                     </div>
                 </div>
-    
-        </div>
 
+            </div>
+
+        </div>
     </div>
-</div>
