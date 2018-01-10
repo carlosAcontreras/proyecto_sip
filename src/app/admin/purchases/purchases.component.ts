@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { ListService } from '../../services/list/list.service';
 import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
 import { SerializerService } from '../../services/serializer/serializer.service';
@@ -31,12 +31,27 @@ export class PurchasesComponent implements OnInit {
 
 
 
-    constructor(private ListService: ListService, private AutocompleteService: AutocompleteService, private SerializerService: SerializerService) {
+    constructor(private ListService: ListService, private AutocompleteService: AutocompleteService, private SerializerService: SerializerService,private changeDetectorRef: ChangeDetectorRef) {
 
 
 
     }
+rowDataMainForm = [{
+    Eliminar: '',
+    Codigo: '',
+    Descripcion: '',
+}];
 
+rowDataAdressForm = [{
+    Eliminar: '',
+    Codigo: '',
+    Descripcion: '',
+
+}];
+
+rowDataHomeForm = [{
+
+}];
     ngOnInit() {
         localStorage.setItem('company', '1');
         this.get_state_movest();
@@ -46,19 +61,31 @@ export class PurchasesComponent implements OnInit {
         this.get_cellar(this.idcompany);
         this.SerializerService.serializer();
         this.operation_purchases();
-        this.delet();
         this.company = localStorage.getItem('company')
 
     }
-
+// evento enter 
     someMethod(event: any) {
+
         if (event.keyCode == 13) {
-            this.addtr();
+            this.addRowHomeCampusProvinceAreaForm():
         } else {
         }
     }
 
 
+//elimina las filas de los tr
+deleteRowHomeForm(homeFormIndex: number){
+    this.rowDataHomeForm.splice(homeFormIndex, 1);
+    this.changeDetectorRef.detectChanges();
+}
+
+// agrega filas a los tr
+addRowHomeCampusProvinceAreaForm(){
+    this.rowDataHomeForm.push({
+
+    })
+}
 
     savepurchase() {
 
@@ -89,59 +116,10 @@ export class PurchasesComponent implements OnInit {
             }
         )
 
-
-
-
-        //this.AutocompleteService.savepurchase();
-    }
-    delet() {
-        $(document).on('click', '.item_actividad .delet', function (event) {
-
-            $(this).closest('tr').remove();
-
-        });
-
     }
 
-    addtr() {
-        $('#table tr:last').after("<tr class='item_actividad eliminar_tr'>" +
 
-            "<td>" +
-            "<button type='button' class='delet' id='delet'>" +
-            "<i class='fa fa fa-trash-o' aria-hidden='true'></i>" +
-            "</button>" +
-            "</td>" +
 
-            "<td>" +
-            "<input class='code_provider form-control purchase input1' type='text' name='code'>" +
-            "<input class='form-control purchase hiden' type='text' name='idcode'>" +
-            "</td>" +
-
-            "<td>" +
-            "<input class='description form-control purchase input1' type='text' name='description'>" +
-            "</td>" +
-
-            "<td>" +
-            "<input class='request_amount form-control purchase input1' type='text' name='request_amount'>" +
-            "</td>" +
-            "<td>" +
-            "<input class='amount_receipt form-control purchase input1' type='text' name='amount_receipt'>" +
-            "</td>" +
-            "<td>" +
-            "<input class='unit_value form-control purchase input1' type='text' name='unit_value'>" +
-            "</td>" +
-            "<td>" +
-            "<input class='discount form-control purchase input1' type='text' name='discount'>" +
-            "</td>" +
-            "<td>" +
-            "<input class='iva form-control purchase input1' type='text' name='iva'>" +
-            "</td>" +
-            "<td class='vlr_iva text-center'>$0</td>" +
-            "<td class='vlr_total text-center'>$0</td>" +
-
-            "</tr>");
-
-    }
 
     //funcion para consultar los estados de compras y ingresos
     get_state_movest() {
@@ -252,6 +230,8 @@ export class PurchasesComponent implements OnInit {
              subtotal+=  Number(vlr_subtotal);
 
             }
+
+
 
 
              let total=(Number(vrl_iva)+Number(subtotal)).toFixed(2);
