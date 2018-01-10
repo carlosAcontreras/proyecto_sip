@@ -46,6 +46,7 @@
         <button class="btn btn_primary btn-sm" disabled={{buttonDisabled}} (click)="savepurchase()">Guardar</button>
         <button class="btn btn_success btn-sm" (click)="add()">Actualizar</button>
         <button class="btn btn_danger btn-sm">Eliminar</button>
+        <button class="btn btn_warning btn-sm" data-toggle="modal" data-target="#exampleModal">Buscar   <i class="fa fa-search" aria-hidden="true"></i></button>
     </div>
 </div>
 
@@ -53,7 +54,7 @@
 <div class="container-fluid container-modified" (keydown)="someMethod($event)">
     <div class="col-12">
         <div class="form-group">
-            <form id="table">
+            <div id="table">
                 <div class="datagrid">
                     <table id="tabla" class="table table-striped table-hover table-bordered table-relative">
                         <thead>
@@ -72,15 +73,15 @@
                         </thead>
                         <tbody>
                             <tr class="item_actividad eliminar_tr">
-                                <td>
-                                    <button class="btn_delete" id="delet">
+                                <td class="text-center">
+                                    <button class="btn_delete delet" id="delet">
                                     <i class="fa fa fa-trash-o" aria-hidden="true"></i>
                             </button>
                                 </td>
 
                                 <td>
                                     <input class="code_provider form-control purchase input-modified" type="text" name="code">
-                                    <input class="form-control purchase hiden input-modified" type="text" name="idcode">
+                                    <input class="form-control purchase input-modified" hidden type="text" name="idcode">
                                 </td>
 
                                 <td>
@@ -109,6 +110,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div>
+                    <button class="btn_add" (click)="addtr() "><i class="fa fa-plus"></i></button>
+                </div>
                 <div class="d-flex justify-content-end pr-3">
                     <div class="resumen mr-5">
                         <p class="info">SUBTOTAL</p>
@@ -121,11 +125,175 @@
                         <p class="total">0</p>
                     </div>
                 </div>
-            </form>
-            <div>
-                <button class="btn_add" (click)="addtr() "><i class="fa fa-plus "></i></button>
             </div>
+
         </div>
 
+    </div>
+</div>
+
+
+
+<!--VENTANAS MODALES -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BUSCAR</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <form #form_searh_purchases="ngForm">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Fecha Inicial</label>
+                            <input type="text" class="form-control input-modified" #fecha_inicial name="start_date" [(ngModel)]="date.start_date">
+                        </div>
+                        <div class="col-6">
+                            <label for="">Fecha Final</label>
+                            <input type="text" class="form-control input-modified" #fecha_final name="end_date" [(ngModel)]="date.end_date">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-2">
+                            <button class="btn btn_primary btn-sm" (click)="search_purchases(form_searh_purchases.value)">Consultar</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="data-tables">
+                    <table id="table_search_purchase" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+
+                            <tr>
+                                <th>N° Orden</th>
+                                <th>Proveedor</th>
+                                <th>Estado</th>
+                                <th>N° Ingreso</th>
+                                <th>Fecha</th>
+                                <th>Selecion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>System Architect</td>
+                                <td>Edinburgh</td>
+                                <td>61</td>
+                                <td>10/12/2016</td>
+                                <td class="text-center">
+                                    <button class="btn btn_select btn-sm">Seleccionar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Garrett Winters</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                <td>63</td>
+                                <td>10/12/2016</td>
+                                <td class="text-center">
+                                    <button class="btn btn_select btn-sm">Seleccionar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ashton Cox</td>
+                                <td>Junior Technical Author</td>
+                                <td>San Francisco</td>
+                                <td>66</td>
+                                <td>10/12/2016</td>
+                                <td class="text-center">
+                                    <button class="btn btn_select btn-sm">Seleccionar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cedric Kelly</td>
+                                <td>Senior Javascript Developer</td>
+                                <td>Edinburgh</td>
+                                <td>22</td>
+                                <td>10/12/2016</td>
+                                <td class="text-center">
+                                    <button class="btn btn_select btn-sm">Seleccionar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Airi Satou</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                <td>33</td>
+                                <td>10/12/2016</td>
+                                <td class="text-center">
+                                    <button class="btn btn_select btn-sm">Seleccionar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Brielle Williamson</td>
+                                <td>Integration Specialist</td>
+                                <td>New York</td>
+                                <td>61</td>
+                                <td>10/12/2016</td>
+                                <td class="text-center">
+                                    <button class="btn btn_select btn-sm">Seleccionar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Herrod Chandler</td>
+                                <td>Sales Assistant</td>
+                                <td>San Francisco</td>
+                                <td>59</td>
+                                <td>10/12/2016</td>
+                                <td class="text-center">
+                                    <button class="btn btn_select btn-sm">Seleccionar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Rhona Davidson</td>
+                                <td>Integration Specialist</td>
+                                <td>Tokyo</td>
+                                <td>55</td>
+                                <td>10/12/2016</td>
+                                <td class="text-center">
+                                    <button class="btn btn_select btn-sm">Seleccionar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Colleen Hurst</td>
+                                <td>Javascript Developer</td>
+                                <td>San Francisco</td>
+                                <td>39</td>
+                                <td>10/12/2016</td>
+                                <td class="text-center">
+                                    <button class="btn btn_select btn-sm">Seleccionar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Sonya Frost</td>
+                                <td>Software Engineer</td>
+                                <td>Edinburgh</td>
+                                <td>23</td>
+                                <td>10/12/2016</td>
+                                <td class="text-center">
+                                    <button class="btn btn_select btn-sm">Seleccionar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Jena Gaines</td>
+                                <td>Office Manager</td>
+                                <td>London</td>
+                                <td>30</td>
+                                <td>10/12/2016</td>
+                                <td class="text-center">
+                                    <button class="btn btn_select btn-sm">Seleccionar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class=" modal-footer ">
+                <button type="button " class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
     </div>
 </div>
