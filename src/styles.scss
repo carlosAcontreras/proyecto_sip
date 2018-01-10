@@ -40,6 +40,12 @@ $colorindigo:#3F51B5;
     background: $coloryellow;
 }
 
+.btn_select {
+    border: 1px solid $colorblue;
+    color: $colorblue;
+    background: transparent;
+}
+
 
 /*font style*/
 
@@ -61,8 +67,8 @@ sans-serif;
     border: none;
     color: $colorwhite;
     padding: 0;
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
 }
 
 
@@ -162,6 +168,12 @@ table thead tr>th {
     text-align: center;
     background: $colorblack;
     color: $colorwhite;
+    font-weight: 400;
+}
+
+.table td,
+.table th {
+    padding: .5em;
 }
 
 .btn_add {
@@ -176,6 +188,72 @@ table thead tr>th {
     @include generar-btn($colorblue)
 }
 
-.info {
-    font-weight: bold;
+//
+.width-table-1 {
+    width: 5%;
+}
+
+.width-table-2 {
+    width: 10%;
+}
+
+.width-table-3 {
+    width: 15%;
+}
+
+.width-table-4 {
+    width: 20%;
+}
+
+.width-table-5 {
+    width: 25%;
+}
+
+.width-table-6 {
+    width: 30%;
+}
+
+//estilos para las ventanas modal
+.modal-content {
+    border-radius: 0;
+    .modal-header {
+        background: $colorblack;
+        padding: .5em;
+        h5 {
+            border: none;
+            color: $colorwhiteopacity;
+        }
+    }
+    button.close>span {
+        color: $colorwhiteopacity;
+    }
+}
+
+//estilos para las datatables 
+.data-tables {
+    margin: 2em;
+}
+
+.page-item.active .page-link {
+    z-index: 2;
+    color: $colorwhite;
+    background-color: $colorblue;
+    border-color: $colorblue;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: $colorblue;
+    background-color: $colorwhite;
+    border: 1px solid #ddd;
+}
+
+@media (min-width: 992px) {
+    .modal-lg {
+        max-width: 1200px;
+    }
 }

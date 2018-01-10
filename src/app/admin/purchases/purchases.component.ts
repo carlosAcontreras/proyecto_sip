@@ -9,13 +9,13 @@ import $ from 'jquery';
 import 'jquery-ui/ui/widgets/datepicker';
 import 'jquery-ui/ui/widgets/autocomplete';
 
-
-
+import { DatatablesService } from '../../services/datatables/datatables.service';
+import { datatables } from '../../utilitis/datatables';
 @Component({
     selector: 'app-purchases',
     templateUrl: './purchases.component.html',
     styleUrls: ['./purchases.component.scss'],
-    providers: [ListService, AutocompleteService, SerializerService]
+    providers: [ListService, AutocompleteService, SerializerService,DatatablesService]
 })
 
 
@@ -28,13 +28,13 @@ export class PurchasesComponent implements OnInit {
     public company;
     public response;
     public buttonDisabled;
+    private date = { 'start_date': '', 'end_date': '' };
+    private datatables;
 
 
-
-    constructor(private ListService: ListService, private AutocompleteService: AutocompleteService, private SerializerService: SerializerService, private changeDetectorRef: ChangeDetectorRef) {
-
-
-
+    constructor(private ListService: ListService, private AutocompleteService: AutocompleteService, private SerializerService: SerializerService, private changeDetectorRef: ChangeDetectorRef,private datatableservice: DatatablesService
+    ) {
+this.datatables = new datatables();
     }
     rowDataMainForm = [{
         Eliminar: '',
@@ -61,9 +61,12 @@ export class PurchasesComponent implements OnInit {
         this.get_cellar(this.idcompany);
         this.SerializerService.serializer();
         this.operation_purchases();
-        this.company = localStorage.getItem('company')
 
-    }
+        this.company = localStorage.getItem('company')
+       this.datatables.datatables_init("#table_search_purchase");
+    }    
+
+
     // evento enter 
     someMethod(event: any) {
 
@@ -72,6 +75,21 @@ export class PurchasesComponent implements OnInit {
         } else {
         }
     }
+
+
+    search_purchases(form) {
+        this.datatableservice.get_datatables(form, '/purchase/search').subscribe(
+            response => {
+                console.log(response);
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+
+
+
 
 
     //elimina las filas de los tr
@@ -116,9 +134,11 @@ export class PurchasesComponent implements OnInit {
             }
         )
 
+
+
+
+        //this.AutocompleteService.savepurchase();
     }
-
-
 
 
     //funcion para consultar los estados de compras y ingresos
