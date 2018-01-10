@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ListService } from '../../services/list/list.service';
 import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
 import { SerializerService } from '../../services/serializer/serializer.service';
-import { number_format } from '../../../assets/js/function.js';
+
+declare var number_format:any;
 
 import $ from 'jquery';
 import 'jquery-ui/ui/widgets/datepicker';
@@ -174,32 +175,33 @@ export class PurchasesComponent implements OnInit {
 
             $(document).on('keyup', '.item_actividad .request_amount', function (event) {
 
-                let quantity = $(this).val();
-                let unit_value = $(this).parents(".item_actividad").find(".unit_value").val();
-                let discount = $(this).parents(".item_actividad").find(".discount").val();
-                let iva = $(this).parents(".item_actividad").find(".iva").val();
+            let quantity=$(this).val();
+            let unit_value=$(this).parents(".item_actividad").find(".unit_value").val();
+            let discount=$(this).parents(".item_actividad").find(".discount").val();
+            let iva=$(this).parents(".item_actividad").find(".iva").val();
 
 
 
-                let total_discount = (parseFloat(unit_value) * parseFloat(discount / 100)).toFixed(2);
-                let vlr_discount = (parseFloat(unit_value) - parseFloat(total_discount)).toFixed(2);
+            let total_discount=(parseFloat(unit_value)*parseFloat(discount)/100).toFixed(2);
+            let vlr_discount=(parseFloat(unit_value)-parseFloat(total_discount)).toFixed(2);
+            
+            let total_iva=(parseFloat(vlr_discount)*parseFloat(iva)/100).toFixed(2);
 
-                let total_iva = (parseFloat(vlr_discount * iva / 100)).toFixed(2);
-
-                let total_vlrdiscount = (parseFloat(vlr_discount) + parseFloat(total_iva)).toFixed(2);
-                let vlr_iva = (parseFloat(quantity) * parseFloat(vlr_discount)).toFixed(2);
-
-                let subtotal = isNaN(vlr_iva) ? 0 : vlr_iva
-
-
-                let vrl_c_iva = number_format(total_vlrdiscount, 2);
-                let vrl_subtotal = number_format(subtotal, 2)
+            let total_vlrdiscount=(parseFloat(vlr_discount) + parseFloat(total_iva)).toFixed(2);
+            let vlr_iva=(parseFloat(quantity) * parseFloat(vlr_discount)).toFixed(2);
+            
+            let subtotal=isNaN(parseFloat(vlr_iva)) ? 0:vlr_iva
 
 
-                $(this).parents(".item_actividad").find(".vlr_iva").html(vrl_c_iva);
-                $(this).parents(".item_actividad").find(".vlr_total").html(vrl_subtotal);
+            let vrl_c_iva=number_format(total_vlrdiscount,2);
+            let vrl_subtotal=number_format(subtotal,2)
 
-                total();
+
+            $(this).parents(".item_actividad").find(".vlr_iva").html(vrl_c_iva);
+            $(this).parents(".item_actividad").find(".vlr_total").html(vrl_subtotal);
+
+            total();
+            
 
 
             });
@@ -215,38 +217,44 @@ export class PurchasesComponent implements OnInit {
 
 
             }
+
+
+
             $.each(rawData, function (i, item) {
 
-                let unit_value = item.unit_value;
-                let request_amount = item.request_amount;
-                let discount = item.discount;
-                let iva = item.iva;
+           let unit_value= item.unit_value;
+           let request_amount= item.request_amount;
+           let discount= item.discount;
+           let iva = item.iva;
 
 
-                let total_discount = (parseFloat(unit_value) * parseFloat(discount / 100)).toFixed(2);
-                let vlr_discount = (parseFloat(unit_value) - parseFloat(total_discount)).toFixed(2);
+           let total_discount=(parseFloat(unit_value)*parseFloat(discount)/100).toFixed(2);
+           let vlr_discount=(parseFloat(unit_value)-parseFloat(total_discount)).toFixed(2);
 
 
-                let total_iva = (parseFloat(vlr_discount * iva / 100)).toFixed(2);
-                let vlr_subtotal = (parseFloat(request_amount) * parseFloat(vlr_discount)).toFixed(2);
+           let total_iva=(parseFloat(vlr_discount)*parseFloat(iva)/100).toFixed(2);
+           let vlr_subtotal=(parseFloat(request_amount) * parseFloat(vlr_discount)).toFixed(2);
+   
+
+           let c = (parseFloat(request_amount)* parseFloat(total_iva)).toFixed(2);
+           let d=isNaN(parseFloat(c)) ? 0 :(parseFloat(c)).toFixed(2);
+           let b=isNaN(parseFloat(vlr_subtotal)) ? 0 :(parseFloat(vlr_subtotal)).toFixed(2);
 
 
-                let c = (parseFloat(request_amount) * parseFloat(total_iva)).toFixed(2);
-                let d = isNaN(c) ? 0 : (parseFloat(c)).toFixed(2);
-                let b = isNaN(vlr_subtotal) ? 0 : (parseFloat(vlr_subtotal)).toFixed(2);
+             vrl_iva += Number(d);
 
-
-                vrl_iva += parseFloat(d);
-
-                subtotal += parseFloat(b);
+             subtotal+=  Number(b);
 
 
             });
 
-            let total = (parseFloat(vrl_iva) + parseFloat(subtotal));
-            let sub_total = number_format(subtotal, 2)
-            let sub_iva = number_format(vrl_iva, 2)
-            let total1 = number_format(total, 2)
+          let total=(Number(vrl_iva)+Number(subtotal)).toFixed(2);
+             
+         
+             console.log(total);
+             let sub_total=number_format(subtotal,2)
+             let sub_iva=number_format(vrl_iva,2)
+             let total1=number_format(total,2)
 
 
             $('.sub_total').html(sub_total)

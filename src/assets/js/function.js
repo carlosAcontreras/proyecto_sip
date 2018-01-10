@@ -12,4 +12,3 @@
          let d = amount_parts.join('.');
          return amount_parts.join('.');
      }
-     exports.number_format = number_format;
