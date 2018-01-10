@@ -180,14 +180,20 @@ export class PurchasesComponent implements OnInit {
             let discount=$(this).parents(".item_actividad").find(".discount").val();
             let iva=$(this).parents(".item_actividad").find(".iva").val();
 
-
-
-            let total_discount=(parseFloat(unit_value)*parseFloat(discount)/100).toFixed(2);
+            // descuento
+            let discount1=isNaN(parseFloat(discount)) ? 0:discount
+            // formula para sacar el descuento
+            let total_discount=(parseFloat(unit_value)*parseFloat(discount1)/100).toFixed(2);
+            
+            // valor de cada material con el descuento
             let vlr_discount=(parseFloat(unit_value)-parseFloat(total_discount)).toFixed(2);
             
+            //iva de cada producto
             let total_iva=(parseFloat(vlr_discount)*parseFloat(iva)/100).toFixed(2);
 
+            // valor de cada producto con iva
             let total_vlrdiscount=(parseFloat(vlr_discount) + parseFloat(total_iva)).toFixed(2);
+            // cantidad por el valor unitario incluido el descuento
             let vlr_iva=(parseFloat(quantity) * parseFloat(vlr_discount)).toFixed(2);
             
             let subtotal=isNaN(parseFloat(vlr_iva)) ? 0:vlr_iva
@@ -212,46 +218,44 @@ export class PurchasesComponent implements OnInit {
             var rawData = $('#table').serializeFormJSON();
             var vrl_iva = 0;
             let subtotal = 0;
+            let data:any;
 
-            for (let data of rawData) {
+          for (data of rawData) {
 
+           let unit_value= isNaN(data.unit_value)? 0:data.unit_value;
+           let request_amount= isNaN(data.request_amount)? 0:data.request_amount;
+           let discount= isNaN(data.discount)? 0:data.discount;
+           let iva = isNaN(data.iva)? 0:data.iva;
+
+
+           // el descuento 
+           let total_discount=(Number(unit_value)*Number(discount)/100).toFixed(2);
+
+
+           // valor de cada material con el descuento
+           let vlr_discount=(Number(unit_value)-Number(total_discount)).toFixed(2);
+         
+            //iva de cada producto
+           let total_iva=(Number(vlr_discount)*Number(iva)/100).toFixed(2);
+
+           // cantidad por cada producto 
+           let vlr_subtotal=(Number(request_amount) * Number(vlr_discount)).toFixed(2);
+   
+           // iva de cada producto * las cantidades
+           let c = (Number(request_amount)* Number(total_iva)).toFixed(2);
+
+      
+            // suma de los valores del iva
+            vrl_iva += Number(c);
+
+            // sama de los subotales
+             subtotal+=  Number(vlr_subtotal);
 
             }
 
 
-
-            $.each(rawData, function (i, item) {
-
-           let unit_value= item.unit_value;
-           let request_amount= item.request_amount;
-           let discount= item.discount;
-           let iva = item.iva;
-
-
-           let total_discount=(parseFloat(unit_value)*parseFloat(discount)/100).toFixed(2);
-           let vlr_discount=(parseFloat(unit_value)-parseFloat(total_discount)).toFixed(2);
-
-
-           let total_iva=(parseFloat(vlr_discount)*parseFloat(iva)/100).toFixed(2);
-           let vlr_subtotal=(parseFloat(request_amount) * parseFloat(vlr_discount)).toFixed(2);
-   
-
-           let c = (parseFloat(request_amount)* parseFloat(total_iva)).toFixed(2);
-           let d=isNaN(parseFloat(c)) ? 0 :(parseFloat(c)).toFixed(2);
-           let b=isNaN(parseFloat(vlr_subtotal)) ? 0 :(parseFloat(vlr_subtotal)).toFixed(2);
-
-
-             vrl_iva += Number(d);
-
-             subtotal+=  Number(b);
-
-
-            });
-
-          let total=(Number(vrl_iva)+Number(subtotal)).toFixed(2);
+             let total=(Number(vrl_iva)+Number(subtotal)).toFixed(2);
              
-         
-             console.log(total);
              let sub_total=number_format(subtotal,2)
              let sub_iva=number_format(vrl_iva,2)
              let total1=number_format(total,2)
