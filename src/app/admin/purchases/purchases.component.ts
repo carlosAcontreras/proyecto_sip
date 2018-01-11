@@ -1,9 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener,} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener, } from '@angular/core';
 import { ListService } from '../../services/list/list.service';
 import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
 import { SerializerService } from '../../services/serializer/serializer.service';
-import {PurchasesService} from '../../services/purchases/purchases.service';
-import {purchases_head} from '../../models/purchases_model';
+import { PurchasesService } from '../../services/purchases/purchases.service';
+import { purchases_head } from '../../models/purchases_model';
 
 
 
@@ -21,7 +21,7 @@ import { datatables } from '../../utilitis/datatables';
     selector: 'app-purchases',
     templateUrl: './purchases.component.html',
     styleUrls: ['./purchases.component.scss'],
-    providers: [ListService, AutocompleteService, SerializerService,DatatablesService,PurchasesService]
+    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService]
 })
 
 
@@ -40,34 +40,31 @@ export class PurchasesComponent implements OnInit {
     public datos;
     public tableWidget: any;
 
-  public selectedName: string="";
-  public purchases;
-  public detail_purchases;
-public head = new purchases_head();
+    public selectedName: string = "";
+    public purchases;
+    public detail_purchases;
+    public head = new purchases_head();
 
-public text: String;
-  public data =
-    [];
+    public text: String;
+    public data =
+        [];
 
- 
+
     constructor(
-        private ListService: ListService, 
-        private AutocompleteService: AutocompleteService, 
-        private SerializerService: SerializerService, 
+        private ListService: ListService,
+        private AutocompleteService: AutocompleteService,
+        private SerializerService: SerializerService,
         private changeDetectorRef: ChangeDetectorRef,
         private datatableservice: DatatablesService,
         private eRef: ElementRef,
-        private PurchasesService: PurchasesService) 
-    {
+        private PurchasesService: PurchasesService) {
 
-   this.datatables = new datatables();
+        this.datatables = new datatables();
 
     }
- 
 
-    public rowDataHomeForm = [{
+    rowDataHomeForm = [{}];
 
-    }];
     ngOnInit() {
         localStorage.setItem('company', '1');
         this.get_state_movest();
@@ -77,38 +74,31 @@ public text: String;
         this.get_cellar(this.idcompany);
         this.SerializerService.serializer();
         this.operation_purchases();
-
         this.company = localStorage.getItem('company')
-        
-    }    
 
+    }
 
-
-
-// funciones del datatable 
+    // funciones del datatable 
     public addRow(datos): void {
-    let data1;
-    let json=datos;
-
-      for (data1 of json) {
-
+        let data1;
+        let json = datos;
+        for (data1 of json) {
             this.data.push(data1)
         }
- 
-    this.datatables.reInitDatatable('#example');
-  }
+        this.datatables.reInitDatatable('#example');
+    }
 
-  public selectRow(index: number, row:any) {
-    this.selectedName = "row#" + index + " " + row.consecutive_purc
-  }
 
-/////////////////////////////////-----------------------------------------////////////////////////////////--------------------------------///////////////////////////////////////////////__________
+    public selectRow(index: number, row: any) {
+        this.selectedName = "row#" + index + " " + row.consecutive_purc
+    }
+
+    /////////////////////////////////-----------------------------------------////////////////////////////////--------------------------------///////////////////////////////////////////////__________
 
 
 
     // evento enter 
     someMethod(event: any) {
-
         if (event.keyCode == 13) {
             this.addRowHomeCampusProvinceAreaForm();
         } else {
@@ -119,41 +109,37 @@ public text: String;
     search_purchases(form) {
         this.datatableservice.get_datatables(form, '/purchase/search').subscribe(
             response => {
-                
-
-                this.datos=response.purchases;
-              this.addRow(this.datos);
+                this.datos = response.purchases;
+                this.addRow(this.datos);
             },
             error => {
                 console.log(error);
             }
         );
-
-
     }
 
 
 
-handleClick(event){
+    handleClick(event) {
 
-let data=event.target.value.split(",");
+        let data = event.target.value.split(",");
 
-let json = {
-    'id_company':data[2],
-    'consecutive':data[1],
-    'idpurchases':data[0]
-}
+        let json = {
+            'id_company': data[2],
+            'consecutive': data[1],
+            'idpurchases': data[0]
+        }
 
-this.PurchasesService.search_purchases_unit(json).subscribe(
+        this.PurchasesService.search_purchases_unit(json).subscribe(
             res => {
-          
-          this.purchases=res.purchases;
-          this.rowDataHomeForm=res.detail_purchases;
 
-          this.head=res.purchases;
-          console.log(this.head.consecutive_purc);
+                this.purchases = res.purchases;
+                this.rowDataHomeForm = res.detail_purchases;
 
-           console.log(this.rowDataHomeForm)
+                this.head = res.purchases;
+                console.log(this.head.consecutive_purc);
+
+                console.log(this.rowDataHomeForm)
             },
             error => {
                 console.log(error);
@@ -164,7 +150,7 @@ this.PurchasesService.search_purchases_unit(json).subscribe(
 
 
 
-}
+    }
 
 
 
@@ -179,7 +165,6 @@ this.PurchasesService.search_purchases_unit(json).subscribe(
     // agrega filas a los tr
     addRowHomeCampusProvinceAreaForm() {
         this.rowDataHomeForm.push({
-
         })
     }
 
@@ -187,7 +172,6 @@ this.PurchasesService.search_purchases_unit(json).subscribe(
 
         var rawData = $('#table').serializeFormJSON();
         var formData = JSON.stringify(rawData);
-
 
         var table = $('#form').serializeObject();
         console.log(table);
@@ -219,7 +203,7 @@ this.PurchasesService.search_purchases_unit(json).subscribe(
         //this.AutocompleteService.savepurchase();
     }
 
-        update_purchase() {
+    update_purchase() {
 
         var rawData = $('#table').serializeFormJSON();
         var formData = JSON.stringify(rawData);
@@ -240,18 +224,12 @@ this.PurchasesService.search_purchases_unit(json).subscribe(
                 if (this.response == true) {
 
                     this.buttonDisabled = true; // ?
-
                 }
             },
             error => {
                 console.log(error);
             }
         )
-
-
-
-
-        //this.AutocompleteService.savepurchase();
     }
 
 
@@ -277,9 +255,7 @@ this.PurchasesService.search_purchases_unit(json).subscribe(
                 console.log(error);
             }
         )
-
     }
-
 
     operation_purchases() {
 
@@ -366,8 +342,6 @@ this.PurchasesService.search_purchases_unit(json).subscribe(
             }
 
 
-
-
             let total = (Number(vrl_iva) + Number(subtotal)).toFixed(2);
 
             let sub_total = number_format(subtotal, 2)
@@ -379,12 +353,6 @@ this.PurchasesService.search_purchases_unit(json).subscribe(
             $('.sub_iva').html(sub_iva)
             $('.total').html(total1)
         }
-
-
-
-
     }
-
-
 }
 
