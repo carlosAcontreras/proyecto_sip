@@ -9,6 +9,7 @@ const routes: Routes = [
       { path: '', loadChildren: './home/home.module#HomeModule' },
       { path: 'compras', loadChildren: './purchases/purchases.module#PurchasesModule' },
       { path: 'materiales', loadChildren: './materials/materials.module#MaterialsModule' },
+      { path: 'ingresos', loadChildren: './income/income.module#IncomeModule' },
 
     ]
   }
