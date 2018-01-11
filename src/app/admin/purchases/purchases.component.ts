@@ -1,11 +1,13 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener,} from '@angular/core';
 import { ListService } from '../../services/list/list.service';
 import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
 import { SerializerService } from '../../services/serializer/serializer.service';
 
 declare var number_format: any;
-
+declare var add: any;
 import $ from 'jquery';
+
+
 import 'jquery-ui/ui/widgets/datepicker';
 import 'jquery-ui/ui/widgets/autocomplete';
 
@@ -30,24 +32,22 @@ export class PurchasesComponent implements OnInit {
     public buttonDisabled;
     private date = { 'start_date': '', 'end_date': '' };
     private datatables;
+    public datos;
+      public tableWidget: any;
 
+  public selectedName: string=""
 
+public text: String;
+  public data =
+    [];
+
+ 
     constructor(private ListService: ListService, private AutocompleteService: AutocompleteService, private SerializerService: SerializerService, private changeDetectorRef: ChangeDetectorRef,private datatableservice: DatatablesService
-    ) {
-this.datatables = new datatables();
+    ,private eRef: ElementRef) {
+   this.datatables = new datatables();
+
     }
-    rowDataMainForm = [{
-        Eliminar: '',
-        Codigo: '',
-        Descripcion: '',
-    }];
-
-    rowDataAdressForm = [{
-        Eliminar: '',
-        Codigo: '',
-        Descripcion: '',
-
-    }];
+ 
 
     rowDataHomeForm = [{
 
@@ -63,8 +63,27 @@ this.datatables = new datatables();
         this.operation_purchases();
 
         this.company = localStorage.getItem('company')
-       this.datatables.datatables_init("#table_search_purchase");
+        
     }    
+
+
+
+
+
+    public addRow(datos): void {
+        
+      let data1;
+      let json=datos;
+
+      for (data1 of json) {
+
+            this.data.push(data1)
+
+        }
+
+  
+    this.datatables.reInitDatatable('#example');
+  }
 
 
     // evento enter 
@@ -80,16 +99,25 @@ this.datatables = new datatables();
     search_purchases(form) {
         this.datatableservice.get_datatables(form, '/purchase/search').subscribe(
             response => {
-                console.log(response);
+                
+
+                this.datos=response.purchases;
+              this.addRow(this.datos);
             },
             error => {
                 console.log(error);
             }
         );
+
+
     }
 
 
 
+handleClick(event){
+
+ console.log(event.target.value); 
+}
 
 
     //elimina las filas de los tr
