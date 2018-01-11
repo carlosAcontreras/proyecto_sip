@@ -25,4 +25,16 @@ export class PurchasesService {
 
     return this.http.post(url, params, options).map(res => res.json());
   }
+
+  insert(params,table){
+
+    this.url = this.constantes.getRouterGlobal() + 'purchase/create';
+    return this.http.post(this.url, params).map(res => res.json());  
+}
+
+  update(params,table){
+
+    this.url = this.constantes.getRouterGlobal() + 'purchase/update';
+    return this.http.post(this.url, params).map(res => res.json());  
+}
 }

@@ -189,7 +189,42 @@ this.PurchasesService.search_purchases_unit(json).subscribe(
 
         console.log(detail_purchase);
 
-        this.ListService.insert(detail_purchase, table).subscribe(
+        this.PurchasesService.insert(detail_purchase, table).subscribe(
+            res => {
+                this.consecutive = res.consecutive;
+                this.response = res.data;
+
+                if (this.response == true) {
+
+                    this.buttonDisabled = true; // ?
+
+                }
+            },
+            error => {
+                console.log(error);
+            }
+        )
+
+
+
+
+        //this.AutocompleteService.savepurchase();
+    }
+
+        update_purchase() {
+
+        var rawData = $('#table').serializeFormJSON();
+        var formData = JSON.stringify(rawData);
+
+
+        var table = $('#form').serializeObject();
+        console.log(table);
+
+        let detail_purchase = { body: formData, head: table }
+
+        console.log(detail_purchase);
+
+        this.PurchasesService.update(detail_purchase, table).subscribe(
             res => {
                 this.consecutive = res.consecutive;
                 this.response = res.data;

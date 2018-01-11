@@ -7,7 +7,7 @@
             <div class="form-group row" id="purchase">
                 <label for=" " class="col-2 col-form-label">Orden Compra</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value="{{consecutive}}" id="">
+                    <input class="form-control input-modified" type="text" value="{{consecutive}}" name="consecutive_purc">
                     <input class="form-control input-modified" type="text" value="{{company}}" name="id_company" id="">
                 </div>
                 <label for=" " class="col-2 col-form-label">Proveedor</label>
@@ -44,7 +44,7 @@
             </div>
         </form>
         <button class="btn btn_primary btn-sm" disabled={{buttonDisabled}} (click)="savepurchase()">Guardar</button>
-        <button class="btn btn_success btn-sm" (click)="add()">Actualizar</button>
+        <button class="btn btn_success btn-sm" (click)="update_purchase()">Actualizar</button>
         <button class="btn btn_danger btn-sm">Eliminar</button>
         <button class="btn btn_warning btn-sm" data-toggle="modal" data-target="#exampleModal">Buscar   <i class="fa fa-search" aria-hidden="true"></i></button>
     </div>
@@ -82,11 +82,11 @@
 
                             <td>
                                 <input class="code_provider form-control purchase input-modified" type="text" name="code" value="{{newrow.cod_mater}}">
-                                <input class="form-control purchase hiden input-modified" type="text" name="idcode">
+                                <input class="form-control purchase hiden input-modified" type="text" name="idcode" value="{{newrow.iddetail_shopping}}">
                             </td>
 
                             <td>
-                                <input class="description form-control purchase input-modified" type="text" name="description" value="{{newrow.cod_mater}}">
+                                <input class="description form-control purchase input-modified" type="text" name="description" value="{{newrow.description}}">
                             </td>
 
                             <td>
@@ -158,7 +158,7 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col-2">
-                            <button class="btn btn_primary btn-sm" (click)="search_purchases(form_searh_purchases.value)">Consultar</button>
+                            <button class="btn btn_primary btn-sm "  (click)="search_purchases(form_searh_purchases.value)">Consultar</button>
                         </div>
                     </div>
                 </form>
@@ -180,11 +180,11 @@
       <tr *ngFor="let row of data; let i = index" (click)="selectRow(i, row)" class="text-center">
         <td>{{row.consecutive_purc}}</td>
         <td>{{row.providers_name}}</td>
-        <td>{{row.deliver_date}}</td>
+        <td>{{row.name_moves}}</td>
         <td>{{row.observations}}</td>
         <td>{{row.date}}</td>
 
-        <td> <button class="btn btn_select btn-sm" value="{{row.idpurchases}},{{row.consecutive_purc}},{{row.id_company}}" (click)="handleClick($event)">Selecionar</button></td>
+        <td> <button class="btn btn_select btn-sm" data-dismiss="modal" value="{{row.idpurchases}},{{row.consecutive_purc}},{{row.id_company}}" (click)="handleClick($event)">Selecionar</button></td>
       </tr>
 
       </tbody>
