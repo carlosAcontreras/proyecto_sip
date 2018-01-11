@@ -41,6 +41,10 @@ $colorindigo:#3F51B5;
     }
 }
 
+.border_botom {
+    border-bottom: 1px solid rgba(0, 0, 0, .12) !important;
+}
+
 
 /*style for buttons colors*/
 
@@ -100,12 +104,11 @@ h5,
 h6 {
     color: $colorblack;
     font-family: $oswaldo;
-    border-bottom: 1px solid rgba(0, 0, 0, .12);
     padding-bottom: .2em;
-}
-
-h1.title {
-    font-size: 1.8em;
+    &.title {
+        font-size: 1.8em;
+        border-bottom: 1px solid rgba(0, 0, 0, .12) !important;
+    }
 }
 
 

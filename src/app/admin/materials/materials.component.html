@@ -68,9 +68,9 @@
                 </div>
             </div>
 
-            <button class="btn btn_primary btn-sm" [disabled]="!form_materials.valid || permisos.save === 0" (click)="query_materials(form_materials.value)">Guardar</button>
-            <button class="btn btn_success btn-sm" [disabled]="!form_materials.valid || permisos.save === 0" (click)="update_materials(form_materials.value)">Actualizar</button>
-            <button class="btn btn_danger btn-sm" [disabled]="!form_materials.valid || permisos.save === 0" (click)="delete_materials(form_materials.value)">Eliminar</button>
+            <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_materials.valid || permisos.save === 0" (click)="query_materials(form_materials.value)">Guardar</button>
+            <button class="btn btn_success btn-sm mr-3 my-3" [disabled]="!form_materials.valid || permisos.save === 0" (click)="update_materials(form_materials.value)">Actualizar</button>
+            <button class="btn btn_danger btn-sm mr-3 my-3" [disabled]="!form_materials.valid || permisos.save === 0" (click)="delete_materials(form_materials.value)">Eliminar</button>
         </form>
     </div>
 </div>
