@@ -234,7 +234,7 @@ let consecutive_purc=$('#consecutive_purc').val();
 let id_company=$('#id_company').val();
 
 
-    window.open('http://192.168.1.126:8000/api/purchase/search_detail?consecutive_purc='+consecutive_purc+'id_company='+id_company, '_blank');
+    window.open('http://192.168.1.126:8000/api/purchase/print?consecutive_purc='+consecutive_purc+'id_company='+id_company, '_blank');
 }
     update_purchase() {
 
