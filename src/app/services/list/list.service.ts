@@ -30,10 +30,4 @@ export class ListService {
 
 
 
-insert(params,table){
-
-    this.url = this.constantes.getRouterGlobal() + 'purchase/create';
-    return this.http.post(this.url, params).map(res => res.json());  
-}
-
 }

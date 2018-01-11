@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener, } from 
 import { ListService } from '../../services/list/list.service';
 import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
 import { SerializerService } from '../../services/serializer/serializer.service';
+import { PurchasesService } from '../../services/purchases/purchases.service';
+
 
 declare var number_format: any;
 declare var add: any;
@@ -17,7 +19,7 @@ import { datatables } from '../../utilitis/datatables';
     selector: 'app-purchases',
     templateUrl: './purchases.component.html',
     styleUrls: ['./purchases.component.scss'],
-    providers: [ListService, AutocompleteService, SerializerService, DatatablesService]
+    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService]
 })
 
 
@@ -35,16 +37,27 @@ export class PurchasesComponent implements OnInit {
     public datos;
     public tableWidget: any;
 
-    public selectedName: string = ""
+    public selectedName: string = "";
+    public purchases;
+    public detail_purchases;
+
 
     public text: String;
     public data =
         [];
 
 
-    constructor(private ListService: ListService, private AutocompleteService: AutocompleteService, private SerializerService: SerializerService, private changeDetectorRef: ChangeDetectorRef, private datatableservice: DatatablesService
-        , private eRef: ElementRef) {
+    constructor(
+        private ListService: ListService,
+        private AutocompleteService: AutocompleteService,
+        private SerializerService: SerializerService,
+        private changeDetectorRef: ChangeDetectorRef,
+        private datatableservice: DatatablesService,
+        private eRef: ElementRef,
+        private PurchasesService: PurchasesService) {
+
         this.datatables = new datatables();
+
     }
 
     rowDataHomeForm = [{}];
@@ -62,7 +75,7 @@ export class PurchasesComponent implements OnInit {
 
     }
 
-
+    // funciones del datatable 
     public addRow(datos): void {
         let data1;
         let json = datos;
@@ -71,6 +84,14 @@ export class PurchasesComponent implements OnInit {
         }
         this.datatables.reInitDatatable('#example');
     }
+
+
+    public selectRow(index: number, row: any) {
+        this.selectedName = "row#" + index + " " + row.consecutive_purc
+    }
+
+    /////////////////////////////////-----------------------------------------////////////////////////////////--------------------------------///////////////////////////////////////////////__________
+
 
 
     // evento enter 
@@ -97,8 +118,35 @@ export class PurchasesComponent implements OnInit {
 
 
     handleClick(event) {
-        console.log(event.target.value);
+
+        let data = event.target.value.split(",");
+
+        let json = {
+            'id_company': data[2],
+            'consecutive': data[1],
+            'idpurchases': data[0]
+        }
+
+        this.PurchasesService.search_purchases_unit(json).subscribe(
+            res => {
+
+                this.purchases = res.purchases;
+                this.rowDataHomeForm = res.detail_purchases;
+                console.log(this.rowDataHomeForm)
+            },
+            error => {
+                console.log(error);
+            }
+        )
+
+
+
+
+
     }
+
+
+
 
 
     //elimina las filas de los tr
@@ -125,7 +173,42 @@ export class PurchasesComponent implements OnInit {
 
         console.log(detail_purchase);
 
-        this.ListService.insert(detail_purchase, table).subscribe(
+        this.PurchasesService.insert(detail_purchase, table).subscribe(
+            res => {
+                this.consecutive = res.consecutive;
+                this.response = res.data;
+
+                if (this.response == true) {
+
+                    this.buttonDisabled = true; // ?
+
+                }
+            },
+            error => {
+                console.log(error);
+            }
+        )
+
+
+
+
+        //this.AutocompleteService.savepurchase();
+    }
+
+    update_purchase() {
+
+        var rawData = $('#table').serializeFormJSON();
+        var formData = JSON.stringify(rawData);
+
+
+        var table = $('#form').serializeObject();
+        console.log(table);
+
+        let detail_purchase = { body: formData, head: table }
+
+        console.log(detail_purchase);
+
+        this.PurchasesService.update(detail_purchase, table).subscribe(
             res => {
                 this.consecutive = res.consecutive;
                 this.response = res.data;
