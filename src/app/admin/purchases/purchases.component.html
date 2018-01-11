@@ -7,17 +7,17 @@
             <div class="form-group row" id="purchase">
                 <label for=" " class="col-2 col-form-label">Orden Compra</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value="{{consecutive}}" name="consecutive_purc">
+                    <input class="form-control input-modified" type="text" value="{{head.consecutive_purc}}" name="consecutive_purc">
                     <input class="form-control input-modified" type="text" value="{{company}}" name="id_company" id="">
                 </div>
                 <label for=" " class="col-2 col-form-label">Proveedor</label>
                 <div class="col-2">
-                    <input class="form-control input-modified provider" type="text" name="name_provider" id="provider">
-                    <input class="form-control input-modified provider hiden" type="text" name="provider" id="providerhiden">
+                    <input class="form-control input-modified provider" type="text" name="name_provider" id="provider" value="{{head.providers_name}}">
+                    <input class="form-control input-modified provider hiden" type="text" name="provider" id="providerhiden" value="{{head.provider}}">
                 </div>
                 <label for=" " class="col-2 col-form-label">Fecha</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" name="date" id="date">
+                    <input class="form-control input-modified" type="text" name="date" id="date" value="{{head.date}}">
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
 
                 <label for=" " class="col-2 col-form-label">Fecha Entrega</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" name="deliver_date" id="deliver_date">
+                    <input class="form-control input-modified" type="text" name="deliver_date" id="deliver_date" value="{{head.deliver_date}}">
                 </div>
                 <label for=" " class="col-2 col-form-label">Estado/Orden</label>
                 <div class="col-2">

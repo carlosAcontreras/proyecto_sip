@@ -3,6 +3,8 @@ import { ListService } from '../../services/list/list.service';
 import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
 import { SerializerService } from '../../services/serializer/serializer.service';
 import {PurchasesService} from '../../services/purchases/purchases.service';
+import {purchases_head} from '../../models/purchases_model';
+
 
 
 declare var number_format: any;
@@ -23,6 +25,7 @@ import { datatables } from '../../utilitis/datatables';
 })
 
 
+
 export class PurchasesComponent implements OnInit {
 
     public state_moves;
@@ -40,7 +43,7 @@ export class PurchasesComponent implements OnInit {
   public selectedName: string="";
   public purchases;
   public detail_purchases;
-
+public head = new purchases_head();
 
 public text: String;
   public data =
@@ -146,6 +149,10 @@ this.PurchasesService.search_purchases_unit(json).subscribe(
           
           this.purchases=res.purchases;
           this.rowDataHomeForm=res.detail_purchases;
+
+          this.head=res.purchases;
+          console.log(this.head.consecutive_purc);
+
            console.log(this.rowDataHomeForm)
             },
             error => {
@@ -191,7 +198,8 @@ this.PurchasesService.search_purchases_unit(json).subscribe(
 
         this.PurchasesService.insert(detail_purchase, table).subscribe(
             res => {
-                this.consecutive = res.consecutive;
+                console.log(res);
+                this.head = res;
                 this.response = res.data;
 
                 if (this.response == true) {
