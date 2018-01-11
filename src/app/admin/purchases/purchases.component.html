@@ -7,7 +7,7 @@
             <div class="form-group row" id="purchase">
                 <label for=" " class="col-1 col-form-label">Orden Compra</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value="{{head.consecutive_purc}}" id="">
+                    <input class="form-control input-modified" type="text" value="{{head.consecutive_purc}}" name="consecutive_purc">
                     <input class="form-control input-modified" type="text" value="{{company}}" name="id_company" id="" hidden>
                     <input class="form-control input-modified" type="text" value="{{head.idpurchases}}" name="id_prchases" id="" hidden>
                 </div>
@@ -32,14 +32,14 @@
                 <label for=" " class="col-1 col-form-label">Estado/Orden</label>
                 <div class="col-2">
                     <select class="form-control input-modified" name="state_purc">
-                        <option *ngFor="let state_moves of state_moves" value="{{state_moves.idstate_moves}}">{{state_moves.name_moves}}</option>
+                        <option *ngFor="let state_moves of state_moves" value="{{state_moves.idstate_moves}}" [selected]="state_moves.idstate_moves === head.state_purc"  >{{state_moves.name_moves}}</option>
                     </select>
                 </div>
 
                 <label for=" " class="col-1 col-form-label">Almacen</label>
                 <div class="col-2">
                     <select class="form-control input-modified" name="cellar">
-                        <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}">{{cellar.name}}</option>
+                        <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}" [selected]="cellar.idcellar === head.cellar" >{{cellar.name}}</option>
                     </select>
                 </div>
             </div>
@@ -194,8 +194,8 @@
                                     <tr *ngFor="let row of data; let i = index" (click)="selectRow(i, row)" class="text-center">
                                         <td>{{row.consecutive_purc}}</td>
                                         <td>{{row.providers_name}}</td>
-                                        <td>{{row.deliver_date}}</td>
-                                        <td>{{row.observations}}</td>
+                                        <td>{{row.name_moves}}</td>
+                                        <td></td>
                                         <td>{{row.date}}</td>
 
                                         <td>
