@@ -71,21 +71,18 @@ public text: String;
 
 
     public addRow(datos): void {
-        
-      let data1;
-      let json=datos;
+    let data1;
+    let json=datos;
 
       for (data1 of json) {
 
             this.data.push(data1)
-
         }
-
-  
+ 
     this.datatables.reInitDatatable('#example');
   }
 
-
+ 
     // evento enter 
     someMethod(event: any) {
 
