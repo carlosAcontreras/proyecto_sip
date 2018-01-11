@@ -14,46 +14,6 @@ $colorwhiteopacity:rgba(255, 255, 255, .7);
 $colordarkgray:#BEBFC1;
 $colorindigo:#3F51B5;
 
-/*style for buttons colors*/
-
-.btn_primary,
-.btn_danger,
-.btn_warning,
-.btn_success,
-.btn_info {
-    color: $colorwhite;
-}
-
-.btn_primary {
-    background: $colorblue;
-}
-
-.btn_danger {
-    background: $colorred;
-}
-
-.btn_success {
-    background: $colorgreen;
-}
-
-.btn_warning {
-    background: $coloryellow;
-}
-
-.btn_select {
-    border: 1px solid $colorblue;
-    color: $colorblue;
-    background: transparent;
-}
-
-
-/*font style*/
-
-$roboto:'Roboto',
-sans-serif;
-$oswaldo:'Oswald',
-sans-serif;
-
 /*mixin of shadows*/
 
 @mixin box-shadow() {
@@ -71,6 +31,48 @@ sans-serif;
     height: 22px;
 }
 
+@mixin btn-general($color) {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    border-radius: 0;
+    background: $color;
+    color: #ffffff;
+    &:hover {
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .24), 0 2px 20px 0 rgba(0, 0, 0, .16);
+    }
+}
+
+
+/*style for buttons colors*/
+
+.btn_primary {
+    @include btn-general($colorblue);
+}
+
+.btn_danger {
+    @include btn-general($colorred);
+}
+
+.btn_success {
+    @include btn-general($colorgreen);
+}
+
+.btn_warning {
+    @include btn-general($coloryellow);
+}
+
+.btn_select {
+    border: 1px solid $colorblue;
+    color: $colorblue;
+    background: transparent;
+}
+
+
+/*font style*/
+
+$roboto:'Roboto',
+sans-serif;
+$oswaldo:'Oswald',
+sans-serif;
 
 /*general style*/
 
@@ -114,6 +116,7 @@ input,
 select {
     font-size: .8em !important;
     border-radius: 0 !important;
+    text-transform: uppercase !important;
 }
 
 .input-modified {

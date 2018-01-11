@@ -5,17 +5,18 @@
     <div class="col-12">
         <form id="form">
             <div class="form-group row" id="purchase">
-                <label for=" " class="col-2 col-form-label">Orden Compra</label>
+                <label for=" " class="col-1 col-form-label">Orden Compra</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" value="{{consecutive}}" id="">
-                    <input class="form-control input-modified" type="text" value="{{company}}" name="id_company" id="">
+                    <input class="form-control input-modified" type="text" value="{{company}}" name="id_company" id="" hidden>
+                    <input class="form-control input-modified" type="text" value="{{id_prchases}}" name="id_prchases" id="" hidden>
                 </div>
-                <label for=" " class="col-2 col-form-label">Proveedor</label>
+                <label for=" " class="col-1 col-form-label">Proveedor</label>
                 <div class="col-2">
                     <input class="form-control input-modified provider" type="text" name="name_provider" id="provider">
-                    <input class="form-control input-modified provider hiden" type="text" name="provider" id="providerhiden">
+                    <input class="form-control input-modified provider hiden" type="text" name="provider" id="providerhiden" hidden>
                 </div>
-                <label for=" " class="col-2 col-form-label">Fecha</label>
+                <label for=" " class="col-1 col-form-label">Fecha</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" name="date" id="date">
                 </div>
@@ -24,29 +25,37 @@
 
             <div class="form-group row">
 
-                <label for=" " class="col-2 col-form-label">Fecha Entrega</label>
+                <label for=" " class="col-1 col-form-label">Fecha Entrega</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" name="deliver_date" id="deliver_date">
                 </div>
-                <label for=" " class="col-2 col-form-label">Estado/Orden</label>
+                <label for=" " class="col-1 col-form-label">Estado/Orden</label>
                 <div class="col-2">
                     <select class="form-control input-modified" name="state_purc">
                         <option *ngFor="let state_moves of state_moves" value="{{state_moves.idstate_moves}}">{{state_moves.name_moves}}</option>
                     </select>
                 </div>
 
-                <label for=" " class="col-2 col-form-label">Almacen</label>
+                <label for=" " class="col-1 col-form-label">Almacen</label>
                 <div class="col-2">
                     <select class="form-control input-modified" name="cellar">
                         <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}">{{cellar.name}}</option>
                     </select>
                 </div>
             </div>
+
+            <div class="form-group row">
+
+                <label for=" " class="col-1 col-form-label">Obeservaciones</label>
+                <div class="col-8">
+                    <textarea name="" id="" class="form-control input-modified textarea-modified"></textarea>
+                </div>
+            </div>
         </form>
-        <button class="btn btn_primary btn-sm" disabled={{buttonDisabled}} (click)="savepurchase()">Guardar</button>
-        <button class="btn btn_success btn-sm" (click)="add()">Actualizar</button>
-        <button class="btn btn_danger btn-sm">Eliminar</button>
-        <button class="btn btn_warning btn-sm" data-toggle="modal" data-target="#exampleModal">Buscar   <i class="fa fa-search" aria-hidden="true"></i></button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" disabled={{buttonDisabled}} (click)="savepurchase()">Guardar</button>
+        <button class="btn btn_success btn-sm mr-3 my-3" (click)="add()">Actualizar</button>
+        <button class="btn btn_danger btn-sm mr-3 my-3">Eliminar</button>
+        <button class="btn btn_warning btn-sm mr-3 my-3" data-toggle="modal" data-target="#exampleModal">Buscar   <i class="fa fa-search" aria-hidden="true"></i></button>
     </div>
 </div>
 
@@ -82,7 +91,7 @@
 
                             <td>
                                 <input class="code_provider form-control purchase input-modified" type="text" name="code">
-                                <input class="form-control purchase hiden input-modified" type="text" name="idcode">
+                                <input class="form-control purchase hiden input-modified" type="text" name="idcode" hidden>
                             </td>
 
                             <td>
@@ -135,66 +144,66 @@
     </div>
 
     <!--VENTANAS MODALES -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">BUSCAR</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">BUSCAR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-            </div>
-            <div class="modal-body">
-                <form #form_searh_purchases="ngForm">
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="">Fecha Inicial</label>
-                            <input type="text" class="form-control input-modified" #fecha_inicial name="start_date" [(ngModel)]="date.start_date">
+                </div>
+                <div class="modal-body">
+                    <form #form_searh_purchases="ngForm">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="">Fecha Inicial</label>
+                                <input type="text" class="form-control input-modified" #fecha_inicial name="start_date" [(ngModel)]="date.start_date">
+                            </div>
+                            <div class="col-6">
+                                <label for="">Fecha Final</label>
+                                <input type="text" class="form-control input-modified" #fecha_final name="end_date" [(ngModel)]="date.end_date">
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <label for="">Fecha Final</label>
-                            <input type="text" class="form-control input-modified" #fecha_final name="end_date" [(ngModel)]="date.end_date">
+                        <div class="row mt-2">
+                            <div class="col-2">
+                                <button class="btn btn_primary btn-sm" (click)="search_purchases(form_searh_purchases.value)">Consultar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="row data-tables">
+                        <div class="col-sm-12">
+                            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>N° Orden</th>
+                                        <th>Proveedor</th>
+                                        <th>Estado</th>
+                                        <th>N° Ingreso</th>
+                                        <th>Fecha</th>
+                                        <th>Selecion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of data; let i = index" (click)="selectRow(i, row)" class="text-center">
+                                        <td>{{row.consecutive_purc}}</td>
+                                        <td>{{row.providers_name}}</td>
+                                        <td>{{row.deliver_date}}</td>
+                                        <td>{{row.observations}}</td>
+                                        <td>{{row.date}}</td>
+
+                                        <td> <button class="btn btn_select btn-sm" value="{{row.idpurchases}}" (click)="handleClick($event)">Selecionar</button></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-2">
-                            <button class="btn btn_primary btn-sm" (click)="search_purchases(form_searh_purchases.value)">Consultar</button>
-                        </div>
-                    </div>
-                </form>
-  
-<div class="row data-tables">
-  <div class="col-sm-12">
-    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-      <thead>
-       <tr>
-                                <th>N° Orden</th>
-                                <th>Proveedor</th>
-                                <th>Estado</th>
-                                <th>N° Ingreso</th>
-                                <th>Fecha</th>
-                                <th>Selecion</th>
-    </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let row of data; let i = index" (click)="selectRow(i, row)" class="text-center">
-        <td>{{row.consecutive_purc}}</td>
-        <td>{{row.providers_name}}</td>
-        <td>{{row.deliver_date}}</td>
-        <td>{{row.observations}}</td>
-        <td>{{row.date}}</td>
-
-        <td> <button class="btn btn_select btn-sm" value="{{row.idpurchases}}" (click)="handleClick($event)">Selecionar</button></td>
-      </tr>
-
-      </tbody>
-    </table>
-  </div>
-</div>
-            </div>
-            <div class=" modal-footer ">
-                <button type="button " class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
+                </div>
+                <div class=" modal-footer ">
+                    <button type="button " class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>

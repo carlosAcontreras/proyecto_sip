@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener,} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener, } from '@angular/core';
 import { ListService } from '../../services/list/list.service';
 import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
 import { SerializerService } from '../../services/serializer/serializer.service';
@@ -17,7 +17,7 @@ import { datatables } from '../../utilitis/datatables';
     selector: 'app-purchases',
     templateUrl: './purchases.component.html',
     styleUrls: ['./purchases.component.scss'],
-    providers: [ListService, AutocompleteService, SerializerService,DatatablesService]
+    providers: [ListService, AutocompleteService, SerializerService, DatatablesService]
 })
 
 
@@ -33,25 +33,22 @@ export class PurchasesComponent implements OnInit {
     private date = { 'start_date': '', 'end_date': '' };
     private datatables;
     public datos;
-      public tableWidget: any;
+    public tableWidget: any;
 
-  public selectedName: string=""
+    public selectedName: string = ""
 
-public text: String;
-  public data =
-    [];
+    public text: String;
+    public data =
+        [];
 
- 
-    constructor(private ListService: ListService, private AutocompleteService: AutocompleteService, private SerializerService: SerializerService, private changeDetectorRef: ChangeDetectorRef,private datatableservice: DatatablesService
-    ,private eRef: ElementRef) {
-   this.datatables = new datatables();
 
+    constructor(private ListService: ListService, private AutocompleteService: AutocompleteService, private SerializerService: SerializerService, private changeDetectorRef: ChangeDetectorRef, private datatableservice: DatatablesService
+        , private eRef: ElementRef) {
+        this.datatables = new datatables();
     }
- 
 
-    rowDataHomeForm = [{
+    rowDataHomeForm = [{}];
 
-    }];
     ngOnInit() {
         localStorage.setItem('company', '1');
         this.get_state_movest();
@@ -61,31 +58,23 @@ public text: String;
         this.get_cellar(this.idcompany);
         this.SerializerService.serializer();
         this.operation_purchases();
-
         this.company = localStorage.getItem('company')
-        
-    }    
 
-
-
+    }
 
 
     public addRow(datos): void {
-    let data1;
-    let json=datos;
-
-      for (data1 of json) {
-
+        let data1;
+        let json = datos;
+        for (data1 of json) {
             this.data.push(data1)
         }
- 
-    this.datatables.reInitDatatable('#example');
-  }
+        this.datatables.reInitDatatable('#example');
+    }
 
- 
+
     // evento enter 
     someMethod(event: any) {
-
         if (event.keyCode == 13) {
             this.addRowHomeCampusProvinceAreaForm();
         } else {
@@ -96,25 +85,20 @@ public text: String;
     search_purchases(form) {
         this.datatableservice.get_datatables(form, '/purchase/search').subscribe(
             response => {
-                
-
-                this.datos=response.purchases;
-              this.addRow(this.datos);
+                this.datos = response.purchases;
+                this.addRow(this.datos);
             },
             error => {
                 console.log(error);
             }
         );
-
-
     }
 
 
 
-handleClick(event){
-
- console.log(event.target.value); 
-}
+    handleClick(event) {
+        console.log(event.target.value);
+    }
 
 
     //elimina las filas de los tr
@@ -126,7 +110,6 @@ handleClick(event){
     // agrega filas a los tr
     addRowHomeCampusProvinceAreaForm() {
         this.rowDataHomeForm.push({
-
         })
     }
 
@@ -134,7 +117,6 @@ handleClick(event){
 
         var rawData = $('#table').serializeFormJSON();
         var formData = JSON.stringify(rawData);
-
 
         var table = $('#form').serializeObject();
         console.log(table);
@@ -151,18 +133,12 @@ handleClick(event){
                 if (this.response == true) {
 
                     this.buttonDisabled = true; // ?
-
                 }
             },
             error => {
                 console.log(error);
             }
         )
-
-
-
-
-        //this.AutocompleteService.savepurchase();
     }
 
 
@@ -188,9 +164,7 @@ handleClick(event){
                 console.log(error);
             }
         )
-
     }
-
 
     operation_purchases() {
 
@@ -277,8 +251,6 @@ handleClick(event){
             }
 
 
-
-
             let total = (Number(vrl_iva) + Number(subtotal)).toFixed(2);
 
             let sub_total = number_format(subtotal, 2)
@@ -290,12 +262,6 @@ handleClick(event){
             $('.sub_iva').html(sub_iva)
             $('.total').html(total1)
         }
-
-
-
-
     }
-
-
 }
 
