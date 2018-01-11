@@ -17,11 +17,6 @@ export class AutocompleteService {
   // funcion autocomplete proveedor 
   autocomplete_provider() {
     $(function () {
-
-      $("#deliver_date").datepicker({dateFormat:'yy-mm-dd'});
-      $("#date").datepicker({dateFormat:'yy-mm-dd'});
-
-
       $(".provider").click(function () {
         var oID = $(this).attr("id");
 

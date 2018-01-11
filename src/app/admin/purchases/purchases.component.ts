@@ -4,6 +4,8 @@ import { AutocompleteService } from '../../services/autocomplete/autocomplete.se
 import { SerializerService } from '../../services/serializer/serializer.service';
 import { PurchasesService } from '../../services/purchases/purchases.service';
 import { purchases_head } from '../../models/purchases_model';
+import { PermitsService} from '../../services/permisos/permits.service';
+
 
 
 
@@ -21,7 +23,7 @@ import { datatables } from '../../utilitis/datatables';
     selector: 'app-purchases',
     templateUrl: './purchases.component.html',
     styleUrls: ['./purchases.component.scss'],
-    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService]
+    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService,PermitsService]
 })
 
 
@@ -35,7 +37,6 @@ export class PurchasesComponent implements OnInit {
     public company;
     public response;
     public buttonDisabled;
-    private date = { 'start_date': '', 'end_date': '' };
     private datatables;
     public datos;
     public tableWidget: any;
@@ -44,6 +45,7 @@ export class PurchasesComponent implements OnInit {
     public purchases;
     public detail_purchases;
     public head = new purchases_head();
+    public permisos;
 
     public text: String;
     public data =
@@ -57,7 +59,9 @@ export class PurchasesComponent implements OnInit {
         private changeDetectorRef: ChangeDetectorRef,
         private datatableservice: DatatablesService,
         private eRef: ElementRef,
-        private PurchasesService: PurchasesService) {
+        private PurchasesService: PurchasesService,
+        private PermitsService: PermitsService
+        ) {
 
         this.datatables = new datatables();
 
@@ -75,9 +79,27 @@ export class PurchasesComponent implements OnInit {
         this.SerializerService.serializer();
         this.operation_purchases();
         this.company = localStorage.getItem('company')
+        this.get_permits();
 
+
+      // fecha de los input 
+      $("#deliver_date").datepicker({dateFormat:'yy-mm-dd'});
+      $("#date").datepicker({dateFormat:'yy-mm-dd'});
+
+      $("#start_date").datepicker({dateFormat:'yy-mm-dd'});
+      $("#end_date").datepicker({dateFormat:'yy-mm-dd'});
+
+       //////////////////------------------------------------------
     }
 
+
+    // funcion para los permisos
+    get_permits(){
+
+       this.PermitsService.getPermits(2,'Purchases');
+       this.permisos = this.PermitsService.getPermitsSubMenu('Purchases');
+       console.log(this.permisos);
+  }
     // funciones del datatable 
     public addRow(datos): void {
         let data1;
@@ -85,7 +107,7 @@ export class PurchasesComponent implements OnInit {
         for (data1 of json) {
             this.data.push(data1)
         }
-        this.datatables.reInitDatatable('#example');
+           this.datatables.reInitDatatable('#example');
     }
 
 
@@ -101,13 +123,16 @@ export class PurchasesComponent implements OnInit {
     someMethod(event: any) {
         if (event.keyCode == 13) {
             this.addRowHomeCampusProvinceAreaForm();
-        } else {
+          } else {
         }
     }
 
 
-    search_purchases(form) {
-        this.datatableservice.get_datatables(form, '/purchase/search').subscribe(
+    search_purchases() {
+
+        var table = $('#startdate').serializeObject();
+
+        this.datatableservice.get_datatables(table, '/purchase/search').subscribe(
             response => {
                 this.datos = response.purchases;
                 this.addRow(this.datos);
@@ -147,7 +172,7 @@ export class PurchasesComponent implements OnInit {
         )
 
 
-
+               this.buttonDisabled = true; // ?
 
 
     }
@@ -203,6 +228,14 @@ export class PurchasesComponent implements OnInit {
         //this.AutocompleteService.savepurchase();
     }
 
+
+imprimir(){
+let consecutive_purc=$('#consecutive_purc').val();
+let id_company=$('#id_company').val();
+
+
+    window.open('http://192.168.1.126:8000/api/purchase/search_detail?consecutive_purc='+consecutive_purc+'id_company='+id_company, '_blank');
+}
     update_purchase() {
 
         var rawData = $('#table').serializeFormJSON();
@@ -220,10 +253,11 @@ export class PurchasesComponent implements OnInit {
             res => {
                 this.consecutive = res.consecutive;
                 this.response = res.data;
+                this.buttonDisabled = true; // ?
 
                 if (this.response == true) {
 
-                    this.buttonDisabled = true; // ?
+                    
                 }
             },
             error => {
