@@ -1,6 +1,6 @@
 <div class="container-fluid container-modified">
     <div class="col-12">
-        <h3 class="mb-3 title">Ingresos</h3>
+        <h3 class="mb-3 title">Reintegros</h3>
     </div>
 
     <div class="col-12">
@@ -11,12 +11,11 @@
                     <select name=" " id=" " class="form-control input-modified">
                         </select>
                 </div>
-
-                <label for=" " class="col-1 col-form-label">Orden <button class="btn_edit"><i class="fa fa-search"></i></button></label>
+                <label for=" " class="col-1 col-form-label">Extracto</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" value=" " id="description">
                 </div>
-                <label for=" " class="col-1 col-form-label">Bodega</label>
+                <label for=" " class="col-1 col-form-label">Destino</label>
                 <div class="col-2">
                     <select name=" " id=" " class="form-control input-modified">
                         </select>
@@ -25,70 +24,60 @@
 
 
             <div class="form-group row">
-                <label for=" " class="col-1 col-form-label">Proveedor</label>
-                <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
-                </div>
                 <label for=" " class="col-1 col-form-label">Empresa</label>
                 <div class="col-2">
                     <select name=" " id=" " class="form-control input-modified">
                         </select>
                 </div>
-                <label for=" " class="col-1 col-form-label">Fecha Ingreso</label>
+                <label for=" " class="col-1 col-form-label">Fecha</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" value=" " id="">
                 </div>
-
+                <label for=" " class="col-1 col-form-label">N° Movimiento</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="description">
+                </div>
             </div>
 
 
             <div class="form-group row">
-                <label for=" " class="col-1 col-form-label">N° Factura</label>
+                <label for=" " class="col-1 col-form-label">Almacen</label>
                 <div class="col-2">
                     <select name=" " id=" " class="form-control input-modified">
                         </select>
                 </div>
-                <label for=" " class="col-1 col-form-label">Estado Orden</label>
+                <label for=" " class="col-1 col-form-label">N° Despacho</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" value=" " id="">
                 </div>
-                <label for=" " class="col-1 col-form-label">Nro</label>
+                <label for=" " class="col-1 col-form-label">Tipo Obra</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
-                </div>
-
-            </div>
-
-            <div class="form-group row">
-                <label for=" " class="col-1 col-form-label">Nro Remision</label>
-                <div class="col-2">
-                    <select name=" " id=" " class="form-control input-modified">
-                        </select>
-                </div>
-                <label for=" " class="col-1 col-form-label">Fecha Entrega</label>
-                <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
+                    <input class="form-control input-modified" type="text" value=" " id="description">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="" class="col-1 col-form-label">Observaciones</label>
-                <div class="col-8">
-                    <textarea class="form-control textarea-modified" id=""></textarea>
+                <label for=" " class="col-1 col-form-label">Encargado</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="">
+                </div>
+                <label for=" " class="col-1 col-form-label">Dirección</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="">
+                </div>
+                <label for=" " class="col-1 col-form-label">Consecutivo</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="description">
                 </div>
             </div>
         </form>
-        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#guardar_income">Guardar</button>
-        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar_income">Actualizar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#guardar_refunds">Guardar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar_refunds">Actualizar</button>
         <button class=" btn btn_success btn-sm mr-3 my-3">
             <i class="fa fa-print" aria-hidden="true"></i>  Imprimir
         </button>
-        <button class="btn btn_success btn-sm mr-3 my-3" data-target="#buscar_n_income" data-toggle="modal">Buscar
-            <i aria-hidden="true" class="fa fa-print"></i>
-        </button>
-
-        <button class="btn btn_warning btn-sm mr-3 my-3" data-toggle="modal" data-target="#buscar_income">Buscar
-            <i class="fa fa-search" aria-hidden="true"></i>
+        <button class="btn btn_success btn-sm mr-3 my-3" data-target="#buscar_refunds" data-toggle="modal">Buscar
+            <i aria-hidden="true" class="fa fa-search"></i>
         </button>
     </div>
 </div>
@@ -102,16 +91,14 @@
                     <thead>
                         <tr>
                             <th class="width-table-1">Eliminar</th>
-                            <th class="width-table-2">Descripcion</th>
-                            <th class="width-table-4">Codigo</th>
+                            <th class="width-table-2">Codigo</th>
+                            <th class="width-table-4">Descripcion</th>
                             <th class="width-table-2">Unidad</th>
-                            <th class="width-table-2">Cantidad/Solic</th>
-                            <th class="width-table-2">Cantidad/Recib</th>
-                            <th class="width-table-2">Valor/Uni</th>
-                            <th class="width-table-1">Desc</th>
-                            <th class="width-table-2">Iva</th>
-                            <th class="width-table-2">Valor/Iva</th>
-                            <th class="width-table-3">SubTotal</th>
+                            <th class="width-table-2">Despachos</th>
+                            <th class="width-table-2">Reintegos</th>
+                            <th class="width-table-2">Faltante</th>
+                            <th class="width-table-1">Existencias</th>
+                            <th class="width-table-2">Series</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -128,29 +115,25 @@
                             </td>
 
                             <td>
-                                <input class="form-control input-modified" type="text">
+                                <input class=" form-control input-modified" type="text">
                             </td>
 
                             <td>
-                                <input class="form-control input-modified" type="text">
+                                <input class=" form-control input-modified" type="text">
+                            </td>
+                            <td>
+                                <input class=" form-control input-modified" type="text">
+                            </td>
+                            <td>
+                                <input class=" form-control input-modified" type="text">
+                            </td>
+                            <td>
+                                <input class=" form-control input-modified" type="text">
                             </td>
                             <td>
                                 <input class="form-control input-modified" type="text">
                             </td>
-                            <td>
-                                <input class="form-control input-modified" type="text">
-                            </td>
-                            <td>
-                                <input class="form-control input-modified" type="text">
-                            </td>
-                            <td>
-                                <input class="form-control input-modified" type="text">
-                            </td>
-                            <td>
-                                <input class="form-control input-modified" type="text">
-                            </td>
-                            <td class="text-center"></td>
-                            <td class="text-center"></td>
+                            <td class="text-center"> </td>
 
                         </tr>
                     </tbody>
@@ -181,8 +164,8 @@
 </div>
 
 
-<!--MODAL PARA BUSCAR LOS INGRESOS-->
-<div class="modal fade" id="buscar_income" tabindex="-1" role="dialog" aria-labelledby="buscar_income" aria-hidden="true">
+<!--MODAL PARA BUSCAR LOS DESPACHOS-->
+<div class="modal fade" id="buscar_refunds" tabindex="-1" role="dialog" aria-labelledby="buscar_refunds" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -214,19 +197,13 @@
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>N° Ingreso</th>
-                                    <th>Proveedor</th>
-                                    <th>Estado</th>
-                                    <th>N° Orden/Compra</th>
-                                    <th>Fecha</th>
+                                    <th>N° Orden</th>
+                                    <th>Encargado</th>
                                     <th>Selección</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="text-center">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td>
@@ -245,39 +222,8 @@
     </div>
 </div>
 
-<!--MODAL PARA IMPRIMIR LAS ORDENES DE COMPRA-->
-<div class="modal fade" id="buscar_n_income" tabindex="-1" role="dialog" aria-labelledby="buscar_n_income" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">BUSCAR</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="col-4 offset-3">
-                            <label for="">N° Orden</label>
-                            <input type="text" class="form-control input-modified">
-                        </div>
-
-                        <div class="col-2 d-flex align-items-end">
-                            <button class="btn btn_primary btn-sm">Consultar</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class=" modal-footer">
-                <button type="button" class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!--MODAL DE CONFIMACION-->
-<div class="modal fade" id="actualizar_income" tabindex="-1" role="dialog" aria-labelledby="actualizar_income" aria-hidden="true">
+<div class="modal fade" id="actualizar_refunds" tabindex="-1" role="dialog" aria-labelledby="actualizar_refunds" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -301,7 +247,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="guardar_income" tabindex="-1" role="dialog" aria-labelledby="guardar_income" aria-hidden="true">
+<div class="modal fade" id="guardar_refunds" tabindex="-1" role="dialog" aria-labelledby="guardar_refunds" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -323,4 +269,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>-

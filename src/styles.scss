@@ -258,8 +258,23 @@ table thead tr>th {
     border: 1px solid #ddd;
 }
 
+.table-scroll {
+    min-height: 400px;
+    width: 100%;
+    overflow-x: scroll;
+    &>table {
+        min-width: 4000px;
+    }
+}
+
 @media (min-width: 992px) {
     .modal-lg {
         max-width: 1200px;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-extra-lg {
+        max-width: 95vw;
     }
 }

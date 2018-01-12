@@ -5,7 +5,6 @@ import { AdminComponent } from './admin.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 
-
 @NgModule({
   imports: [
     CommonModule,
