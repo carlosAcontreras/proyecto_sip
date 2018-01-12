@@ -1,0 +1,322 @@
+<div class="container-fluid container-modified">
+    <div class="col-12">
+        <h3 class="mb-3 title">Ingresos</h3>
+    </div>
+
+    <div class="col-12">
+        <form>
+            <div class="form-group row">
+                <label for=" " class="col-1 col-form-label">Movimiento</label>
+                <div class="col-2">
+                    <select name=" " id=" " class="form-control input-modified">
+                        </select>
+                </div>
+
+                <label for=" " class="col-1 col-form-label">Orden <button class="btn_edit"><i class="fa fa-search"></i></button></label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="description">
+                </div>
+                <label for=" " class="col-1 col-form-label">Bodega</label>
+                <div class="col-2">
+                    <select name=" " id=" " class="form-control input-modified">
+                        </select>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for=" " class="col-1 col-form-label">Proveedor</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="">
+                </div>
+                <label for=" " class="col-1 col-form-label">Empresa</label>
+                <div class="col-2">
+                    <select name=" " id=" " class="form-control input-modified">
+                        </select>
+                </div>
+                <label for=" " class="col-1 col-form-label">Fecha Ingreso</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="">
+                </div>
+
+            </div>
+
+
+            <div class="form-group row">
+                <label for=" " class="col-1 col-form-label">N° Factura</label>
+                <div class="col-2">
+                    <select name=" " id=" " class="form-control input-modified">
+                        </select>
+                </div>
+                <label for=" " class="col-1 col-form-label">Estado Orden</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="">
+                </div>
+                <label for=" " class="col-1 col-form-label">Nro</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="">
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+                <label for=" " class="col-1 col-form-label">Nro Remision</label>
+                <div class="col-2">
+                    <select name=" " id=" " class="form-control input-modified">
+                        </select>
+                </div>
+                <label for=" " class="col-1 col-form-label">Fecha Entrega</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="" class="col-1 col-form-label">Observaciones</label>
+                <div class="col-8">
+                    <textarea class="form-control textarea-modified" id=""></textarea>
+                </div>
+            </div>
+        </form>
+        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#guardar_income">Guardar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar_income">Actualizar</button>
+        <button class=" btn btn_success btn-sm mr-3 my-3">
+            <i class="fa fa-print" aria-hidden="true"></i>  Inprimir
+        </button>
+        <button class="btn btn_success btn-sm mr-3 my-3" data-target="#buscar_n_income" data-toggle="modal">Buscar
+            <i aria-hidden="true" class="fa fa-print"></i>
+        </button>
+
+        <button class="btn btn_warning btn-sm mr-3 my-3" data-toggle="modal" data-target="#buscar_income">Buscar
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+
+<div class="container-fluid container-modified">
+    <div class="col-12">
+        <div class="form-group">
+
+            <div class="datagrid">
+                <table id="table" class="table table-striped table-hover table-bordered table-relative">
+                    <thead>
+                        <tr>
+                            <th class="width-table-1">Eliminar</th>
+                            <th class="width-table-2">Codigo</th>
+                            <th class="width-table-4">Descripcion</th>
+                            <th class="width-table-2">Can/Solicitada</th>
+                            <th class="width-table-2">Can/Recibida</th>
+                            <th class="width-table-2">Valor/Uni</th>
+                            <th class="width-table-2">Desc</th>
+                            <th class="width-table-1">Iva</th>
+                            <th class="width-table-2">V/con Iva</th>
+                            <th class="width-table-3">SubTotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="item_actividad eliminar_tr">
+                            <td class="text-center">
+
+                                <button class="btn_delete" type="button">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+
+                            <td>
+                                <input class="code_provider form-control purchase input-modified" type="text">
+                            </td>
+
+                            <td>
+                                <input class="description form-control purchase input-modified" type="text">
+                            </td>
+
+                            <td>
+                                <input class="request_amount form-control purchase input-modified" type="text">
+                            </td>
+                            <td>
+                                <input class="amount_receipt form-control purchase input-modified" type="text">
+                            </td>
+                            <td>
+                                <input class="unit_value form-control purchase input-modified" type="text">
+                            </td>
+                            <td>
+                                <input class="discount form-control purchase input-modified" type="text">
+                            </td>
+                            <td>
+                                <input class="iva form-control purchase input-modified" type="text">
+                            </td>
+                            <td class="text-center">$0 </td>
+                            <td class="text-center">$0</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <button class="btn_add">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+
+                <div class="d-flex justify-content-end pr-3">
+                    <div class="resumen mr-5">
+                        <p class="info border_botom">SUBTOTAL</p>
+                        <p class="info border_botom">IVA</p>
+                        <p class="info border_botom">TOTAL</p>
+                    </div>
+                    <div class="resumen text-right">
+                        <p class="sub_total border_botom">0</p>
+                        <p class="sub_iva border_botom">0</p>
+                        <p class="total border_botom">0</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--MODAL PARA BUSCAR LOS INGRESOS-->
+<div class="modal fade" id="buscar_income" tabindex="-1" role="dialog" aria-labelledby="buscar_income" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BUSCAR</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-2">
+                            <label for="">Fecha Inicial</label>
+                            <input type="text" class="form-control input-modified">
+                        </div>
+                        <div class="col-2">
+                            <label for="">Fecha Final</label>
+                            <input type="text" class="form-control input-modified">
+                        </div>
+                        <div class="col-2 d-flex align-items-end">
+                            <button class="btn btn_primary btn-sm">Consultar</button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+
+                <div class="row data-tables">
+                    <div class="col-sm-12">
+                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>N° Orden</th>
+                                    <th>Proveedor</th>
+                                    <th>Estado</th>
+                                    <th>N° Ingreso</th>
+                                    <th>Fecha</th>
+                                    <th>Selecion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-center">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <button class="btn btn_select btn-sm" data-dismiss="modal">Selecionar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class=" modal-footer">
+                <button type="button" class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA IMPRIMIR LAS ORDENES DE COMPRA-->
+<div class="modal fade" id="buscar_n_income" tabindex="-1" role="dialog" aria-labelledby="buscar_n_income" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BUSCAR</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-4 offset-3">
+                            <label for="">N° Orden</label>
+                            <input type="text" class="form-control input-modified">
+                        </div>
+
+                        <div class="col-2 d-flex align-items-end">
+                            <button class="btn btn_primary btn-sm">Consultar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class=" modal-footer">
+                <button type="button" class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL DE CONFIMACION-->
+<div class="modal fade" id="actualizar_income" tabindex="-1" role="dialog" aria-labelledby="actualizar_income" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <p class="text-center text-muted p-3">Esta seguro que desea actualizar la orden ?</p>
+                    </div>
+                </form>
+            </div>
+            <div class=" modal-footer">
+                <button type="button" class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn_success btn-sm">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="guardar_income" tabindex="-1" role="dialog" aria-labelledby="guardar_income" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Guardar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <p class="text-center text-muted p-3">Esta seguro que desea crear la orden ?</p>
+                    </div>
+                </form>
+            </div>
+            <div class=" modal-footer">
+                <button type="button" class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn_success btn-sm">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

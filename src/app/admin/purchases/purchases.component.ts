@@ -5,6 +5,7 @@ import { SerializerService } from '../../services/serializer/serializer.service'
 import { PurchasesService } from '../../services/purchases/purchases.service';
 import { purchases_head } from '../../models/purchases_model';
 import { PermitsService} from '../../services/permisos/permits.service';
+import swal from 'sweetalert2';
 
 
 
@@ -234,7 +235,7 @@ let consecutive_purc=$('#consecutive_purc').val();
 let id_company=$('#id_company').val();
 
 
-    window.open('http://192.168.1.126:8000/api/purchase/print?consecutive_purc='+consecutive_purc+'id_company='+id_company, '_blank');
+    window.open('http://192.168.1.126:8000/api/purchase/search_detail?consecutive_purc='+consecutive_purc+'id_company='+id_company, '_blank');
 }
     update_purchase() {
 
@@ -255,12 +256,19 @@ let id_company=$('#id_company').val();
                 this.response = res.data;
                 this.buttonDisabled = true; // ?
 
-                if (this.response == true) {
+                if(this.response==true){
 
-                    
+                 swal("", "Se ha Atualizado Correctamente", "success");
                 }
+
+            if(this.response==''){
+
+                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+            }
             },
             error => {
+
+                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
                 console.log(error);
             }
         )
