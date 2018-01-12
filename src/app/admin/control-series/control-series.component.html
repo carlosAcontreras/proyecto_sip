@@ -1,0 +1,178 @@
+<div class="container-fluid container-modified">
+    <div class="col-12">
+        <h3 class="mb-3 title">Control Series</h3>
+    </div>
+
+    <div class="col-12">
+        <form>
+            <div class="form-group row">
+                <label for=" " class="col-1 col-form-label">Numero Serie</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for=" " class="col-1 col-form-label">Empresa</label>
+                <div class="col-2">
+                    <select name=" " id=" " class="form-control input-modified">
+                        </select>
+                </div>
+                <label for=" " class="col-1 col-form-label">Fecha Inicio</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="">
+                </div>
+                <label for=" " class="col-1 col-form-label">Fecha Final</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="">
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <label for=" " class="col-1 col-form-label">Almacen</label>
+                <div class="col-2">
+                    <select name=" " id=" " class="form-control input-modified">
+                        </select>
+                </div>
+                <label for=" " class="col-1 col-form-label">Codigo</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value=" " id="">
+                </div>
+                <label for=" " class="col-1 col-form-label">Tipo</label>
+                <div class="col-2">
+                    <select name=" " id=" " class="form-control input-modified">
+                        </select>
+                </div>
+            </div>
+        </form>
+        <button class="btn btn_primary btn-sm mr-3 my-3">Buscar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar_refunds">Actualizar</button>
+        <button class=" btn btn_success btn-sm mr-3 my-3">
+            <i class="fa fa-print" aria-hidden="true"></i>  Imprimir
+        </button>
+        <button class="btn btn_success btn-sm mr-3 my-3" data-target="#control_series" data-toggle="modal">Agregar Medidor
+            <i aria-hidden="true" class="fa fa-search"></i>
+        </button>
+    </div>
+</div>
+
+<div class="container-fluid container-modified">
+    <div class="col-12">
+        <div class="form-group">
+
+            <div class="datagrid table-scroll">
+                <table id="table" class="table table-striped table-hover table-bordered table-relative">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Imprimir</th>
+                            <th>Eliminar</th>
+                            <th>Nro Serie</th>
+                            <th>Tipo</th>
+                            <th>Codigo</th>
+                            <th>Marca</th>
+                            <th>Lote</th>
+                            <th>Entrega</th>
+                            <th>Caja</th>
+                            <th>Fecha</th>
+                            <th>Almacen</th>
+                            <th>Observaciones</th>
+                            <th>Consecutivo</th>
+                            <th>Direcion</th>
+                            <th>Despacho</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="item_actividad eliminar_tr">
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+                            <td class="text-center"> </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--MODAL PARA BUSCAR LOS DESPACHOS-->
+<div class="modal fade" id="control_series" tabindex="-1" role="dialog" aria-labelledby="control_series" aria-hidden="true">
+    <div class="modal-dialog modal-extra-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BUSCAR</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-2">
+                            <label for="">Empresa</label>
+                            <input type="text" class="form-control input-modified">
+                        </div>
+                        <div class="col-2">
+                            <label for="">Empresa</label>
+                            <input type="text" class="form-control input-modified">
+                        </div>
+                        <div class="col-2 d-flex align-items-end">
+                            <button class="btn btn_primary btn-sm">Consultar</button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+
+                <div class="row data-tables">
+                    <div class="col-sm-12">
+                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Imprimir</th>
+                                    <th>Eliminar</th>
+                                    <th>Nro Serie</th>
+                                    <th>Tipo</th>
+                                    <th>Codigo</th>
+                                    <th>Marca</th>
+                                    <th>Lote</th>
+                                    <th>Entrega</th>
+                                    <th>Caja</th>
+                                    <th>Fecha</th>
+                                    <th>Observaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-center">
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class=" modal-footer">
+                <button type="button" class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
