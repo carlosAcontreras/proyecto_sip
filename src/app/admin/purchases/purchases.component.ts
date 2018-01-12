@@ -38,6 +38,7 @@ export class PurchasesComponent implements OnInit {
     public company;
     public response;
     public buttonDisabled;
+    public buttonUpdate;
     private datatables;
     public datos;
     public tableWidget: any;
@@ -68,9 +69,10 @@ export class PurchasesComponent implements OnInit {
 
     }
 
-    rowDataHomeForm = [{}];
+    rowDataHomeForm = [];
 
     ngOnInit() {
+        this.buttonUpdate=true;
         localStorage.setItem('company', '1');
         this.get_state_movest();
         this.AutocompleteService.autocomplete_provider();
@@ -99,10 +101,14 @@ export class PurchasesComponent implements OnInit {
 
        this.PermitsService.getPermits(2,'Purchases');
        this.permisos = this.PermitsService.getPermitsSubMenu('Purchases');
-       console.log(this.permisos);
+
   }
+
+
     // funciones del datatable 
     public addRow(datos): void {
+
+        console.log(this.datos);
         let data1;
         let json = datos;
         for (data1 of json) {
@@ -110,7 +116,6 @@ export class PurchasesComponent implements OnInit {
         }
            this.datatables.reInitDatatable('#example');
     }
-
 
     public selectRow(index: number, row: any) {
         this.selectedName = "row#" + index + " " + row.consecutive_purc
@@ -137,6 +142,7 @@ export class PurchasesComponent implements OnInit {
             response => {
                 this.datos = response.purchases;
                 this.addRow(this.datos);
+
             },
             error => {
                 console.log(error);
@@ -163,9 +169,7 @@ export class PurchasesComponent implements OnInit {
                 this.rowDataHomeForm = res.detail_purchases;
 
                 this.head = res.purchases;
-                console.log(this.head.consecutive_purc);
-
-                console.log(this.rowDataHomeForm)
+                this.buttonUpdate=false;
             },
             error => {
                 console.log(error);
@@ -194,13 +198,27 @@ export class PurchasesComponent implements OnInit {
         })
     }
 
+    addRowHome(datos) {
+
+      $("#table tbody tr td").remove();
+
+        let data1;
+        let json = datos;
+     for (data1 of json) {
+
+              this.rowDataHomeForm.push(data1)
+        }
+
+      
+    }
+
     savepurchase() {
 
         var rawData = $('#table').serializeFormJSON();
         var formData = JSON.stringify(rawData);
 
         var table = $('#form').serializeObject();
-        console.log(table);
+
 
         let detail_purchase = { body: formData, head: table }
 
@@ -208,7 +226,7 @@ export class PurchasesComponent implements OnInit {
 
         this.PurchasesService.insert(detail_purchase, table).subscribe(
             res => {
-                console.log(res);
+       
                 this.head = res;
                 this.response = res.data;
 
@@ -235,8 +253,11 @@ let consecutive_purc=$('#consecutive_purc').val();
 let id_company=$('#id_company').val();
 
 
-    window.open('http://192.168.1.126:8000/api/purchase/search_detail?consecutive_purc='+consecutive_purc+'id_company='+id_company, '_blank');
+    window.open('http://192.168.1.126:8000/api/purchase/print?consecutive_purc='+consecutive_purc+'id_company='+id_company, '_blank');
 }
+
+
+// funcion para atualizar 
     update_purchase() {
 
         var rawData = $('#table').serializeFormJSON();
@@ -244,21 +265,22 @@ let id_company=$('#id_company').val();
 
 
         var table = $('#form').serializeObject();
-        console.log(table);
+
 
         let detail_purchase = { body: formData, head: table }
 
-        console.log(detail_purchase);
+
 
         this.PurchasesService.update(detail_purchase, table).subscribe(
             res => {
                 this.consecutive = res.consecutive;
                 this.response = res.data;
                 this.buttonDisabled = true; // ?
-
+                this.datos = res.detail_purchases;
                 if(this.response==true){
 
-                 swal("", "Se ha Atualizado Correctamente", "success");
+                     this.addRowHome(this.datos);
+                swal("", "Se Atualizo correctamente", "success");
                 }
 
             if(this.response==''){

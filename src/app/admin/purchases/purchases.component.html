@@ -52,7 +52,7 @@
             </div>
         </form>
         <button class="btn btn_primary btn-sm mr-3 my-3" disabled={{buttonDisabled}} data-toggle="modal" data-target="#guardar">Guardar</button>
-        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar">Actualizar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" [disabled]="buttonUpdate==true" data-target="#actualizar">Actualizar</button>
         <button class=" btn btn_success btn-sm mr-3 my-3" (click)="imprimir()">
             <i class="fa fa-print" aria-hidden="true"></i> Inprimir</button>
         <button class="btn btn_success btn-sm mr-3 my-3" data-toggle="modal" data-target="#buscar_orden_compra">Buscar
