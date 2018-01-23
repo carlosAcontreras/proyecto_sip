@@ -72,9 +72,12 @@
             </li>
         </ul>
         <ul class="navbar-nav px-4">
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Nombre Usuario
+                        {{this.user_name}}
                     </a>
                 <div class="dropdown-menu" aria-labelledby="user">
                     <a class="dropdown-item" href="#" (click)="sesionDestroy()">Cerrar Sesión</a>
