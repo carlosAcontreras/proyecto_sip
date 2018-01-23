@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener, } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener} from '@angular/core';
 import { ListService } from '../../services/list/list.service';
 import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
 import { SerializerService } from '../../services/serializer/serializer.service';
@@ -83,7 +83,7 @@ export class PurchasesComponent implements OnInit {
         this.operation_purchases();
         this.company = localStorage.getItem('company')
         this.get_permits();
-
+        this.datatables.initDatatable('#example');
 
       // fecha de los input 
       $("#deliver_date").datepicker({dateFormat:'yy-mm-dd'});
@@ -107,7 +107,7 @@ export class PurchasesComponent implements OnInit {
 
     // funciones del datatable 
     public addRow(datos): void {
-
+        this.data=[];
         console.log(this.datos);
         let data1;
         let json = datos;
@@ -134,6 +134,7 @@ export class PurchasesComponent implements OnInit {
     }
 
 
+    // funciona para buscar las ordenes de compras 
     search_purchases() {
 
         var table = $('#startdate').serializeObject();
@@ -151,10 +152,11 @@ export class PurchasesComponent implements OnInit {
     }
 
 
-
+    // funcion para el boton de seleccionar en la ventana modal
     handleClick(event) {
 
         let data = event.target.value.split(",");
+        console.log(data);
 
         let json = {
             'id_company': data[2],
@@ -167,6 +169,7 @@ export class PurchasesComponent implements OnInit {
 
                 this.purchases = res.purchases;
                 this.rowDataHomeForm = res.detail_purchases;
+                console.log(this.rowDataHomeForm);
 
                 this.head = res.purchases;
                 this.buttonUpdate=false;
@@ -176,43 +179,55 @@ export class PurchasesComponent implements OnInit {
             }
         )
 
-
                this.buttonDisabled = true; // ?
-
-
     }
-
-
-
 
 
     //elimina las filas de los tr
-    deleteRowHomeForm(homeFormIndex: number) {
-        this.rowDataHomeForm.splice(homeFormIndex, 1);
-        this.changeDetectorRef.detectChanges();
-    }
+    deleteRowHomeForm(index,event) {
 
-    // agrega filas a los tr
-    addRowHomeCampusProvinceAreaForm() {
-        this.rowDataHomeForm.push({
-        })
-    }
+         let data = event.target.value;
+      
 
-    addRowHome(datos) {
+         this.rowDataHomeForm.splice(index, 1);
 
-      $("#table tbody tr td").remove();
+         let json = {'iddetail_shopping': data}
 
-        let data1;
-        let json = datos;
-     for (data1 of json) {
+         if(data!=''){
 
-              this.rowDataHomeForm.push(data1)
-        }
+              this.PurchasesService.delete(json).subscribe(
+
+            res => {
+             
+             let response= res.data;
+
+             if(response=true){
+
+                 swal("", "Se ha Eliminado correctamente el Material", "success");
+             }
+
+            },
+            error => {
+                console.log(error);
+            }
+        )
+}
 
       
     }
 
-    savepurchase() {
+
+    // agrega filas a los tr
+    addRowHomeCampusProvinceAreaForm() {
+
+        this.rowDataHomeForm.push({
+
+        })
+    }
+
+
+    // funcion para insertar los materiales 
+    inser_purchase() {
 
         var rawData = $('#table').serializeFormJSON();
         var formData = JSON.stringify(rawData);
@@ -234,27 +249,31 @@ export class PurchasesComponent implements OnInit {
 
                     this.buttonDisabled = true; // ?
 
+                    swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
                 }
+
+                if(this.response==''){
+
+                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+
+            }
             },
             error => {
+                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
                 console.log(error);
             }
         )
 
-
-
-
-        //this.AutocompleteService.savepurchase();
     }
 
 
-imprimir(){
-let consecutive_purc=$('#consecutive_purc').val();
-let id_company=$('#id_company').val();
+  // funcion para imprimir 
+  imprimir(){
 
-
-    window.open('http://192.168.1.126:8000/api/purchase/print?consecutive_purc='+consecutive_purc+'id_company='+id_company, '_blank');
-}
+           let consecutive_purc=$('#consecutive_purc').val();
+           let id_company=$('#id_company').val();
+           window.open('http://192.168.1.126:8000/api/purchase/print?consecutive_purc='+consecutive_purc+'&id_company='+id_company, '_blank');
+  }
 
 
 // funcion para atualizar 
@@ -272,15 +291,17 @@ let id_company=$('#id_company').val();
 
 
         this.PurchasesService.update(detail_purchase, table).subscribe(
+            
             res => {
                 this.consecutive = res.consecutive;
                 this.response = res.data;
                 this.buttonDisabled = true; // ?
-                this.datos = res.detail_purchases;
+                this.rowDataHomeForm = res.detail_purchases;
+
                 if(this.response==true){
 
-                     this.addRowHome(this.datos);
                 swal("", "Se Atualizo correctamente", "success");
+
                 }
 
             if(this.response==''){
@@ -321,6 +342,7 @@ let id_company=$('#id_company').val();
         )
     }
 
+    // funcion para las operaciones de cada fila de la tabla 
     operation_purchases() {
 
         $(function () {
@@ -334,6 +356,7 @@ let id_company=$('#id_company').val();
 
                 // descuento
                 let discount1 = isNaN(parseFloat(discount)) ? 0 : discount
+
                 // formula para sacar el descuento
                 let total_discount = (parseFloat(unit_value) * parseFloat(discount1) / 100).toFixed(2);
 
@@ -366,6 +389,7 @@ let id_company=$('#id_company').val();
 
         })
 
+        // funcion para calcular el total de cada tabla
         function total() {
             var rawData = $('#table').serializeFormJSON();
             var vrl_iva = 0;

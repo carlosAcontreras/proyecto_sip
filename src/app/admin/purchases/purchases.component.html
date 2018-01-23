@@ -9,7 +9,7 @@
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" value="{{head.consecutive_purc}}" name="consecutive_purc" id="consecutive_purc">
                     <input class="form-control input-modified" type="text" value="{{company}}" name="id_company" id="id_company" hidden>
-                    <input class="form-control input-modified" type="text" value="{{head.idpurchases}}" name="id_prchases" id="id_prchases" hidden>
+                    <input class="form-control input-modified" type="text" value="{{head.idpurchases}}" name="id_purchases" id="id_prchases" hidden>
                 </div>
                 <label for="" class="col-1 col-form-label label-required">Proveedor</label>
                 <div class="col-2">
@@ -19,7 +19,7 @@
                 <label for="" class="col-1 col-form-label">Estado/Orden</label>
                 <div class="col-2">
                     <select class="form-control input-modified" name="state_purc">
-                        <option *ngFor="let state_moves of state_moves" value="{{state_moves.idstate_moves}}">{{state_moves.name_moves}}</option>
+                        <option *ngFor="let state_moves of state_moves" value="{{state_moves.idstate_moves}}" [selected]="state_moves.idstate_moves==head.purchases_state_purc">{{state_moves.name_moves}}</option>
                     </select>
                 </div>
 
@@ -29,16 +29,16 @@
             <div class="form-group row">
                 <label for="" class="col-1 col-form-label label-required">Fecha</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" name="date" id="date" value="{{head.date}}">
+                    <input class="form-control input-modified" type="text" name="date" id="date" value="{{head.purchases_date}}">
                 </div>
                 <label for="" class="col-1 col-form-label">Fecha Entrega</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" name="deliver_date" id="deliver_date" value="{{head.deliver_date}}">
+                    <input class="form-control input-modified" type="text" name="deliver_date" id="deliver_date" value="{{head.purchases_deliver_date}}">
                 </div>
                 <label for="" class="col-1 col-form-label">Almacen</label>
                 <div class="col-2">
                     <select class="form-control input-modified" name="cellar">
-                        <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}" [selected]="cellar.idcellar === head.cellar">{{cellar.name}}</option>
+                        <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}" [selected]="cellar.idcellar === head.purchases_cellar">{{cellar.name}}</option>
                     </select>
                 </div>
             </div>
@@ -47,12 +47,15 @@
 
                 <label for="" class="col-1 col-form-label">Obeservaciones</label>
                 <div class="col-8">
-                    <textarea name="" id="" class="form-control input-modified textarea-modified" name="observations" value="{{head.observations}}"></textarea>
+                    <textarea name="" id="" class="form-control input-modified textarea-modified" name="observations" value="{{head.purchases_observations}}"></textarea>
                 </div>
             </div>
+
+
         </form>
         <button class="btn btn_primary btn-sm mr-3 my-3" disabled={{buttonDisabled}} data-toggle="modal" data-target="#guardar">Guardar</button>
-        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" [disabled]="buttonUpdate==true" data-target="#actualizar">Actualizar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" [disabled]="buttonUpdate==true
+        " data-target="#actualizar">Actualizar</button>
         <button class=" btn btn_success btn-sm mr-3 my-3" (click)="imprimir()">
             <i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
         <button class="btn btn_success btn-sm mr-3 my-3" data-toggle="modal" data-target="#buscar_orden_compra">Buscar
@@ -86,16 +89,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="item_actividad eliminar_tr" *ngFor="let newrow of rowDataHomeForm; let homeFormIndex=i ndex">
+                        <tr class="item_actividad eliminar_tr" *ngFor="let newrow of rowDataHomeForm; let i=index">
                             <td class="text-center">
 
-                                <button class="btn_delete" (click)="deleteRowHomeForm(homeFormIndex)" type="button" style="padding: 2px">
-                                    <i class="fa fa-trash"></i>
+                                <button class="btn_delete" value="{{newrow.iddetail_shopping}}" (click)="deleteRowHomeForm(i,$event)"   type="button" style="padding: 2px">
+                                  -
                                 </button>
+
+                             
                             </td>
 
                             <td>
-                                <input class="code_provider form-control purchase input-modified" type="text" name="code" value="{{newrow.cod_mater}}">
+                                <input class="code_provider form-control purchase input-modified" type="text" name="code"   focusOnInit="2" value="{{newrow.cod_mater}}">
                                 <input class="form-control purchase hiden input-modified" type="text" name="idcode" value="{{newrow.iddetail_shopping}}" hidden>
                             </td>
 
@@ -124,6 +129,8 @@
                         </tr>
                     </tbody>
                 </table>
+
+       
                 <div>
                     <button class="btn_add" (click)='addRowHomeCampusProvinceAreaForm()'>
                         <i class="fa fa-plus"></i>
@@ -173,6 +180,7 @@
                         </div>
                         <div class="col-2 d-flex align-items-end">
                             <button class="btn btn_primary btn-sm" (click)="search_purchases()">Consultar</button>
+                     
                         </div>
                     </div>
 
@@ -194,7 +202,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let row of data; let i=i ndex" (click)="selectRow(i, row)" class="text-center">
+                            <tr *ngFor="let row of data; let i=i ndex" (click)="selectRow(i, row)" class="tr1 text-center ">
                                 <td>{{row.consecutive_purc}}</td>
                                 <td>{{row.providers_name}}</td>
                                 <td>{{row.name_moves}}</td>
@@ -202,7 +210,7 @@
                                 <td>{{row.date}}</td>
 
                                 <td>
-                                    <button class="btn btn_select btn-sm" data-dismiss="modal" value="{{row.idpurchases}},{{row.consecutive_purc}},{{row.id_company}}" (click)="handleClick($event)">Selecionar</button>
+                                    <button class="btn btn_select btn-sm" data-dismiss="modal" value="{{row.idpurchases}},{{row.consecutive_purc}},{{row.purchases_id_company}}" (click)="handleClick($event)">Selecionar</button>
                                 </td>
                             </tr>
 
@@ -293,7 +301,7 @@
             </div>
             <div class=" modal-footer">
                 <button type="button" class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn_success btn-sm" data-dismiss="modal" (click)="savepurchase()">Guardar</button>
+                <button type="button" class="btn btn_success btn-sm" data-dismiss="modal" (click)="inser_purchase()">Guardar</button>
             </div>
         </div>
     </div>

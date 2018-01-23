@@ -37,4 +37,12 @@ export class PurchasesService {
     this.url = this.constantes.getRouterGlobal() + 'purchase/update';
     return this.http.post(this.url, params).map(res => res.json());  
 }
+
+
+
+  delete(params){
+
+    this.url = this.constantes.getRouterGlobal() + 'purchase/delete';
+    return this.http.post(this.url, params).map(res => res.json());  
+}
 }

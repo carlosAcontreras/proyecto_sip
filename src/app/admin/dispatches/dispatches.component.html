@@ -4,38 +4,51 @@
     </div>
 
     <div class="col-12">
-        <form>
+        <form id="head_dispatch">
             <div class="form-group row">
-                <label for=" " class="col-1 col-form-label">Movimiento</label>
+                <label for=" " class="col-1 col-form-label">Destino</label>
                 <div class="col-2">
-                    <select name=" " id=" " class="form-control input-modified">
-                        </select>
+                    <select name=" " id=" " class="form-control input-modified" name='destino'>
+
+                        <option *ngFor="let destination_dispatches of destination_dispatches" value="{{destination_dispatches.iddestination_dispatches}}">{{destination_dispatches.destination_name}}</option>
+                    </select>
                 </div>
+
+                <label for=" " class="col-1 col-form-label">Fecha</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" value="" name="date" id="date">
+                </div>
+
+
                 <label for=" " class="col-1 col-form-label">Extracto</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" value=" " id="description">
                 </div>
-                <label for=" " class="col-1 col-form-label">Destino</label>
-                <div class="col-2">
-                    <select name=" " id=" " class="form-control input-modified">
-                        </select>
-                </div>
+
             </div>
 
 
             <div class="form-group row">
-                <label for=" " class="col-1 col-form-label">Empresa</label>
+                <label for=" " class="col-1 col-form-label">Movimiento</label>
                 <div class="col-2">
-                    <select name=" " id=" " class="form-control input-modified">
-                        </select>
+                    <select name=" " id=" " class="form-control input-modified" name='dispatches_move'>
+
+                        <option *ngFor="let dispatches_move of dispatches_move" value="{{dispatches_move.iddispatches_move}}">{{dispatches_move.dispatches_move_name}}</option>
+
+                    </select>
                 </div>
-                <label for=" " class="col-1 col-form-label">Fecha</label>
+
+
+
+                <label for=" " class="col-1 col-form-label">Consecutivo</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
+                    <input class="form-control input-modified" type="text" value="{{consecutive}}" name='consecutive'>
+                    <input class="form-control input-modified" type="text" value="{{company}}" name='idcompany' id='idcompany'>
                 </div>
-                <label for=" " class="col-1 col-form-label">N° Movimiento</label>
+
+                <label for=" " class="col-1 col-form-label">Consecutivo Obra</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="description">
+                    <input class="form-control input-modified" type="text" value="" id="description" name='consec_obra'>
                 </div>
             </div>
 
@@ -43,13 +56,12 @@
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Almacen</label>
                 <div class="col-2">
-                    <select name=" " id=" " class="form-control input-modified">
-                        </select>
+                    <select name=" " id=" " class="form-control input-modified" name="cellar" id="cellar">
+
+                        <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}">{{cellar.name}}</option>
+                    </select>
                 </div>
-                <label for=" " class="col-1 col-form-label">N° Despacho</label>
-                <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
-                </div>
+
                 <label for=" " class="col-1 col-form-label">Tipo Obra</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" value=" " id="description">
@@ -59,19 +71,17 @@
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Encargado</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
+                    <input class="employee form-control input-modified" type="text" name="employee" id="employee">
+                    <input class="employee form-control input-modified" type="text" name="employeeid" id="employeehiden" hidden>
                 </div>
                 <label for=" " class="col-1 col-form-label">Dirección</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" value=" " id="">
                 </div>
-                <label for=" " class="col-1 col-form-label">Consecutivo</label>
-                <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="description">
-                </div>
+
             </div>
         </form>
-        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#guardar_dispatches">Guardar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#guardar_dispatches" [disabled]="buttoinsert==false">Guardar</button>
         <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar_dispatches">Actualizar</button>
         <button class=" btn btn_success btn-sm mr-3 my-3">
             <i class="fa fa-print" aria-hidden="true"></i>Imprimir
@@ -87,14 +97,14 @@
         <div class="form-group">
 
             <div class="datagrid">
-                <table id="table" class="table table-striped table-hover table-bordered table-relative">
+                <table id="table_dispatche" class="table table-striped table-hover table-bordered table-relative">
                     <thead>
                         <tr>
                             <th class="width-table-1">Eliminar</th>
                             <th class="width-table-2">Codigo</th>
                             <th class="width-table-4">Descripcion</th>
                             <th class="width-table-2">Unidad</th>
-                            <th class="width-table-2">Despachos</th>
+                            <th class="width-table-2">Cantidad</th>
                             <th class="width-table-2">Reintegos</th>
                             <th class="width-table-2">Faltante</th>
                             <th class="width-table-1">Existencias</th>
@@ -102,7 +112,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="item_actividad eliminar_tr">
+                        <tr class="item_actividad " *ngFor="let newrow of rowDatatable; let i=index">
                             <td class="text-center">
 
                                 <button class="btn_delete" type="button">
@@ -111,27 +121,28 @@
                             </td>
 
                             <td>
-                                <input class="form-control input-modified" type="text">
+                                <input class="code_mater form-control input-modified" name="cod_mater" type="text">
+                                <input class="form-control purchase hiden input-modified" type="text" name="idcode" value="{{newrow.idincome_details}}" hidden>
                             </td>
 
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class="description form-control input-modified" type="text" name="">
                             </td>
 
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class="unidad form-control input-modified" type="text" name="">
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class="quantity form-control input-modified" type="text" name="quantity">
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class=" form-control input-modified" type="text" name="refund" [disabled]="btndisabled==false">
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class="missing form-control input-modified" type="text" name="missing" [disabled]="btndisabled==false">
                             </td>
                             <td>
-                                <input class="form-control input-modified" type="text">
+                                <input class="stock form-control input-modified" type="text" name="stock" [disabled]="btndisabled==false">
                             </td>
                             <td class="text-center"> </td>
 
@@ -139,23 +150,12 @@
                     </tbody>
                 </table>
                 <div>
-                    <button class="btn_add">
+                    <button class="btn_add" (click)='addrowtable()' [disabled]="buttonaddrow==false">
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
 
-                <div class="d-flex justify-content-end pr-3">
-                    <div class="resumen mr-5">
-                        <p class="info border_botom">SUBTOTAL</p>
-                        <p class="info border_botom">IVA</p>
-                        <p class="info border_botom">TOTAL</p>
-                    </div>
-                    <div class="resumen text-right">
-                        <p class="sub_total border_botom">0</p>
-                        <p class="sub_iva border_botom">0</p>
-                        <p class="total border_botom">0</p>
-                    </div>
-                </div>
+
 
             </div>
 
@@ -171,8 +171,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">BUSCAR</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form>
@@ -229,8 +229,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form>
@@ -253,8 +253,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Guardar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form>
@@ -265,7 +265,7 @@
             </div>
             <div class=" modal-footer">
                 <button type="button" class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn_success btn-sm">Guardar</button>
+                <button type="button" class="btn btn_success btn-sm" (click)="insert()" data-dismiss="modal">Guardar</button>
             </div>
         </div>
     </div>
