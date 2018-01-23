@@ -8,13 +8,14 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   public user_name: string;
+  public company_name: string;
 
   constructor(private router: Router) { }
 
 
   ngOnInit() {
     this.ValidateSession();
-    this.getUserName();
+    this.getUserNameAndCompanyName();
   }
 
   ValidateSession() {
@@ -27,10 +28,10 @@ export class NavbarComponent implements OnInit {
     localStorage.clear();
   }
 
-  getUserName() {
+  getUserNameAndCompanyName() {
     let name = JSON.parse(localStorage.getItem("user"));
+    this.company_name = localStorage.getItem("company_name");
     this.user_name = name.name;
-    console.log(this.user_name);
   }
 
 }

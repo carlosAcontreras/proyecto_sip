@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.load_company();
     this.validate_session();
-    console.log(this.user.company);
   }
 
   load_company() {
@@ -56,7 +55,7 @@ export class LoginComponent implements OnInit {
     } else {
       let _user = JSON.stringify(user);
       localStorage.setItem('user', _user);
-      localStorage.setItem('company', company);
+      this.localCompany(company);
       this.validate_session();
     }
   }
@@ -69,4 +68,17 @@ export class LoginComponent implements OnInit {
     else
       this.router.navigate(['/']);
   }
+
+  localCompany(company) {
+    let company_name = '';
+    for (let i = 0; i < this.company_list.length; i++) {
+      if (this.company_list[i].idbusiness == company) {
+        company_name = this.company_list[i].company_name;
+        localStorage.setItem('company_name', company_name);
+      }
+    }
+    localStorage.setItem('company', company);
+  }
 }
+
+
