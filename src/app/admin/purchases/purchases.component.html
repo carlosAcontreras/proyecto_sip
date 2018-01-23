@@ -92,15 +92,15 @@
                         <tr class="item_actividad eliminar_tr" *ngFor="let newrow of rowDataHomeForm; let i=index">
                             <td class="text-center">
 
-                                <button class="btn_delete" value="{{newrow.iddetail_shopping}}" (click)="deleteRowHomeForm(i,$event)"   type="button" style="padding: 2px">
-                                  -
+                                <button class="btn_delete" value="{{newrow.iddetail_shopping}}" (click)="deleteRowHomeForm(i,$event)" type="button" style="padding: 2px">
+                                  <i class="fa fa-trash-o" aria-hidden="true"></i>
                                 </button>
 
-                             
+
                             </td>
 
                             <td>
-                                <input class="code_provider form-control purchase input-modified" type="text" name="code"   focusOnInit="2" value="{{newrow.cod_mater}}">
+                                <input class="code_provider form-control purchase input-modified" type="text" name="code" focusOnInit="2" value="{{newrow.cod_mater}}">
                                 <input class="form-control purchase hiden input-modified" type="text" name="idcode" value="{{newrow.iddetail_shopping}}" hidden>
                             </td>
 
@@ -130,7 +130,7 @@
                     </tbody>
                 </table>
 
-       
+
                 <div>
                     <button class="btn_add" (click)='addRowHomeCampusProvinceAreaForm()'>
                         <i class="fa fa-plus"></i>
@@ -180,42 +180,39 @@
                         </div>
                         <div class="col-2 d-flex align-items-end">
                             <button class="btn btn_primary btn-sm" (click)="search_purchases()">Consultar</button>
-                     
                         </div>
                     </div>
-
                 </form>
-            </div>
-            <hr>
+                <hr>
+                <div class="row data-tables">
+                    <div class="col-sm-12">
+                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>N° Orden</th>
+                                    <th>Proveedor</th>
+                                    <th>Estado</th>
+                                    <th>N° Ingreso</th>
+                                    <th>Fecha</th>
+                                    <th>Selecion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of data; let i=i ndex" (click)="selectRow(i, row)" class="tr1 text-center ">
+                                    <td>{{row.consecutive_purc}}</td>
+                                    <td>{{row.providers_name}}</td>
+                                    <td>{{row.name_moves}}</td>
+                                    <td></td>
+                                    <td>{{row.date}}</td>
 
-            <div class="row data-tables">
-                <div class="col-sm-12">
-                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th>N° Orden</th>
-                                <th>Proveedor</th>
-                                <th>Estado</th>
-                                <th>N° Ingreso</th>
-                                <th>Fecha</th>
-                                <th>Selecion</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let row of data; let i=i ndex" (click)="selectRow(i, row)" class="tr1 text-center ">
-                                <td>{{row.consecutive_purc}}</td>
-                                <td>{{row.providers_name}}</td>
-                                <td>{{row.name_moves}}</td>
-                                <td></td>
-                                <td>{{row.date}}</td>
+                                    <td>
+                                        <button class="btn btn_select btn-sm" data-dismiss="modal" value="{{row.idpurchases}},{{row.consecutive_purc}},{{row.purchases_id_company}}" (click)="handleClick($event)">Selecionar</button>
+                                    </td>
+                                </tr>
 
-                                <td>
-                                    <button class="btn btn_select btn-sm" data-dismiss="modal" value="{{row.idpurchases}},{{row.consecutive_purc}},{{row.purchases_id_company}}" (click)="handleClick($event)">Selecionar</button>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
