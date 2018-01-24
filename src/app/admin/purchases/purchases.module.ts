@@ -4,8 +4,9 @@ import { PurchasesRoutingModule } from './purchases-routing.module';
 import { PurchasesComponent } from './purchases.component';
 import { HttpModule } from '@angular/http';
 import { Http } from '@angular/http/src/http';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { FocusOnInitDirective } from './focus-on-init.directive';
+import { CustomFormsModule } from 'ng2-validation';
 
 
 
@@ -14,7 +15,8 @@ import { FocusOnInitDirective } from './focus-on-init.directive';
     CommonModule,
     PurchasesRoutingModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    CustomFormsModule
   ],
   declarations: [PurchasesComponent, FocusOnInitDirective]
 })
