@@ -1,25 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-
 import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
 import { SerializerService } from '../../services/serializer/serializer.service';
 import { PurchasesService } from '../../services/purchases/purchases.service';
-
 import swal from 'sweetalert2';
 import { IncomeService } from '../../services/income/income.service';
-
 import { ListService } from '../../services/list/list.service';
-
-
-
-
 import 'jquery-ui/ui/widgets/datepicker';
 import 'jquery-ui/ui/widgets/autocomplete';
-
 import $ from 'jquery';
 declare var number_format: any;
-
 import { DatatablesService } from '../../services/datatables/datatables.service';
 import { datatables } from '../../utilitis/datatables';
+import { CustomValidators } from 'ng2-validation';
+import { income_head } from '../../models/income_model';
 
 @Component({
     selector: 'app-income',
@@ -66,6 +59,7 @@ export class IncomeComponent implements OnInit {
     public idincome;
     public idincome_move;
     public delete;
+    public validateHead = new income_head();
 
 
 
