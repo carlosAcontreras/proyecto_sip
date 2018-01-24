@@ -20,7 +20,7 @@ import { datatables } from '../../utilitis/datatables';
     selector: 'app-dispatches',
     templateUrl: './dispatches.component.html',
     styleUrls: ['./dispatches.component.scss'],
-    providers: [ListService, AutocompleteService, DispatchesService, SerializerService]
+    providers: [ListService, AutocompleteService, DispatchesService, SerializerService, DatatablesService]
 })
 export class DispatchesComponent implements OnInit {
 
@@ -34,9 +34,12 @@ export class DispatchesComponent implements OnInit {
     public response;
     public buttoinsert;
     public btndisabled;
+    public datatables;
+    public data = [];
+    public datos;
 
 
-    constructor(private ListService: ListService, private AutocompleteService: AutocompleteService, private DispatchesService: DispatchesService, private SerializerService: SerializerService) { }
+    constructor(private ListService: ListService, private AutocompleteService: AutocompleteService, private DispatchesService: DispatchesService, private SerializerService: SerializerService, private datatableservice: DatatablesService, ) { }
 
     ngOnInit() {
 
@@ -53,6 +56,9 @@ export class DispatchesComponent implements OnInit {
 
 
         $("#date").datepicker({ dateFormat: 'yy-mm-dd' });
+
+        $("#start_date").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#end_date").datepicker({ dateFormat: 'yy-mm-dd' });
     }
 
     get_dispatches_move() {
@@ -159,6 +165,36 @@ export class DispatchesComponent implements OnInit {
             });
 
         })
+    }
+
+
+    // funciona para buscar los despachos 
+    searc_dispatche() {
+
+        var table = $('#searc_dispatche').serializeObject();
+
+        this.datatableservice.get_datatables(table, 'purchase/search').subscribe(
+            response => {
+                this.datos = response.purchases;
+                this.addRow(this.datos);
+
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+
+    // funciones del datatable 
+    public addRow(datos): void {
+        this.data = [];
+        console.log(this.datos);
+        let data1;
+        let json = datos;
+        for (data1 of json) {
+            this.data.push(data1)
+        }
+        this.datatables.reInitDatatable('#example');
     }
 
 }

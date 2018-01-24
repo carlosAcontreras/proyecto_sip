@@ -1,10 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener } from '@angular/core';
 import { ListService } from '../../services/list/list.service';
 import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
 import { SerializerService } from '../../services/serializer/serializer.service';
 import { PurchasesService } from '../../services/purchases/purchases.service';
 import { purchases_head } from '../../models/purchases_model';
-import { PermitsService} from '../../services/permisos/permits.service';
+import { PermitsService } from '../../services/permisos/permits.service';
 import swal from 'sweetalert2';
 
 
@@ -24,7 +24,7 @@ import { datatables } from '../../utilitis/datatables';
     selector: 'app-purchases',
     templateUrl: './purchases.component.html',
     styleUrls: ['./purchases.component.scss'],
-    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService,PermitsService]
+    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService, PermitsService]
 })
 
 
@@ -63,7 +63,7 @@ export class PurchasesComponent implements OnInit {
         private eRef: ElementRef,
         private PurchasesService: PurchasesService,
         private PermitsService: PermitsService
-        ) {
+    ) {
 
         this.datatables = new datatables();
 
@@ -72,7 +72,7 @@ export class PurchasesComponent implements OnInit {
     rowDataHomeForm = [];
 
     ngOnInit() {
-        this.buttonUpdate=true;
+        this.buttonUpdate = true;
         localStorage.setItem('company', '1');
         this.get_state_movest();
         this.AutocompleteService.autocomplete_provider();
@@ -85,36 +85,36 @@ export class PurchasesComponent implements OnInit {
         this.get_permits();
         this.datatables.initDatatable('#example');
 
-      // fecha de los input 
-      $("#deliver_date").datepicker({dateFormat:'yy-mm-dd'});
-      $("#date").datepicker({dateFormat:'yy-mm-dd'});
+        // fecha de los input 
+        $("#deliver_date").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#date").datepicker({ dateFormat: 'yy-mm-dd' });
 
-      $("#start_date").datepicker({dateFormat:'yy-mm-dd'});
-      $("#end_date").datepicker({dateFormat:'yy-mm-dd'});
+        $("#start_date").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#end_date").datepicker({ dateFormat: 'yy-mm-dd' });
 
-       //////////////////------------------------------------------
+        //////////////////------------------------------------------
     }
 
 
     // funcion para los permisos
-    get_permits(){
+    get_permits() {
 
-       this.PermitsService.getPermits(2,'Purchases');
-       this.permisos = this.PermitsService.getPermitsSubMenu('Purchases');
+        this.PermitsService.getPermits(2, 'Purchases');
+        this.permisos = this.PermitsService.getPermitsSubMenu('Purchases');
 
-  }
+    }
 
 
     // funciones del datatable 
     public addRow(datos): void {
-        this.data=[];
+        this.data = [];
         console.log(this.datos);
         let data1;
         let json = datos;
         for (data1 of json) {
             this.data.push(data1)
         }
-           this.datatables.reInitDatatable('#example');
+        this.datatables.reInitDatatable('#example');
     }
 
     public selectRow(index: number, row: any) {
@@ -129,7 +129,7 @@ export class PurchasesComponent implements OnInit {
     someMethod(event: any) {
         if (event.keyCode == 13) {
             this.addRowHomeCampusProvinceAreaForm();
-          } else {
+        } else {
         }
     }
 
@@ -139,7 +139,7 @@ export class PurchasesComponent implements OnInit {
 
         var table = $('#startdate').serializeObject();
 
-        this.datatableservice.get_datatables(table, '/purchase/search').subscribe(
+        this.datatableservice.get_datatables(table, 'purchase/search').subscribe(
             response => {
                 this.datos = response.purchases;
                 this.addRow(this.datos);
@@ -172,48 +172,48 @@ export class PurchasesComponent implements OnInit {
                 console.log(this.rowDataHomeForm);
 
                 this.head = res.purchases;
-                this.buttonUpdate=false;
+                this.buttonUpdate = false;
             },
             error => {
                 console.log(error);
             }
         )
 
-               this.buttonDisabled = true; // ?
+        this.buttonDisabled = true; // ?
     }
 
 
     //elimina las filas de los tr
-    deleteRowHomeForm(index,event) {
+    deleteRowHomeForm(index, event) {
 
-         let data = event.target.value;
-      
+        let data = event.target.value;
 
-         this.rowDataHomeForm.splice(index, 1);
 
-         let json = {'iddetail_shopping': data}
+        this.rowDataHomeForm.splice(index, 1);
 
-         if(data!=''){
+        let json = { 'iddetail_shopping': data }
 
-              this.PurchasesService.delete(json).subscribe(
+        if (data != '') {
 
-            res => {
-             
-             let response= res.data;
+            this.PurchasesService.delete(json).subscribe(
 
-             if(response=true){
+                res => {
 
-                 swal("", "Se ha Eliminado correctamente el Material", "success");
-             }
+                    let response = res.data;
 
-            },
-            error => {
-                console.log(error);
-            }
-        )
-}
+                    if (response = true) {
 
-      
+                        swal("", "Se ha Eliminado correctamente el Material", "success");
+                    }
+
+                },
+                error => {
+                    console.log(error);
+                }
+            )
+        }
+
+
     }
 
 
@@ -241,7 +241,7 @@ export class PurchasesComponent implements OnInit {
 
         this.PurchasesService.insert(detail_purchase, table).subscribe(
             res => {
-       
+
                 this.head = res;
                 this.response = res.data;
 
@@ -252,11 +252,11 @@ export class PurchasesComponent implements OnInit {
                     swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
                 }
 
-                if(this.response==''){
+                if (this.response == '') {
 
-                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+                    swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
 
-            }
+                }
             },
             error => {
                 swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
@@ -267,16 +267,16 @@ export class PurchasesComponent implements OnInit {
     }
 
 
-  // funcion para imprimir 
-  imprimir(){
+    // funcion para imprimir 
+    imprimir() {
 
-           let consecutive_purc=$('#consecutive_purc').val();
-           let id_company=$('#id_company').val();
-           window.open('http://192.168.1.126:8000/api/purchase/print?consecutive_purc='+consecutive_purc+'&id_company='+id_company, '_blank');
-  }
+        let consecutive_purc = $('#consecutive_purc').val();
+        let id_company = $('#id_company').val();
+        window.open('http://192.168.1.126:8000/api/purchase/print?consecutive_purc=' + consecutive_purc + '&id_company=' + id_company, '_blank');
+    }
 
 
-// funcion para atualizar 
+    // funcion para atualizar 
     update_purchase() {
 
         var rawData = $('#table').serializeFormJSON();
@@ -291,23 +291,23 @@ export class PurchasesComponent implements OnInit {
 
 
         this.PurchasesService.update(detail_purchase, table).subscribe(
-            
+
             res => {
                 this.consecutive = res.consecutive;
                 this.response = res.data;
                 this.buttonDisabled = true; // ?
                 this.rowDataHomeForm = res.detail_purchases;
 
-                if(this.response==true){
+                if (this.response == true) {
 
-                swal("", "Se Atualizo correctamente", "success");
+                    swal("", "Se Atualizo correctamente", "success");
 
                 }
 
-            if(this.response==''){
+                if (this.response == '') {
 
-                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-            }
+                    swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+                }
             },
             error => {
 
