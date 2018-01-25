@@ -131,11 +131,12 @@ select {
 label {
     padding: 0 ! important;
     font-family: 'Roboto', sans-serif;
+    font-size: 13px;
 }
 
 .textarea-modified {
-    min-height: 70px;
-    max-height: 70px;
+    min-height: 85%;
+    max-height: 85%;
 }
 
 
@@ -148,7 +149,6 @@ label {
 }
 
 .ng-invalid.ng-touched:not(form) {
-
     border-color: $colorred;
 }
 

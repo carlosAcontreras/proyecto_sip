@@ -33,8 +33,6 @@
                         </select>
                 </div>
             </div>
-
-
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Proveedor</label>
                 <div class="col-2">
@@ -141,23 +139,16 @@
                                 <button class="btn_delete" value="{{newrow.iddetail_shopping}}" (click)="deleteRowHomeForm(i,$event)" [disabled]="delete==true" type="button" style="padding: 2px">
                                   <i class="fa fa-trash-o" aria-hidden="true"></i>
                                 </button>
-
-
                             </td>
-
                             <td>
                                 <input class="code_provider form-control purchase input-modified" type="text" name="code" focusOnInit="2" value="{{newrow.cod_mater}}">
                                 <input class="form-control purchase hiden input-modified" type="text" name="idcode" value="{{newrow.idincome_details}}" hidden>
                                 <input class="form-control purchase hiden input-modified" type="text" name="iddetail_shopping" value="{{newrow.iddetail_shopping}}" hidden>
                             </td>
-
                             <td>
                                 <input class="description form-control purchase input-modified" type="text" name="description" value="{{newrow.description}}">
                             </td>
-
                             <td>
-
-
                                 <div class="input-group">
                                     <input class="request_amount form-control purchase input-modified" type="text" name="request_amount" value="{{newrow.requested_amount}}">
                                     <span class="input-group-btn">
