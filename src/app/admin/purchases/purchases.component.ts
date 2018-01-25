@@ -72,6 +72,8 @@ export class PurchasesComponent implements OnInit {
     rowDataHomeForm = [];
 
     ngOnInit() {
+
+
         this.buttonUpdate = true;
         this.buttonConse = true;
         this.get_state_movest();
@@ -186,7 +188,7 @@ export class PurchasesComponent implements OnInit {
         if (eliminar == 1) {
             let data = event.target.value;
 
-
+            console.log(index, 1);
             this.rowDataHomeForm.splice(index, 1);
 
             let json = { 'iddetail_shopping': data, user: this.user.identification }
