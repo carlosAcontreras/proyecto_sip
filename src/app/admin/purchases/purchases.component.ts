@@ -6,28 +6,24 @@ import { PurchasesService } from '../../services/purchases/purchases.service';
 import { purchases_head } from '../../models/purchases_model';
 import { PermitsService } from '../../services/permisos/permits.service';
 import swal from 'sweetalert2';
-
-
-
-
 declare var number_format: any;
 declare var add: any;
 import $ from 'jquery';
-
-
+declare var validateDate: any;
 import 'jquery-ui/ui/widgets/datepicker';
 import 'jquery-ui/ui/widgets/autocomplete';
+import { CustomValidators } from 'ng2-validation';
 
 import { DatatablesService } from '../../services/datatables/datatables.service';
 import { datatables } from '../../utilitis/datatables';
+
+
 @Component({
     selector: 'app-purchases',
     templateUrl: './purchases.component.html',
     styleUrls: ['./purchases.component.scss'],
-    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService, PermitsService]
+    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService, PermitsService,PermitsService]
 })
-
-
 
 export class PurchasesComponent implements OnInit {
 
@@ -48,8 +44,10 @@ export class PurchasesComponent implements OnInit {
     public detail_purchases;
     public head = new purchases_head();
     public permisos;
+    public validateHead = new purchases_head();
 
     public text: String;
+    public user;
     public data =
         [];
 
@@ -62,7 +60,8 @@ export class PurchasesComponent implements OnInit {
         private datatableservice: DatatablesService,
         private eRef: ElementRef,
         private PurchasesService: PurchasesService,
-        private PermitsService: PermitsService
+        private PermitsService: PermitsService,
+        private PermisosService: PermitsService
     ) {
 
         this.datatables = new datatables();
@@ -73,7 +72,7 @@ export class PurchasesComponent implements OnInit {
 
     ngOnInit() {
         this.buttonUpdate = true;
-        localStorage.setItem('company', '1');
+ 
         this.get_state_movest();
         this.AutocompleteService.autocomplete_provider();
         this.AutocompleteService.autocomplete_code_provider();
@@ -84,23 +83,17 @@ export class PurchasesComponent implements OnInit {
         this.company = localStorage.getItem('company')
         this.get_permits();
         this.datatables.initDatatable('#example');
+        this.permisos = this.PermitsService.getPermitsSubMenu('Purchases');
+        this.user  =JSON.parse(localStorage.getItem('user'));
 
-        // fecha de los input 
-        $("#deliver_date").datepicker({ dateFormat: 'yy-mm-dd' });
-        $("#date").datepicker({ dateFormat: 'yy-mm-dd' });
-
-        $("#start_date").datepicker({ dateFormat: 'yy-mm-dd' });
-        $("#end_date").datepicker({ dateFormat: 'yy-mm-dd' });
-
-        //////////////////------------------------------------------
     }
+
 
 
     // funcion para los permisos
     get_permits() {
 
         this.PermitsService.getPermits(2, 'Purchases');
-        this.permisos = this.PermitsService.getPermitsSubMenu('Purchases');
 
     }
 
@@ -186,12 +179,15 @@ export class PurchasesComponent implements OnInit {
     //elimina las filas de los tr
     deleteRowHomeForm(index, event) {
 
+        
+        let eliminar = this.permisos.delete;
+        if(eliminar==1){
         let data = event.target.value;
 
 
         this.rowDataHomeForm.splice(index, 1);
 
-        let json = { 'iddetail_shopping': data }
+        let json = { 'iddetail_shopping': data,  user: this.user.identification }
 
         if (data != '') {
 
@@ -212,7 +208,10 @@ export class PurchasesComponent implements OnInit {
                 }
             )
         }
+    }else{
 
+        swal("", "No Tiene permisos para eliminar", "error");
+    }
 
     }
 
@@ -229,13 +228,17 @@ export class PurchasesComponent implements OnInit {
     // funcion para insertar los materiales 
     inser_purchase() {
 
+        let insert = this.permisos.save;
+        console.log(insert );
+
+        if(insert==1){
         var rawData = $('#table').serializeFormJSON();
         var formData = JSON.stringify(rawData);
 
         var table = $('#form').serializeObject();
 
 
-        let detail_purchase = { body: formData, head: table }
+        let detail_purchase = { body: formData, head: table, user: this.user.identification }
 
         console.log(detail_purchase);
 
@@ -264,6 +267,12 @@ export class PurchasesComponent implements OnInit {
             }
         )
 
+    }else{
+
+        swal("", "No Tiene permisos para Guardar", "error");
+
+    }
+
     }
 
 
@@ -279,14 +288,17 @@ export class PurchasesComponent implements OnInit {
     // funcion para atualizar 
     update_purchase() {
 
+    let update = this.permisos.update;
+        
+        if(update==1){
         var rawData = $('#table').serializeFormJSON();
         var formData = JSON.stringify(rawData);
 
 
         var table = $('#form').serializeObject();
 
-
-        let detail_purchase = { body: formData, head: table }
+        let user=this.user.identification
+        let detail_purchase = { body: formData, head: table, user: this.user.identification }
 
 
 
@@ -315,6 +327,12 @@ export class PurchasesComponent implements OnInit {
                 console.log(error);
             }
         )
+    }else{
+
+        swal("", "No tiene Permisos Para Atualizar", "error");
+
+    }
+
     }
 
 
