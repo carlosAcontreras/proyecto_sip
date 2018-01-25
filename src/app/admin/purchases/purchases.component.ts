@@ -22,7 +22,7 @@ import { datatables } from '../../utilitis/datatables';
     selector: 'app-purchases',
     templateUrl: './purchases.component.html',
     styleUrls: ['./purchases.component.scss'],
-    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService, PermitsService,PermitsService]
+    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService, PermitsService, PermitsService]
 })
 
 export class PurchasesComponent implements OnInit {
@@ -38,7 +38,8 @@ export class PurchasesComponent implements OnInit {
     private datatables;
     public datos;
     public tableWidget: any;
-
+    public buttonConse;
+    public buttonProvider;
     public selectedName: string = "";
     public purchases;
     public detail_purchases;
@@ -72,7 +73,7 @@ export class PurchasesComponent implements OnInit {
 
     ngOnInit() {
         this.buttonUpdate = true;
- 
+        this.buttonConse = true;
         this.get_state_movest();
         this.AutocompleteService.autocomplete_provider();
         this.AutocompleteService.autocomplete_code_provider();
@@ -84,7 +85,7 @@ export class PurchasesComponent implements OnInit {
         this.get_permits();
         this.datatables.initDatatable('#example');
         this.permisos = this.PermitsService.getPermitsSubMenu('Purchases');
-        this.user  =JSON.parse(localStorage.getItem('user'));
+        this.user = JSON.parse(localStorage.getItem('user'));
 
     }
 
@@ -147,7 +148,7 @@ export class PurchasesComponent implements OnInit {
 
     // funcion para el boton de seleccionar en la ventana modal
     handleClick(event) {
-
+        this.buttonProvider = true;
         let data = event.target.value.split(",");
         console.log(data);
 
@@ -165,6 +166,7 @@ export class PurchasesComponent implements OnInit {
                 console.log(this.rowDataHomeForm);
 
                 this.head = res.purchases;
+                this.consecutive = this.head.consecutive_purc;
                 this.buttonUpdate = false;
             },
             error => {
@@ -179,39 +181,39 @@ export class PurchasesComponent implements OnInit {
     //elimina las filas de los tr
     deleteRowHomeForm(index, event) {
 
-        
+
         let eliminar = this.permisos.delete;
-        if(eliminar==1){
-        let data = event.target.value;
+        if (eliminar == 1) {
+            let data = event.target.value;
 
 
-        this.rowDataHomeForm.splice(index, 1);
+            this.rowDataHomeForm.splice(index, 1);
 
-        let json = { 'iddetail_shopping': data,  user: this.user.identification }
+            let json = { 'iddetail_shopping': data, user: this.user.identification }
 
-        if (data != '') {
+            if (data != '') {
 
-            this.PurchasesService.delete(json).subscribe(
+                this.PurchasesService.delete(json).subscribe(
 
-                res => {
+                    res => {
 
-                    let response = res.data;
+                        let response = res.data;
 
-                    if (response = true) {
+                        if (response = true) {
 
-                        swal("", "Se ha Eliminado correctamente el Material", "success");
+                            swal("", "Se ha Eliminado correctamente el Material", "success");
+                        }
+
+                    },
+                    error => {
+                        console.log(error);
                     }
+                )
+            }
+        } else {
 
-                },
-                error => {
-                    console.log(error);
-                }
-            )
+            swal("", "No Tiene permisos para eliminar", "error");
         }
-    }else{
-
-        swal("", "No Tiene permisos para eliminar", "error");
-    }
 
     }
 
@@ -229,49 +231,49 @@ export class PurchasesComponent implements OnInit {
     inser_purchase() {
 
         let insert = this.permisos.save;
-        console.log(insert );
-
-        if(insert==1){
-        var rawData = $('#table').serializeFormJSON();
-        var formData = JSON.stringify(rawData);
-
-        var table = $('#form').serializeObject();
 
 
-        let detail_purchase = { body: formData, head: table, user: this.user.identification }
+        if (insert == 1) {
+            var rawData = $('#table').serializeFormJSON();
+            var formData = JSON.stringify(rawData);
 
-        console.log(detail_purchase);
+            var table = $('#form').serializeObject();
 
-        this.PurchasesService.insert(detail_purchase, table).subscribe(
-            res => {
 
-                this.head = res;
-                this.response = res.data;
+            let detail_purchase = { body: formData, head: table, user: this.user.identification }
 
-                if (this.response == true) {
+            console.log(detail_purchase);
 
-                    this.buttonDisabled = true; // ?
+            this.PurchasesService.insert(detail_purchase, table).subscribe(
+                res => {
 
-                    swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
-                }
+                    this.consecutive = res.consecutive_purc;
+                    this.response = res.data;
 
-                if (this.response == '') {
+                    if (this.response == true) {
 
+                        this.buttonDisabled = true; // ?
+
+                        swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
+                    }
+
+                    if (this.response == '') {
+
+                        swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+
+                    }
+                },
+                error => {
                     swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-
+                    console.log(error);
                 }
-            },
-            error => {
-                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-                console.log(error);
-            }
-        )
+            )
 
-    }else{
+        } else {
 
-        swal("", "No Tiene permisos para Guardar", "error");
+            swal("", "No Tiene permisos para Guardar", "error");
 
-    }
+        }
 
     }
 
@@ -288,50 +290,51 @@ export class PurchasesComponent implements OnInit {
     // funcion para atualizar 
     update_purchase() {
 
-    let update = this.permisos.update;
-        
-        if(update==1){
-        var rawData = $('#table').serializeFormJSON();
-        var formData = JSON.stringify(rawData);
+        let update = this.permisos.update;
 
-
-        var table = $('#form').serializeObject();
-
-        let user=this.user.identification
-        let detail_purchase = { body: formData, head: table, user: this.user.identification }
+        if (update == 1) {
+            var rawData = $('#table').serializeFormJSON();
+            var formData = JSON.stringify(rawData);
 
 
 
-        this.PurchasesService.update(detail_purchase, table).subscribe(
+            var table = $('#form').serializeObject();
 
-            res => {
-                this.consecutive = res.consecutive;
-                this.response = res.data;
-                this.buttonDisabled = true; // ?
-                this.rowDataHomeForm = res.detail_purchases;
+            let user = this.user.identification
+            let detail_purchase = { body: formData, head: table, user: this.user.identification }
 
-                if (this.response == true) {
 
-                    swal("", "Se Atualizo correctamente", "success");
 
-                }
+            this.PurchasesService.update(detail_purchase, table).subscribe(
 
-                if (this.response == '') {
+                res => {
+
+                    this.response = res.data;
+                    this.buttonDisabled = true; // ?
+                    this.rowDataHomeForm = res.detail_purchases;
+
+                    if (this.response == true) {
+
+                        swal("", "Se Atualizo correctamente", "success");
+
+                    }
+
+                    if (this.response == '') {
+
+                        swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+                    }
+                },
+                error => {
 
                     swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+                    console.log(error);
                 }
-            },
-            error => {
+            )
+        } else {
 
-                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-                console.log(error);
-            }
-        )
-    }else{
+            swal("", "No tiene Permisos Para Atualizar", "error");
 
-        swal("", "No tiene Permisos Para Atualizar", "error");
-
-    }
+        }
 
     }
 
