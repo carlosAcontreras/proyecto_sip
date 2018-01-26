@@ -94,8 +94,7 @@
                         <tr class="item_actividad eliminar_tr" *ngFor="let newrow of rowDataHomeForm; let i=index" #let>
                             <td class="text-center">
 
-                                <button class="btn_delete" value="{{newrow.iddetail_shopping}}" (click)="deleteRowHomeForm(i,$event)" type="button" style="padding: 2px">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                <button class="btn_delete fa fa-trash-o" value="{{newrow.iddetail_shopping}}" (click)="deleteRowHomeForm(i,$event)" type="button" style="padding: 2px">
                                 </button>
 
 

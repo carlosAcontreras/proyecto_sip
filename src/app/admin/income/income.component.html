@@ -95,7 +95,6 @@
 
         </form>
 
-
         <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_income.valid || buttoinsert==true" data-toggle="modal" data-target="#guardar_income">Guardar</button>
         <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar_income" [disabled]="buttonUpdate==true">Actualizar</button>
 
@@ -136,8 +135,7 @@
                         <tr class="item_actividad eliminar_tr" *ngFor="let newrow of rowDatatable; let i=index">
                             <td class="text-center">
 
-                                <button class="btn_delete" value="{{newrow.iddetail_shopping}}" (click)="deleteRowHomeForm(i,$event)" [disabled]="delete==true" type="button" style="padding: 2px">
-                                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                <button class="btn_delete fa fa-trash-o" value="{{newrow.iddetail_shopping}}" (click)="deleteRowHomeForm(i,$event)" [disabled]="delete==true" type="button" style="padding: 2px">
                                 </button>
                             </td>
                             <td>
