@@ -7,6 +7,7 @@ import { from } from 'rxjs/observable/from';
 
 import 'jquery-ui/ui/widgets/datepicker';
 import 'jquery-ui/ui/widgets/autocomplete';
+import { CustomValidators } from 'ng2-validation';
 
 import swal from 'sweetalert2';
 import $ from 'jquery';
@@ -37,6 +38,11 @@ export class DispatchesComponent implements OnInit {
     public datatables;
     public data = [];
     public datos;
+
+    public validateHead = {
+        "date": "",
+        "employee_name": ""
+    };
 
 
     constructor(private ListService: ListService, private AutocompleteService: AutocompleteService, private DispatchesService: DispatchesService, private SerializerService: SerializerService, private datatableservice: DatatablesService, ) { }

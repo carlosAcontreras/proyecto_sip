@@ -4,7 +4,7 @@
     </div>
 
     <div class="col-12">
-        <form id="head_dispatch">
+        <form id="head_dispatch" #form_dispaches="ngForm">
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Destino</label>
                 <div class="col-2">
@@ -16,7 +16,9 @@
 
                 <label for=" " class="col-1 col-form-label">Fecha</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value="" name="date" id="date">
+                    <input class="form-control input-modified" type="date" value="" name="date" [(ngModel)]="validateHead.date" #date="ngModel" date required>
+                    <span *ngIf="date.errors?.required && date.touched" class="error_message">el campo es requerido</span>
+                    <span *ngIf="date.errors?.date && date.touched" class="error_message">la fecha no es validaa</span>
                 </div>
 
 
@@ -43,7 +45,6 @@
                 <label for=" " class="col-1 col-form-label">Consecutivo</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" value="{{consecutive}}" name='consecutive'>
-                    <input class="form-control input-modified" type="text" value="{{company}}" name='idcompany' id='idcompany'>
                 </div>
 
                 <label for=" " class="col-1 col-form-label">Consecutivo Obra</label>
@@ -71,7 +72,8 @@
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Encargado</label>
                 <div class="col-2">
-                    <input class="employee form-control input-modified" type="text" name="employee" id="employee">
+                    <input class="employee form-control input-modified" type="text" name="employee" id="employee" [(ngModel)]="employee_name" #employee="ngModel" required>
+                    <span *ngIf="employee.errors?.required && employee.touched" class="error_message">el campo es requerido</span>
                     <input class="employee form-control input-modified" type="text" name="employeeid" id="employeehiden" hidden>
                 </div>
                 <label for=" " class="col-1 col-form-label">Dirección</label>
@@ -81,7 +83,7 @@
 
             </div>
         </form>
-        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#guardar_dispatches" [disabled]="buttoinsert==false">Guardar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#guardar_dispatches" [disabled]="!form_dispaches.valid || buttoinsert==false">Guardar</button>
         <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar_dispatches">Actualizar</button>
         <button class=" btn btn_success btn-sm mr-3 my-3">
             <i class="fa fa-print" aria-hidden="true"></i>Imprimir
@@ -144,7 +146,6 @@
                                 <input class="stock form-control input-modified" type="text" name="stock" [disabled]="btndisabled==false">
                             </td>
                             <td class="text-center"> </td>
-
                         </tr>
                     </tbody>
                 </table>
@@ -264,4 +265,4 @@
             </div>
         </div>
     </div>
-</div>-
+</div>
