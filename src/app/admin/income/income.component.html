@@ -10,12 +10,13 @@
                 <label for=" " class="col-1 col-form-label">Movimiento</label>
                 <div class="col-2">
                     <select name=" " id=" " class="form-control input-modified" name="income_move">
-                           <option *ngFor="let moves_income of moves_income" value="{{moves_income.idincome_move}}"  [selected]="moves_income.idincome_move==idincome_move" >{{moves_income.income_move_name}}</option>
+                        <option *ngFor="let moves_income of moves_income" value="{{moves_income.idincome_move}}" [selected]="moves_income.idincome_move==idincome_move">{{moves_income.income_move_name}}</option>
                     </select>
 
                 </div>
 
-                <label for=" " class="col-1 col-form-label"># Compra   <i class="fa fa-search btn btn-sm btn_success" data-toggle="modal" data-target="#buscar_purchases"></i>
+                <label for=" " class="col-1 col-form-label"># Compra
+                    <i class="fa fa-search btn btn-sm btn_success" data-toggle="modal" data-target="#buscar_purchases"></i>
                 </label>
 
 
@@ -29,21 +30,24 @@
                     <select name=" " id=" " class="form-control input-modified" name="cellar">
                         <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}" [selected]="cellar.idcellar==purchases_cellar">
 
-                        {{cellar.name}}</option>
-                        </select>
+                            {{cellar.name}}</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Proveedor</label>
                 <div class="col-2">
-                    <input class="form-control input-modified provider" type="text" name="name_provider" id="providers_name" value="{{providers_name}}" [(ngModel)]="validateHead.provider" #provider="ngModel" required>
+                    <input class="form-control input-modified provider" type="text" name="name_provider" id="providers_name" value="{{providers_name}}"
+                        [(ngModel)]="validateHead.provider" #provider="ngModel" required>
                     <span *ngIf="provider.errors?.required && provider.touched" class="error_message">el campo es requerido</span>
-                    <input class="form-control input-modified provider hiden" type="text" name="provider" id="providerhiden" value="{{provider}}" hidden>
+                    <input class="form-control input-modified provider hiden" type="text" name="provider" id="providerhiden" value="{{provider}}"
+                        hidden>
                 </div>
 
                 <label for=" " class="col-1 col-form-label">Fecha Ingreso</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="date" value="{{income_date}}" name="income_date" [(ngModel)]="validateHead.income_date" #income_date="ngModel" date required>
+                    <input class="form-control input-modified" type="date" value="{{income_date}}" name="income_date" [(ngModel)]="validateHead.income_date"
+                        #income_date="ngModel" date required>
                     <span *ngIf="income_date.errors?.date && income_date.touched" class="error_message">la fecha no es valida</span>
                     <span *ngIf="income_date.errors?.required && income_date.touched" class="error_message">el campo fecha es requerido</span>
                 </div>
@@ -96,11 +100,12 @@
         </form>
 
 
-        <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_income.valid || buttoinsert==true" data-toggle="modal" data-target="#guardar_income">Guardar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_income.valid || buttoinsert==true" data-toggle="modal"
+            data-target="#guardar_income">Guardar</button>
         <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar_income" [disabled]="buttonUpdate==true">Actualizar</button>
 
         <button class=" btn btn_success btn-sm mr-3 my-3">
-            <i class="fa fa-print" aria-hidden="true"></i>  Imprimir
+            <i class="fa fa-print" aria-hidden="true"></i> Imprimir
         </button>
         <button class="btn btn_success btn-sm mr-3 my-3" data-target="#buscar_n_income" data-toggle="modal">Buscar
             <i aria-hidden="true" class="fa fa-print"></i>
@@ -136,14 +141,16 @@
                         <tr class="item_actividad eliminar_tr" *ngFor="let newrow of rowDatatable; let i=index">
                             <td class="text-center">
 
-                                <button class="btn_delete" value="{{newrow.iddetail_shopping}}" (click)="deleteRowHomeForm(i,$event)" [disabled]="delete==true" type="button" style="padding: 2px">
-                                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                <button class="btn_delete fa fa-trash-o" value="{{newrow.idincome_details}}" (click)="deleteRowHomeForm(i,$event)" type="button"
+                                    style="padding: 2px">
+
                                 </button>
                             </td>
                             <td>
                                 <input class="code_provider form-control purchase input-modified" type="text" name="code" focusOnInit="2" value="{{newrow.cod_mater}}">
                                 <input class="form-control purchase hiden input-modified" type="text" name="idcode" value="{{newrow.idincome_details}}" hidden>
-                                <input class="form-control purchase hiden input-modified" type="text" name="iddetail_shopping" value="{{newrow.iddetail_shopping}}" hidden>
+                                <input class="form-control purchase hiden input-modified" type="text" name="iddetail_shopping" value="{{newrow.iddetail_shopping}}"
+                                    hidden>
                             </td>
                             <td>
                                 <input class="description form-control purchase input-modified" type="text" name="description" value="{{newrow.description}}">
@@ -152,8 +159,9 @@
                                 <div class="input-group">
                                     <input class="request_amount form-control purchase input-modified" type="text" name="request_amount" value="{{newrow.requested_amount}}">
                                     <span class="input-group-btn">
-                           <button class="btn btn-default input-modified" type="button" value="{{newrow.iddetail_shopping}},{{newrow.requested_amount}}" (click)="editpurchase($event)">Edit</button>
-                           </span>
+                                        <button class="btn btn-default input-modified" type="button" value="{{newrow.iddetail_shopping}},{{newrow.requested_amount}}"
+                                            (click)="editpurchase($event)">Edit</button>
+                                    </span>
                                 </div>
 
                             </td>
@@ -208,8 +216,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">BUSCAR</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form id="date_purchases">
@@ -252,7 +260,8 @@
                                     <td>{{row.purchases_date}}</td>
 
                                     <td>
-                                        <button class="btn btn_select btn-sm" data-dismiss="modal" value="{{row.idpurchases}},{{row.consecutive_purc}},{{row.purchases_id_company}}" (click)="seleccionar($event)">Selecionar</button>
+                                        <button class="btn btn_select btn-sm" data-dismiss="modal" value="{{row.idpurchases}},{{row.consecutive_purc}},{{row.purchases_id_company}}"
+                                            (click)="seleccionar($event)">Selecionar</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -276,8 +285,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">BUSCAR</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form id="searc_income">
@@ -319,7 +328,8 @@
                                     <td>{{row.income_date}}</td>
 
                                     <td>
-                                        <button class="btn btn_select btn-sm" data-dismiss="modal" value="{{row.idincome}},{{row.income_conse}},{{row.income_idcompany}}" (click)="seleccionar_income($event)">Selecionar</button>
+                                        <button class="btn btn_select btn-sm" data-dismiss="modal" value="{{row.idincome}},{{row.income_conse}},{{row.income_idcompany}}"
+                                            (click)="seleccionar_income($event)">Selecionar</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -341,8 +351,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">BUSCAR</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form>
@@ -372,8 +382,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form>
@@ -396,8 +406,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Guardar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form>

@@ -5,6 +5,7 @@ import { PurchasesService } from '../../services/purchases/purchases.service';
 import swal from 'sweetalert2';
 import { IncomeService } from '../../services/income/income.service';
 import { ListService } from '../../services/list/list.service';
+import { PermitsService } from '../../services/permisos/permits.service';
 import 'jquery-ui/ui/widgets/datepicker';
 import 'jquery-ui/ui/widgets/autocomplete';
 import $ from 'jquery';
@@ -14,11 +15,12 @@ import { datatables } from '../../utilitis/datatables';
 import { CustomValidators } from 'ng2-validation';
 import { income_head } from '../../models/income_model';
 
+
 @Component({
     selector: 'app-income',
     templateUrl: './income.component.html',
     styleUrls: ['./income.component.scss'],
-    providers: [ListService, AutocompleteService, DatatablesService, datatables, SerializerService, PurchasesService, IncomeService]
+    providers: [ListService, AutocompleteService, DatatablesService, datatables, SerializerService, PurchasesService, IncomeService, PermitsService]
 })
 export class IncomeComponent implements OnInit {
 
@@ -60,9 +62,11 @@ export class IncomeComponent implements OnInit {
     public idincome_move;
     public delete;
     public validateHead = new income_head();
+    public permisos;
+    public user;
 
 
-
+    rowDataHomeForm = [];
 
 
 
@@ -75,7 +79,8 @@ export class IncomeComponent implements OnInit {
         private SerializerService: SerializerService,
         private PurchasesService: PurchasesService,
         private IncomeService: IncomeService,
-        private ListService: ListService) { }
+        private ListService: ListService,
+        private PermitsService: PermitsService) { }
 
     ngOnInit() {
         this.buttonUpdate = true;
@@ -90,16 +95,10 @@ export class IncomeComponent implements OnInit {
         this.get_state_movest();
 
         this.datatables.initDatatable('#search_purchases');
+        this.get_permits();
+        this.permisos = this.PermitsService.getPermitsSubMenu('income');
+        this.user = JSON.parse(localStorage.getItem('user'));
 
-
-        $('#income_date').datepicker({ dateFormat: 'yy-mm-dd' });
-        $('#income_date_delivery').datepicker({ dateFormat: 'yy-mm-dd' });
-
-        $('#start_date').datepicker({ dateFormat: 'yy-mm-dd' });
-        $('#end_date').datepicker({ dateFormat: 'yy-mm-dd' });
-
-        $('#income_start_date').datepicker({ dateFormat: 'yy-mm-dd' });
-        $('#income_end_date').datepicker({ dateFormat: 'yy-mm-dd' });
 
     }
 
@@ -115,6 +114,11 @@ export class IncomeComponent implements OnInit {
         )
     }
 
+    get_permits() {
+
+        this.PermitsService.getPermits(3, 'income');
+
+    }
 
     // funcion para consutar la lista de almaenes 
     get_cellar(idcompany) {
@@ -314,47 +318,87 @@ export class IncomeComponent implements OnInit {
     }
 
 
+    //elimina las filas de los tr
+    deleteRowHomeForm(index, event) {
+
+
+        let eliminar = this.permisos.delete;
+        if (eliminar == 1) {
+            let data = event.target.value;
+            this.rowDatatable.splice(index, 1);
+
+            let json = { 'idincome_details': data, user: this.user.identification }
+
+            if (data != '') {
+
+                this.IncomeService.delete(json).subscribe(
+
+                    res => {
+
+                        let response = res.data;
+
+                        if (response = true) {
+
+                            swal("", "Se ha Eliminado correctamente el Material", "success");
+                        }
+
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                )
+            }
+        } else {
+
+            swal("", "No Tiene permisos para eliminar", "error");
+        }
+
+    }
+
     // funcion para insertar los ingresos
     insert_income() {
 
+        if (this.permisos.save == 1) {
+            var rawData = $('#table_income').serializeFormJSON();
+            var formData = JSON.stringify(rawData);
 
-        var rawData = $('#table_income').serializeFormJSON();
-        var formData = JSON.stringify(rawData);
+            var table = $('#income').serializeObject();
 
-        var table = $('#income').serializeObject();
-
-        let income = { body: formData, head: table }
-
-
-
-        this.IncomeService.insert(income).subscribe(
-            res => {
-
-                this.buttoinsert = false;
-                this.income_conse = res.income_conse;
-
-                this.response = res.data;
-
-                if (this.response == true) {
+            let income = { body: formData, head: table }
 
 
 
-                    swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
+            this.IncomeService.insert(income).subscribe(
+                res => {
 
-                }
+                    this.buttoinsert = false;
+                    this.income_conse = res.income_conse;
 
-                if (this.response == '') {
+                    this.response = res.data;
 
+                    if (this.response == true) {
+
+
+
+                        swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
+
+                    }
+
+                    if (this.response == '') {
+
+                        swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+
+                    }
+                },
+                error => {
                     swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-
+                    console.log(error);
                 }
-            },
-            error => {
-                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-                console.log(error);
-            }
-        )
+            )
+        } else {
+            swal("", "No Cuenta con Permiso Para Guardar", "error");
 
+        }
     }
 
 
@@ -386,42 +430,47 @@ export class IncomeComponent implements OnInit {
     // funcion de atualizar
     update_income() {
 
-        var rawData = $('#table_income').serializeFormJSON();
-        var formData = JSON.stringify(rawData);
+        if (this.permisos.update == 1) {
 
-        var table = $('#income').serializeObject();
+            var rawData = $('#table_income').serializeFormJSON();
+            var formData = JSON.stringify(rawData);
 
-        let income = { body: formData, head: table }
+            var table = $('#income').serializeObject();
 
-
-
-        this.IncomeService.update(income).subscribe(
-            res => {
-
-                this.response = res.data;
-
-
-                if (this.response == true) {
+            let income = { body: formData, head: table }
 
 
 
-                    swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
+            this.IncomeService.update(income).subscribe(
+                res => {
 
-                }
+                    this.response = res.data;
 
-                if (this.response == '') {
 
+                    if (this.response == true) {
+
+
+
+                        swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
+
+                    }
+
+                    if (this.response == '') {
+
+                        swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+
+                    }
+                },
+                error => {
                     swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-
+                    console.log(error);
                 }
-            },
-            error => {
-                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-                console.log(error);
-            }
-        )
+            )
 
+        } else {
+            swal("", "No Cuenta con Permiso Atualizar", "error");
 
+        }
     }
 
     // funcion para las operaciones de cada fila de la tabla 

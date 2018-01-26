@@ -16,32 +16,38 @@ export class IncomeService {
 
 
 
-   insert(params){
+  insert(params) {
 
     this.url = this.constantes.getRouterGlobal() + 'income/create';
-    
-    return this.http.post(this.url, params).map(res => res.json());  
+
+    return this.http.post(this.url, params).map(res => res.json());
   }
 
-  serach_income(params){
+  serach_income(params) {
 
     this.url = this.constantes.getRouterGlobal() + 'income/search';
-    
-    return this.http.post(this.url, params).map(res => res.json());  
+
+    return this.http.post(this.url, params).map(res => res.json());
 
   }
 
-  update(params){
+  update(params) {
 
     this.url = this.constantes.getRouterGlobal() + 'income/update';
-    
-    return this.http.post(this.url, params).map(res => res.json());  
+
+    return this.http.post(this.url, params).map(res => res.json());
   }
 
-  editpurchase(params){
-   this.url = this.constantes.getRouterGlobal() + 'income/editpurchase';
-    
-    return this.http.post(this.url, params).map(res => res.json()); 
+  editpurchase(params) {
+    this.url = this.constantes.getRouterGlobal() + 'income/editpurchase';
+
+    return this.http.post(this.url, params).map(res => res.json());
+
+  }
+
+  delete(params) {
+    this.url = this.constantes.getRouterGlobal() + 'income/delete';
+    return this.http.post(this.url, params).map(res => res.json());
 
   }
 

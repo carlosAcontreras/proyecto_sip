@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { ListService } from '../../services/list/list.service';
 import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
 import { SerializerService } from '../../services/serializer/serializer.service';
@@ -18,14 +18,18 @@ import { DatatablesService } from '../../services/datatables/datatables.service'
 import { datatables } from '../../utilitis/datatables';
 
 
+
 @Component({
     selector: 'app-purchases',
     templateUrl: './purchases.component.html',
     styleUrls: ['./purchases.component.scss'],
-    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService, PermitsService, PermitsService]
+    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService, PermitsService]
 })
 
 export class PurchasesComponent implements OnInit {
+
+
+    @ViewChild('data') input: ElementRef;
 
     public state_moves;
     public cellar;
@@ -62,7 +66,7 @@ export class PurchasesComponent implements OnInit {
         private eRef: ElementRef,
         private PurchasesService: PurchasesService,
         private PermitsService: PermitsService,
-        private PermisosService: PermitsService
+
     ) {
 
         this.datatables = new datatables();
@@ -114,7 +118,9 @@ export class PurchasesComponent implements OnInit {
     }
 
     public selectRow(index: number, row: any) {
-        this.selectedName = "row#" + index + " " + row.consecutive_purc
+
+        this.selectedName = "row#" + index + " " + row.consecutive_purc + row.providers_name
+        console.log(this.selectedName);
     }
 
     /////////////////////////////////-----------------------------------------////////////////////////////////--------------------------------///////////////////////////////////////////////__________
@@ -179,16 +185,15 @@ export class PurchasesComponent implements OnInit {
         this.buttonDisabled = true; // ?
     }
 
-
+    ngAfterViewInit() { console.log(this.input); }
     //elimina las filas de los tr
-    deleteRowHomeForm(index, event) {
+    delete(index, event) {
 
 
         let eliminar = this.permisos.delete;
         if (eliminar == 1) {
-            let data = event.target.value;
 
-            console.log(index, 1);
+            let data = event.target.value;
             this.rowDataHomeForm.splice(index, 1);
 
             let json = { 'iddetail_shopping': data, user: this.user.identification }

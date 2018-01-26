@@ -27,6 +27,7 @@ export class PermitsService {
     let headers = new Headers({ 'Content-type': 'aplication/json' });
     let options = new RequestOptions({ headers: headers });
     let params = this.getParams(menu);
+
     this.http.post(this.url, params, options).map(res => res.json()).subscribe(
       result => {
         this.materials_permits = JSON.stringify(result);
