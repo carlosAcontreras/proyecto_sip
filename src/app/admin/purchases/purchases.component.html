@@ -1,4 +1,4 @@
-<!--<div class="container-fluid container-modified">
+<div class="container-fluid container-modified">
     <div class="col-12">
         <h3 class="mb-3 title">Compras</h3>
     </div>
@@ -7,19 +7,15 @@
             <div class="form-group row" id="purchase">
                 <label for="" class="col-1 col-form-label">Orden Compra</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value="{{consecutive}}" name="consecutive_purc" id="consecutive_purc"
-                        readonly>
+                    <input class="form-control input-modified" type="text" value="{{consecutive}}" name="consecutive_purc" id="consecutive_purc" readonly>
                     <input class="form-control input-modified" type="text" value="{{company}}" name="id_company" id="id_company" hidden>
-                    <input class="form-control input-modified" type="text" value="{{head.idpurchases}}" name="id_purchases" id="id_prchases"
-                        hidden>
+                    <input class="form-control input-modified" type="text" value="{{head.idpurchases}}" name="id_purchases" id="id_prchases" hidden>
                 </div>
                 <label for="" class="col-1 col-form-label label-required">Proveedor</label>
                 <div class="col-2">
-                    <input class="form-control input-modified provider" type="text" name="name_provider" id="provider" value="{{head.providers_name}}"
-                        [(ngModel)]="head.providers_name" #provider="ngModel" required [readonly]="buttonProvider">
+                    <input class="form-control input-modified provider" type="text" name="name_provider" id="provider" value="{{head.providers_name}}" [(ngModel)]="head.providers_name" #provider="ngModel" required [readonly]="buttonProvider">
                     <span *ngIf="provider.errors?.required && provider.touched" class="error_message">el campo es requerido</span>
-                    <input class="form-control input-modified provider hiden" type="text" name="provider" id="providerhiden" value="{{head.provider}}"
-                        hidden>
+                    <input class="form-control input-modified provider hiden" type="text" name="provider" id="providerhiden" value="{{head.provider}}" hidden>
                 </div>
                 <label for="" class="col-1 col-form-label">Estado/Orden</label>
                 <div class="col-2">
@@ -33,15 +29,13 @@
             <div class="form-group row">
                 <label for="" class="col-1 col-form-label label-required">Fecha</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="date" name="date" [(ngModel)]="head.purchases_date" #date="ngModel" date
-                        required>
+                    <input class="form-control input-modified" type="date" name="date" [(ngModel)]="head.purchases_date" #date="ngModel" date required>
                     <span *ngIf="date.errors?.date && date.touched" class="error_message">la fecha no es valida</span>
                     <span *ngIf="date.errors?.required && date.touched" class="error_message">el campo fecha es requerido</span>
                 </div>
                 <label for="" class="col-1 col-form-label">Fecha Entrega</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="date" name="deliver_date" value="{{head.purchases_deliver_date}}" [(ngModel)]="validateHead.deliver_date"
-                        date #deliver_date="ngModel">
+                    <input class="form-control input-modified" type="date" name="deliver_date" value="{{head.purchases_deliver_date}}" [(ngModel)]="validateHead.deliver_date" date #deliver_date="ngModel">
                     <span *ngIf="deliver_date.errors?.date && deliver_date.touched" class="error_message">la fecha no es valida</span>
                 </div>
                 <label for="" class="col-1 col-form-label">Almacen</label>
@@ -60,8 +54,7 @@
                 </div>
             </div>
         </form>
-        <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_purchases.valid || buttonDisabled" data-toggle="modal"
-            data-target="#guardar">Guardar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_purchases.valid || buttonDisabled" data-toggle="modal" data-target="#guardar">Guardar</button>
         <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" [disabled]="buttonUpdate==true
         " data-target="#actualizar">Actualizar</button>
         <button class=" btn btn_success btn-sm mr-3 my-3" (click)="imprimir()">
@@ -73,81 +66,8 @@
             <i class="fa fa-search" aria-hidden="true"></i>
         </button>
     </div>
-</div>-->
-
-<!-- card de pruebas para modificar el archivo-->
-<div class="container-fluid container-modified">
-    <div class="col-12">
-        <h3 class="mb-3 title">Compras</h3>
-    </div>
-    <form id="form" class="col-12 mb-4" #form_purchases="ngForm">
-        <div class="row">
-            <div class="col-sm-12 col-md-7">
-                <div class="row mb-4">
-                    <div class="col-4">
-                        <label class="col-form-label label_required">Orden Compra</label>
-                        <input class="form-control input-modified" type="text" value="{{consecutive}}" name="consecutive_purc" id="consecutive_purc"
-                            readonly>
-                        <input class="form-control input-modified" type="text" value="{{company}}" name="id_company" id="id_company" hidden>
-                        <input class="form-control input-modified" type="text" value="{{head.idpurchases}}" name="id_purchases" id="id_prchases"
-                            hidden>
-                    </div>
-                    <div class="col-4">
-                        <label for="" class="col-form-label label-required">Proveedor</label>
-                        <input class="form-control input-modified provider" type="text" name="name_provider" id="provider" [(ngModel)]="head.providers_name"
-                            #provider="ngModel" required [readonly]="buttonProvider">
-                        <span *ngIf="provider.errors?.required && provider.touched" class="error_message">el campo es requerido</span>
-                        <input class="form-control input-modified provider hiden" type="text" name="provider" id="providerhiden" value="{{head.provider}}"
-                            hidden>
-                    </div>
-                    <div class="col-4">
-                        <label class="col-form-label">Estado/Orden</label>
-                        <select class="form-control input-modified" name="state_purc">
-                            <option *ngFor="let state_moves of state_moves" value="{{state_moves.idstate_moves}}" [selected]="state_moves.idstate_moves==head.purchases_state_purc">{{state_moves.name_moves}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <label for="" class="col-form-label label-required">Fecha</label>
-                        <input class="form-control input-modified" type="date" name="date" [(ngModel)]="head.purchases_date" #date="ngModel" date
-                            required>
-                        <span *ngIf="date.errors?.date && date.touched" class="error_message">la fecha no es valida</span>
-                        <span *ngIf="date.errors?.required && date.touched" class="error_message">el campo fecha es requerido</span>
-                    </div>
-                    <div class="col-4">
-                        <label for="" class="col-form-label">Fecha Entrega</label>
-                        <input class="form-control input-modified" type="date" name="deliver_date" value="{{head.purchases_deliver_date}}" [(ngModel)]="validateHead.deliver_date"
-                            date #deliver_date="ngModel">
-                        <span *ngIf="deliver_date.errors?.date && deliver_date.touched" class="error_message">la fecha no es valida</span>
-                    </div>
-                    <div class="col-4">
-                        <label for="" class="col-form-label">Almacen</label>
-                        <select class="form-control input-modified" name="cellar">
-                            <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}" [selected]="cellar.idcellar === head.purchases_cellar">{{cellar.name}}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-5">
-                <label class="col-form-label">Obeservaciones</label>
-                <textarea name="" id="" class="form-control input-modified textarea-modified"></textarea>
-            </div>
-        </div>
-    </form>
-
-    <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_purchases.valid || buttonDisabled" data-toggle="modal"
-        data-target="#guardar">Guardar</button>
-    <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" [disabled]="buttonUpdate==true" data-target="#actualizar">Actualizar</button>
-    <button class=" btn btn_success btn-sm mr-3 my-3" (click)="imprimir()">
-        <i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
-    <button class="btn btn_success btn-sm mr-3 my-3" data-toggle="modal" data-target="#buscar_orden_compra">Buscar
-        <i class="fa fa-print" aria-hidden="true"></i>
-    </button>
-    <button class="btn btn_warning btn-sm mr-3 my-3" data-toggle="modal" data-target="#buscar">Buscar
-        <i class="fa fa-search" aria-hidden="true"></i>
-    </button>
 </div>
+
 
 
 <div class="container-fluid container-modified" (keydown)="someMethod($event)">
@@ -183,8 +103,7 @@
 
                             <td>
                                 <input class="code_provider form-control purchase input-modified" type="text" name="code" focusOnInit="2" value="{{newrow.cod_mater}}">
-                                <input class="form-control purchase hiden input-modified" type="text" name="idcode" value="{{newrow.iddetail_shopping}}"
-                                    hidden>
+                                <input class="form-control purchase hiden input-modified" type="text" name="idcode" value="{{newrow.iddetail_shopping}}" hidden>
                             </td>
 
                             <td>
@@ -195,12 +114,10 @@
                                 <input class="request_amount form-control purchase input-modified" type="text" name="request_amount" value="{{newrow.requested_amount}}">
                             </td>
                             <td>
-                                <input class="amount_receipt form-control purchase input-modified" type="text" name="amount_receipt" value="{{newrow.ceceived_amount}}"
-                                    readonly>
+                                <input class="amount_receipt form-control purchase input-modified" type="text" name="amount_receipt" value="{{newrow.ceceived_amount}}" readonly>
                             </td>
                             <td>
-                                <input class="unit_value form-control purchase input-modified" type="text" name="unit_value" value="{{newrow.unit_value}}"
-                                    readonly>
+                                <input class="unit_value form-control purchase input-modified" type="text" name="unit_value" value="{{newrow.unit_value}}" readonly>
                             </td>
                             <td>
                                 <input class="discount form-control purchase input-modified" type="text" name="discount" value="{{newrow.discount}}" readonly>
@@ -291,8 +208,7 @@
                                     <td>{{row.purchases_date}}</td>
 
                                     <td>
-                                        <button class="btn btn_select btn-sm" data-dismiss="modal" value="{{row.idpurchases}},{{row.consecutive_purc}},{{row.purchases_id_company}}"
-                                            (click)="handleClick($event)">Selecionar</button>
+                                        <button class="btn btn_select btn-sm" data-dismiss="modal" value="{{row.idpurchases}},{{row.consecutive_purc}},{{row.purchases_id_company}}" (click)="handleClick($event)">Selecionar</button>
                                     </td>
                                 </tr>
 
