@@ -37,8 +37,8 @@
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Proveedor</label>
                 <div class="col-2">
-                    <input class="form-control input-modified provider" type="text" name="name_provider" id="providers_name" value="{{providers_name}}"
-                        [(ngModel)]="validateHead.provider" #provider="ngModel" required>
+                    <input class="form-control input-modified provider" type="text" name="name_provider" id="providers_name" [(ngModel)]="headincome.providers_name"
+                        #provider="ngModel" required>
                     <span *ngIf="provider.errors?.required && provider.touched" class="error_message">el campo es requerido</span>
                     <input class="form-control input-modified provider hiden" type="text" name="provider" id="providerhiden" value="{{provider}}"
                         hidden>
@@ -46,8 +46,8 @@
 
                 <label for=" " class="col-1 col-form-label">Fecha Ingreso</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="date" value="{{income_date}}" name="income_date" [(ngModel)]="validateHead.income_date"
-                        #income_date="ngModel" date required>
+                    <input class="form-control input-modified" type="date" name="income_date" [(ngModel)]="headincome.income_date" #income_date="ngModel"
+                        date required>
                     <span *ngIf="income_date.errors?.date && income_date.touched" class="error_message">la fecha no es valida</span>
                     <span *ngIf="income_date.errors?.required && income_date.touched" class="error_message">el campo fecha es requerido</span>
                 </div>
@@ -116,7 +116,7 @@
     </div>
 </div>
 
-<div class="container-fluid container-modified">
+<div class="container-fluid container-modified" (keydown)="someMethod($event)">
     <div class="col-12">
         <div class="form-group">
 
@@ -140,7 +140,7 @@
                         <tr class="item_actividad eliminar_tr" *ngFor="let newrow of rowDatatable; let i=index">
                             <td class="text-center">
 
-                                <button class="btn_delete fa fa-trash-o" value="{{newrow.iddetail_shopping}}" (click)="deleteRowHomeForm(i,$event)" [disabled]="delete==true"
+                                <button class="btn_delete fa fa-trash-o" value="{{newrow.iddetail_shopping}}" (click)="deleteRowHomeForm(i,$event)" [disabled]="delete"
                                     type="button" style="padding: 2px">
                                 </button>
                             </td>
@@ -182,7 +182,7 @@
                     </tbody>
                 </table>
                 <div>
-                    <button class="btn_add" (click)='addrowtable()' [disabled]="buttonaddrow==false">
+                    <button class="btn_add" (click)='addrowtable()' [disabled]="buttonaddrow">
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>

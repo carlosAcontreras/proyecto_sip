@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener, ViewChild, Inject, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ElementRef, HostListener } from '@angular/core';
 import { ListService } from '../../services/list/list.service';
 import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
 import { SerializerService } from '../../services/serializer/serializer.service';
 import { PurchasesService } from '../../services/purchases/purchases.service';
 import { purchases_head } from '../../models/purchases_model';
 import { PermitsService } from '../../services/permisos/permits.service';
+import { ViewChildren, QueryList } from '@angular/core';
 import swal from 'sweetalert2';
 declare var number_format: any;
 declare var add: any;
@@ -18,19 +19,16 @@ import { DatatablesService } from '../../services/datatables/datatables.service'
 import { datatables } from '../../utilitis/datatables';
 
 
-
 @Component({
     selector: 'app-purchases',
     templateUrl: './purchases.component.html',
     styleUrls: ['./purchases.component.scss'],
-    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService, PermitsService]
+    providers: [ListService, AutocompleteService, SerializerService, DatatablesService, PurchasesService, PermitsService,PermitsService]
 })
 
 export class PurchasesComponent implements OnInit {
 
-
-    @ViewChild('data') input: ElementRef;
-
+ 
     public state_moves;
     public cellar;
     public idcompany = 1;
@@ -42,8 +40,7 @@ export class PurchasesComponent implements OnInit {
     private datatables;
     public datos;
     public tableWidget: any;
-    public buttonConse;
-    public buttonProvider;
+
     public selectedName: string = "";
     public purchases;
     public detail_purchases;
@@ -66,7 +63,7 @@ export class PurchasesComponent implements OnInit {
         private eRef: ElementRef,
         private PurchasesService: PurchasesService,
         private PermitsService: PermitsService,
-
+        private PermisosService: PermitsService
     ) {
 
         this.datatables = new datatables();
@@ -76,10 +73,8 @@ export class PurchasesComponent implements OnInit {
     rowDataHomeForm = [];
 
     ngOnInit() {
-
-
         this.buttonUpdate = true;
-        this.buttonConse = true;
+ 
         this.get_state_movest();
         this.AutocompleteService.autocomplete_provider();
         this.AutocompleteService.autocomplete_code_provider();
@@ -91,10 +86,9 @@ export class PurchasesComponent implements OnInit {
         this.get_permits();
         this.datatables.initDatatable('#example');
         this.permisos = this.PermitsService.getPermitsSubMenu('Purchases');
-        this.user = JSON.parse(localStorage.getItem('user'));
+        this.user  =JSON.parse(localStorage.getItem('user'));
 
     }
-
 
 
     // funcion para los permisos
@@ -118,9 +112,7 @@ export class PurchasesComponent implements OnInit {
     }
 
     public selectRow(index: number, row: any) {
-
-        this.selectedName = "row#" + index + " " + row.consecutive_purc + row.providers_name
-        console.log(this.selectedName);
+        this.selectedName = "row#" + index + " " + row.consecutive_purc
     }
 
     /////////////////////////////////-----------------------------------------////////////////////////////////--------------------------------///////////////////////////////////////////////__________
@@ -156,7 +148,7 @@ export class PurchasesComponent implements OnInit {
 
     // funcion para el boton de seleccionar en la ventana modal
     handleClick(event) {
-        this.buttonProvider = true;
+
         let data = event.target.value.split(",");
         console.log(data);
 
@@ -174,7 +166,6 @@ export class PurchasesComponent implements OnInit {
                 console.log(this.rowDataHomeForm);
 
                 this.head = res.purchases;
-                this.consecutive = this.head.consecutive_purc;
                 this.buttonUpdate = false;
             },
             error => {
@@ -185,42 +176,43 @@ export class PurchasesComponent implements OnInit {
         this.buttonDisabled = true; // ?
     }
 
-    ngAfterViewInit() { console.log(this.input); }
+
     //elimina las filas de los tr
-    delete(index, event) {
+    deleteRowHomeForm(index, event) {
 
-
+        
         let eliminar = this.permisos.delete;
-        if (eliminar == 1) {
+        if(eliminar==1){
+        let data = event.target.value;
 
-            let data = event.target.value;
-            this.rowDataHomeForm.splice(index, 1);
 
-            let json = { 'iddetail_shopping': data, user: this.user.identification }
+        this.rowDataHomeForm.splice(index, 1);
 
-            if (data != '') {
+        let json = { 'iddetail_shopping': data,  user: this.user.identification }
 
-                this.PurchasesService.delete(json).subscribe(
+        if (data != '') {
 
-                    res => {
+            this.PurchasesService.delete(json).subscribe(
 
-                        let response = res.data;
+                res => {
 
-                        if (response = true) {
+                    let response = res.data;
 
-                            swal("", "Se ha Eliminado correctamente el Material", "success");
-                        }
+                    if (response = true) {
 
-                    },
-                    error => {
-                        console.log(error);
+                        swal("", "Se ha Eliminado correctamente el Material", "success");
                     }
-                )
-            }
-        } else {
 
-            swal("", "No Tiene permisos para eliminar", "error");
+                },
+                error => {
+                    console.log(error);
+                }
+            )
         }
+    }else{
+
+        swal("", "No Tiene permisos para eliminar", "error");
+    }
 
     }
 
@@ -238,49 +230,49 @@ export class PurchasesComponent implements OnInit {
     inser_purchase() {
 
         let insert = this.permisos.save;
+        console.log(insert );
+
+        if(insert==1){
+        var rawData = $('#table').serializeFormJSON();
+        var formData = JSON.stringify(rawData);
+
+        var table = $('#form').serializeObject();
 
 
-        if (insert == 1) {
-            var rawData = $('#table').serializeFormJSON();
-            var formData = JSON.stringify(rawData);
+        let detail_purchase = { body: formData, head: table, user: this.user.identification }
 
-            var table = $('#form').serializeObject();
+        console.log(detail_purchase);
 
+        this.PurchasesService.insert(detail_purchase, table).subscribe(
+            res => {
 
-            let detail_purchase = { body: formData, head: table, user: this.user.identification }
+                this.head = res;
+                this.response = res.data;
 
-            console.log(detail_purchase);
+                if (this.response == true) {
 
-            this.PurchasesService.insert(detail_purchase, table).subscribe(
-                res => {
+                    this.buttonDisabled = true; // ?
 
-                    this.consecutive = res.consecutive_purc;
-                    this.response = res.data;
-
-                    if (this.response == true) {
-
-                        this.buttonDisabled = true; // ?
-
-                        swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
-                    }
-
-                    if (this.response == '') {
-
-                        swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-
-                    }
-                },
-                error => {
-                    swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-                    console.log(error);
+                    swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
                 }
-            )
 
-        } else {
+                if (this.response == '') {
 
-            swal("", "No Tiene permisos para Guardar", "error");
+                    swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
 
-        }
+                }
+            },
+            error => {
+                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+                console.log(error);
+            }
+        )
+
+    }else{
+
+        swal("", "No Tiene permisos para Guardar", "error");
+
+    }
 
     }
 
@@ -297,53 +289,51 @@ export class PurchasesComponent implements OnInit {
     // funcion para atualizar 
     update_purchase() {
 
-        let update = this.permisos.update;
-
-        if (update == 1) {
-            var rawData = $('#table').serializeFormJSON();
-            var formData = JSON.stringify(rawData);
-
-
-
-            var table = $('#form').serializeObject();
-
-            let user = this.user.identification
-            let detail_purchase = { body: formData, head: table, user: this.user.identification }
+    let update = this.permisos.update;
+        
+        if(update==1){
+        var rawData = $('#table').serializeFormJSON();
+        var formData = JSON.stringify(rawData);
 
 
+        var table = $('#form').serializeObject();
 
-            this.PurchasesService.update(detail_purchase, table).subscribe(
+        let user=this.user.identification
+        let detail_purchase = { body: formData, head: table, user: this.user.identification }
 
-                res => {
 
-                    this.response = res.data;
-                    this.buttonDisabled = true; // ?
-                    this.rowDataHomeForm = res.detail_purchases;
 
-                    if (this.response == true) {
+        this.PurchasesService.update(detail_purchase, table).subscribe(
 
-                        swal("", "Se Atualizo correctamente", "success");
+            res => {
+                this.consecutive = res.consecutive;
+                this.response = res.data;
+                this.buttonDisabled = true; // ?
+                this.rowDataHomeForm = res.detail_purchases;
 
-                    }
+                if (this.response == true) {
 
-                    if (this.response == '') {
+                    swal("", "Se Atualizo correctamente", "success");
 
-                        swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-                    }
-                },
-                error => {
+                }
+
+                if (this.response == '') {
 
                     swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-                    console.log(error);
                 }
-            )
-        } else {
+            },
+            error => {
 
-            swal("", "No tiene Permisos Para Atualizar", "error");
+                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+                console.log(error);
+            }
+        )
+     }else{
 
-        }
+        swal("", "No tiene Permisos Para Atualizar", "error");
 
-    }
+     }
+ }
 
 
     //funcion para consultar los estados de compras y ingresos
@@ -369,6 +359,7 @@ export class PurchasesComponent implements OnInit {
             }
         )
     }
+
 
     // funcion para las operaciones de cada fila de la tabla 
     operation_purchases() {

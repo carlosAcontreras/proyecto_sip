@@ -3,6 +3,7 @@ import { ListService } from '../../services/list/list.service';
 import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
 import { DispatchesService } from '../../services/dispatches/dispatches.service';
 import { SerializerService } from '../../services/serializer/serializer.service';
+import { PermitsService } from '../../services/permisos/permits.service';
 import { from } from 'rxjs/observable/from';
 
 import 'jquery-ui/ui/widgets/datepicker';
@@ -20,7 +21,7 @@ import { datatables } from '../../utilitis/datatables';
     selector: 'app-dispatches',
     templateUrl: './dispatches.component.html',
     styleUrls: ['./dispatches.component.scss'],
-    providers: [ListService, AutocompleteService, DispatchesService, SerializerService, DatatablesService]
+    providers: [ListService, AutocompleteService, DispatchesService, SerializerService, DatatablesService,PermitsService]
 })
 export class DispatchesComponent implements OnInit {
 
@@ -37,9 +38,15 @@ export class DispatchesComponent implements OnInit {
     public datatables;
     public data = [];
     public datos;
+    public permisos;
+    public user;
 
-
-    constructor(private ListService: ListService, private AutocompleteService: AutocompleteService, private DispatchesService: DispatchesService, private SerializerService: SerializerService, private datatableservice: DatatablesService, ) { }
+    constructor(private ListService: ListService, 
+        private AutocompleteService: AutocompleteService, 
+        private DispatchesService: DispatchesService,
+        private SerializerService: SerializerService,
+         private datatableservice: DatatablesService,
+         private PermitsService: PermitsService ) { }
 
     ngOnInit() {
 
@@ -53,12 +60,9 @@ export class DispatchesComponent implements OnInit {
         this.operation_purchases();
 
         this.btndisabled = false;
-
-
-        $("#date").datepicker({ dateFormat: 'yy-mm-dd' });
-
-        $("#start_date").datepicker({ dateFormat: 'yy-mm-dd' });
-        $("#end_date").datepicker({ dateFormat: 'yy-mm-dd' });
+        this.get_permits();
+        this.permisos = this.PermitsService.getPermitsSubMenu('dispatches');
+        this.user = JSON.parse(localStorage.getItem('user'));
     }
 
     get_dispatches_move() {
@@ -71,6 +75,14 @@ export class DispatchesComponent implements OnInit {
             }
         )
     }
+
+
+    get_permits() {
+
+        this.PermitsService.getPermits(4, 'dispatches');
+
+    }
+
 
     get_cellar(idcompany) {
         this.ListService.cellar(this.company).subscribe(
@@ -102,15 +114,16 @@ export class DispatchesComponent implements OnInit {
     }
 
     insert() {
+        if (this.permisos.save == 1) {
 
         var rawData = $('#table_dispatche').serializeFormJSON();
         var formData = JSON.stringify(rawData);
 
         var table = $('#head_dispatch').serializeObject();
 
-        let income = { body: formData, head: table }
+        let income = { body: formData, head: table , user: this.user.identification}
 
-        console.log(income);
+
 
         this.DispatchesService.insert(income).subscribe(
             res => {
@@ -140,7 +153,59 @@ export class DispatchesComponent implements OnInit {
                 console.log(error);
             }
         )
+    }else{
 
+        swal("", "No Cuenta con Permiso Para Guardar", "error");
+
+    }
+
+    }
+
+    update(){
+if(this.permisos.update==1){
+
+    var rawData = $('#table_dispatche').serializeFormJSON();
+    var formData = JSON.stringify(rawData);
+
+    var table = $('#head_dispatch').serializeObject();
+
+    let income = { body: formData, head: table , user: this.user.identification}
+
+
+    this.DispatchesService.update(income).subscribe(
+        res => {
+
+            this.buttoinsert = false;
+
+            this.consecutive = res.consecutive;
+
+            this.response = res.data;
+
+            if (this.response == true) {
+
+
+
+                swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
+
+            }
+
+            if (this.response == '') {
+
+                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+
+            }
+        },
+        error => {
+            swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+            console.log(error);
+        }
+    )
+
+}else{
+
+ swal("", "No Cuenta con Permiso Para Atualizar", "error");
+ 
+}
 
     }
 

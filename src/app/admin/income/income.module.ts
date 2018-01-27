@@ -6,6 +6,7 @@ import { Http } from '@angular/http/src/http';
 import { HttpModule } from '@angular/http';
 import { CustomFormsModule } from 'ng2-validation';
 import { FormsModule } from '@angular/forms';
+import { FocusOnInitDirective } from '../../utilitis/focus-on-init.directive';
 
 
 @NgModule({
@@ -16,6 +17,6 @@ import { FormsModule } from '@angular/forms';
     CustomFormsModule,
     FormsModule
   ],
-  declarations: [IncomeComponent]
+  declarations: [IncomeComponent, FocusOnInitDirective]
 })
 export class IncomeModule { }

@@ -24,4 +24,11 @@ export class DispatchesService {
     return this.http.post(this.url, params).map(res => res.json());
   }
 
+  update(params) {
+
+    this.url = this.constantes.getRouterGlobal() + 'dispatche/update';
+
+    return this.http.post(this.url, params).map(res => res.json());
+  }
+
 }

@@ -44,7 +44,7 @@ export class IncomeComponent implements OnInit {
     //variables para el retorno de datos consulta por compras
 
     public consecutive_purc;
-    public providers_name;
+
     public provider;
     public purchases_state_purc;
     public purchases_cellar;
@@ -55,7 +55,7 @@ export class IncomeComponent implements OnInit {
 
     public income_remission;
     public income_invoice;
-    public income_date;
+
     public income_date_delivery;
     public income_observations;
     public idincome;
@@ -64,6 +64,11 @@ export class IncomeComponent implements OnInit {
     public validateHead = new income_head();
     public permisos;
     public user;
+
+    public headincome = {
+        'income_date': '',
+        'providers_name': ''
+    }
 
 
     rowDataHomeForm = [];
@@ -231,7 +236,7 @@ export class IncomeComponent implements OnInit {
                 this.buttonaddrow = false;
 
                 this.consecutive_purc = res.purchases.consecutive_purc;
-                this.providers_name = res.purchases.providers_name;
+                this.headincome.providers_name = res.purchases.providers_name;
                 this.provider = res.purchases.provider;
                 this.purchases_state_purc = res.purchases.purchases_state_purc;
                 this.purchases_cellar = res.purchases.purchases_cellar;
@@ -247,6 +252,14 @@ export class IncomeComponent implements OnInit {
 
 
     }
+
+        // evento enter 
+        someMethod(event: any) {
+            if (event.keyCode == 13) {
+                this.addrowtable();
+            } else {
+            }
+        }
 
     // funcion para el boton de seleccionar en la ventana modal de buscar ingresos
     seleccionar_income(event) {
@@ -269,7 +282,7 @@ export class IncomeComponent implements OnInit {
 
                 this.consecutive_purc = res.income.income_idpurchases;
 
-                this.providers_name = res.income.providers_name;
+                this.headincome.providers_name = res.income.providers_name;
 
                 this.provider = res.income.provider;
 
@@ -281,7 +294,8 @@ export class IncomeComponent implements OnInit {
 
                 this.income_remission = res.income.income_remission;
                 this.income_invoice = res.income.income_invoice;
-                this.income_date = res.income.income_date;
+                this.headincome.income_date = res.income.income_date;
+
                 this.income_date_delivery = res.income.income_date_delivery;
                 this.income_observations = res.income.income_observations;
                 this.income_conse = res.income.income_conse
@@ -290,10 +304,15 @@ export class IncomeComponent implements OnInit {
 
 
                 if (this.idincome_move == 1) {
-
-                    this.buttonaddrow = false;
+                    console.log(this.idincome_move)
+                    this.buttonaddrow = true;
                     this.delete = true;
                     console.log(1);
+                } else {
+
+                    this.buttonaddrow = false;
+                    this.delete = false;
+
                 }
 
 
@@ -364,7 +383,7 @@ export class IncomeComponent implements OnInit {
 
             var table = $('#income').serializeObject();
 
-            let income = { body: formData, head: table }
+            let income = { body: formData, head: table, user: this.user.identification }
 
 
 
@@ -437,7 +456,7 @@ export class IncomeComponent implements OnInit {
 
             var table = $('#income').serializeObject();
 
-            let income = { body: formData, head: table }
+            let income = { body: formData, head: table, user: this.user.identification }
 
 
 
