@@ -37,7 +37,7 @@
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Proveedor</label>
                 <div class="col-2">
-                    <input class="form-control input-modified provider" type="text" name="name_provider" id="providers_name" [(ngModel)]="headincome.providers_name"
+                    <input class="form-control input-modified provider" type="text" name="name_provider" id="provider" [(ngModel)]="headincome.providers_name"
                         #provider="ngModel" required>
                     <span *ngIf="provider.errors?.required && provider.touched" class="error_message">el campo es requerido</span>
                     <input class="form-control input-modified provider hiden" type="text" name="provider" id="providerhiden" value="{{provider}}"

@@ -1,276 +1,307 @@
-import { Component, OnInit } from '@angular/core';
-import { ListService } from '../../services/list/list.service';
-import { AutocompleteService } from '../../services/autocomplete/autocomplete.service';
-import { DispatchesService } from '../../services/dispatches/dispatches.service';
-import { SerializerService } from '../../services/serializer/serializer.service';
-import { PermitsService } from '../../services/permisos/permits.service';
-import { from } from 'rxjs/observable/from';
+import { Component, OnInit } from "@angular/core";
+import { ListService } from "../../services/list/list.service";
+import { AutocompleteService } from "../../services/autocomplete/autocomplete.service";
+import { DispatchesService } from "../../services/dispatches/dispatches.service";
+import { SerializerService } from "../../services/serializer/serializer.service";
 
-import 'jquery-ui/ui/widgets/datepicker';
-import 'jquery-ui/ui/widgets/autocomplete';
-import { CustomValidators } from 'ng2-validation';
+import { from } from "rxjs/observable/from";
+//import { PermitsService } from '../../services/permisos/permits.service';
+import { PermitsService } from "../../services/permisos/permits.service";
+import "jquery-ui/ui/widgets/datepicker";
+import "jquery-ui/ui/widgets/autocomplete";
+import { CustomValidators } from "ng2-validation";
 
-import swal from 'sweetalert2';
-import $ from 'jquery';
+import swal from "sweetalert2";
+import $ from "jquery";
 
-
-import { DatatablesService } from '../../services/datatables/datatables.service';
-import { datatables } from '../../utilitis/datatables';
-
+import { DatatablesService } from "../../services/datatables/datatables.service";
+import { datatables } from "../../utilitis/datatables";
 
 @Component({
-    selector: 'app-dispatches',
-    templateUrl: './dispatches.component.html',
-    styleUrls: ['./dispatches.component.scss'],
-    providers: [ListService, AutocompleteService, DispatchesService, SerializerService, DatatablesService,PermitsService]
+  selector: "app-dispatches",
+  templateUrl: "./dispatches.component.html",
+  styleUrls: ["./dispatches.component.scss"],
+  providers: [
+    ListService,
+    AutocompleteService,
+    DispatchesService,
+    SerializerService,
+    DatatablesService,
+    PermitsService,
+    datatables
+  ]
 })
 export class DispatchesComponent implements OnInit {
+  public dispatches_move;
+  public cellar;
+  public destination_dispatches;
+  public rowDatatable = [{}];
+  public company;
+  public consecutive;
+  public response;
+  public buttoinsert;
+  public btndisabled;
 
+  public data = [];
+  public datos;
+  public permisos;
+  public user;
+  public dispatches;
+  public head;
+  public bootom_save;
+  public bootom_update;
 
-    public dispatches_move;
-    public cellar;
-    public destination_dispatches;
-    public rowDatatable = [{}]
-    public company;
-    public consecutive;
-    public response;
-    public buttoinsert;
-    public btndisabled;
-    public datatables;
-    public data = [];
-    public datos;
-    public permisos;
-    public user;
+  public validateHead = {
+    date: "",
+    employee_name: ""
+  };
 
-<<<<<<< HEAD
-    constructor(private ListService: ListService, 
-        private AutocompleteService: AutocompleteService, 
-        private DispatchesService: DispatchesService,
-        private SerializerService: SerializerService,
-         private datatableservice: DatatablesService,
-         private PermitsService: PermitsService ) { }
-=======
-    public validateHead = {
-        "date": "",
-        "employee_name": ""
-    };
+  constructor(
+    private ListService: ListService,
+    private AutocompleteService: AutocompleteService,
+    private DispatchesService: DispatchesService,
+    private SerializerService: SerializerService,
+    private datatableservice: DatatablesService,
+    private PermitsService: PermitsService,
+    private datatables: datatables
+  ) {}
 
+  ngOnInit() {
+    this.get_dispatches_move();
+    this.company = localStorage.getItem("company");
+    this.get_cellar(this.company);
+    this.get_destination_dispatches();
+    this.AutocompleteService.autocomplete_employee();
+    this.AutocompleteService.autocomplete_material_description();
+    this.SerializerService.serializer();
+    this.operation_purchases();
 
-    constructor(private ListService: ListService, private AutocompleteService: AutocompleteService, private DispatchesService: DispatchesService, private SerializerService: SerializerService, private datatableservice: DatatablesService, ) { }
->>>>>>> af70e9ba48e13d0f8dce60d7b1cd8f10602adfbf
+    this.btndisabled = false;
+    this.get_permits();
 
-    ngOnInit() {
+    this.permisos = this.PermitsService.getPermitsSubMenu("dispatches");
+    this.user = JSON.parse(localStorage.getItem("user"));
+  }
 
-        this.get_dispatches_move();
-        this.company = localStorage.getItem('company');
-        this.get_cellar(this.company);
-        this.get_destination_dispatches();
-        this.AutocompleteService.autocomplete_employee();
-        this.AutocompleteService.autocomplete_material_description();
-        this.SerializerService.serializer();
-        this.operation_purchases();
+  get_dispatches_move() {
+    this.ListService.dispatches_move().subscribe(
+      res => {
+        this.dispatches_move = res.dispatches_move;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
-        this.btndisabled = false;
-        this.get_permits();
-        this.permisos = this.PermitsService.getPermitsSubMenu('dispatches');
-        this.user = JSON.parse(localStorage.getItem('user'));
-    }
+  get_permits() {
+    this.PermitsService.getPermits(4, "dispatches");
+  }
 
-    get_dispatches_move() {
-        this.ListService.dispatches_move().subscribe(
-            res => {
-                this.dispatches_move = res.dispatches_move;
-            },
-            error => {
-                console.log(error);
-            }
-        )
-    }
+  get_cellar(idcompany) {
+    this.ListService.cellar(this.company).subscribe(
+      res => {
+        this.cellar = res.cellar;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
+  get_destination_dispatches() {
+    this.ListService.destination_dispatches().subscribe(
+      res => {
+        this.destination_dispatches = res.destination_dispatches;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
-    get_permits() {
+  addrowtable() {
+    this.rowDatatable.push({});
+  }
 
-        this.PermitsService.getPermits(4, 'dispatches');
+  insert() {
+    if (this.permisos.save == 1) {
+      var rawData = $("#table_dispatche").serializeFormJSON();
+      var formData = JSON.stringify(rawData);
 
-    }
+      var table = $("#head_dispatch").serializeObject();
 
+      let income = {
+        body: formData,
+        head: table,
+        user: this.user.identification
+      };
 
-    get_cellar(idcompany) {
-        this.ListService.cellar(this.company).subscribe(
-            res => {
-                this.cellar = res.cellar;
-            },
-            error => {
-                console.log(error);
-            }
-        )
-    }
-
-    get_destination_dispatches() {
-        this.ListService.destination_dispatches().subscribe(
-            res => {
-                this.destination_dispatches = res.destination_dispatches;
-            },
-            error => {
-                console.log(error);
-            }
-        )
-    }
-
-    addrowtable() {
-
-        this.rowDatatable.push({
-
-        })
-    }
-
-    insert() {
-        if (this.permisos.save == 1) {
-
-        var rawData = $('#table_dispatche').serializeFormJSON();
-        var formData = JSON.stringify(rawData);
-
-        var table = $('#head_dispatch').serializeObject();
-
-        let income = { body: formData, head: table , user: this.user.identification}
-
-
-
-        this.DispatchesService.insert(income).subscribe(
-            res => {
-
-                this.buttoinsert = false;
-
-                this.consecutive = res.consecutive;
-
-                this.response = res.data;
-
-                if (this.response == true) {
-
-
-
-                    swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
-
-                }
-
-                if (this.response == '') {
-
-                    swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-
-                }
-            },
-            error => {
-                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-                console.log(error);
-            }
-        )
-    }else{
-
-        swal("", "No Cuenta con Permiso Para Guardar", "error");
-
-    }
-
-    }
-
-    update(){
-if(this.permisos.update==1){
-
-    var rawData = $('#table_dispatche').serializeFormJSON();
-    var formData = JSON.stringify(rawData);
-
-    var table = $('#head_dispatch').serializeObject();
-
-    let income = { body: formData, head: table , user: this.user.identification}
-
-
-    this.DispatchesService.update(income).subscribe(
+      this.DispatchesService.insert(income).subscribe(
         res => {
+          this.buttoinsert = false;
 
-            this.buttoinsert = false;
+          this.consecutive = res.consecutive;
 
-            this.consecutive = res.consecutive;
+          this.response = res.data;
 
-            this.response = res.data;
+          if (this.response == true) {
+            swal(
+              "",
+              "Se ha Guardado la Orden de Compra correctamente",
+              "success"
+            );
+          }
 
-            if (this.response == true) {
-
-
-
-                swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
-
-            }
-
-            if (this.response == '') {
-
-                swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-
-            }
+          if (this.response == "") {
+            swal(
+              "",
+              "Ha Ocurrido un Error Comuniquese al Area de Sistemas",
+              "error"
+            );
+          }
         },
         error => {
-            swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
-            console.log(error);
+          swal(
+            "",
+            "Ha Ocurrido un Error Comuniquese al Area de Sistemas",
+            "error"
+          );
+          console.log(error);
         }
-    )
-
-}else{
-
- swal("", "No Cuenta con Permiso Para Atualizar", "error");
- 
-}
-
+      );
+    } else {
+      swal("", "No Cuenta con Permiso Para Guardar", "error");
     }
+  }
 
+  update() {
+    if (this.permisos.update == 1) {
+      var rawData = $("#table_dispatche").serializeFormJSON();
+      var formData = JSON.stringify(rawData);
 
-    operation_purchases() {
+      var table = $("#head_dispatch").serializeObject();
+      let income = {
+        body: formData,
+        head: table,
+        user: this.user.identification
+      };
 
-        $(function () {
+      this.DispatchesService.update(income).subscribe(
+        res => {
+          this.buttoinsert = false;
 
-            $(document).on('keyup', '.item_actividad .quantity', function (event) {
+          this.consecutive = res.consecutive;
 
-                let quantity = Number($(this).parents(".item_actividad").find(".quantity").val());
-                let stock = Number($(this).parents(".item_actividad").find(".stock").val());
+          this.response = res.data;
 
-                if (quantity > stock) {
+          if (this.response == true) {
+            swal(
+              "",
+              "Se ha Guardado la Orden de Compra correctamente",
+              "success"
+            );
+          }
 
-                    $(this).parents(".item_actividad").find(".quantity").val(0)
-
-                }
-
-
-
-            });
-
-        })
+          if (this.response == "") {
+            swal(
+              "",
+              "Ha Ocurrido un Error Comuniquese al Area de Sistemas",
+              "error"
+            );
+          }
+        },
+        error => {
+          swal(
+            "",
+            "Ha Ocurrido un Error Comuniquese al Area de Sistemas",
+            "error"
+          );
+          console.log(error);
+        }
+      );
+    } else {
+      swal("", "No Cuenta con Permiso Para Atualizar", "error");
     }
+  }
 
-
-    // funciona para buscar los despachos 
-    searc_dispatche() {
-
-        var table = $('#searc_dispatche').serializeObject();
-
-        this.datatableservice.get_datatables(table, 'purchase/search').subscribe(
-            response => {
-                this.datos = response.purchases;
-                this.addRow(this.datos);
-
-            },
-            error => {
-                console.log(error);
-            }
+  operation_purchases() {
+    $(function() {
+      $(document).on("keyup", ".item_actividad .quantity", function(event) {
+        let quantity = Number(
+          $(this)
+            .parents(".item_actividad")
+            .find(".quantity")
+            .val()
         );
-    }
+        let stock = Number(
+          $(this)
+            .parents(".item_actividad")
+            .find(".stock")
+            .val()
+        );
 
-    // funciones del datatable 
-    public addRow(datos): void {
-        this.data = [];
-        console.log(this.datos);
-        let data1;
-        let json = datos;
-        for (data1 of json) {
-            this.data.push(data1)
+        if (quantity > stock) {
+          $(this)
+            .parents(".item_actividad")
+            .find(".quantity")
+            .val(0);
         }
-        this.datatables.reInitDatatable('#example');
-    }
+      });
+    });
+  }
 
+  // funciona para buscar los despachos
+  search_dispatche() {
+    let table = $("#searc_dispatche").serializeObject();
+
+    this.datatableservice
+      .get_datatables(table, "dispatche/search_dispatches")
+      .subscribe(
+        response => {
+          this.datos = response.dispatches;
+          this.addRow(this.datos);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+  // funciones del datatable
+  public addRow(datos): void {
+    this.data = [];
+    console.log(this.datos);
+    let data1;
+    let json = datos;
+    for (data1 of json) {
+      this.data.push(data1);
+    }
+    this.datatables.reInitDatatable("#table_dispatches");
+  }
+
+  handleClick(event) {
+    let data = event.target.value.split(",");
+    console.log(data);
+
+    let json = {
+      dispatche: data[0],
+      consecutive: data[1]
+    };
+    console.log(json);
+
+    this.DispatchesService.search_dispatche(json).subscribe(
+      res => {
+        this.dispatches = res.purchases;
+        this.rowDatatable = res.detail_purchases;
+
+        this.head = res.purchases;
+        this.bootom_update = false;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+    this.bootom_save = true; // ?
+  }
 }

@@ -1,13 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IncomeRoutingModule } from './income-routing.module';
-import { IncomeComponent } from './income.component';
-import { Http } from '@angular/http/src/http';
-import { HttpModule } from '@angular/http';
-import { CustomFormsModule } from 'ng2-validation';
-import { FormsModule } from '@angular/forms';
-import { FocusOnInitDirective } from '../../utilitis/focus-on-init.directive';
-
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { IncomeRoutingModule } from "./income-routing.module";
+import { IncomeComponent } from "./income.component";
+import { Http } from "@angular/http/src/http";
+import { HttpModule } from "@angular/http";
+import { CustomFormsModule } from "ng2-validation";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -17,6 +15,6 @@ import { FocusOnInitDirective } from '../../utilitis/focus-on-init.directive';
     CustomFormsModule,
     FormsModule
   ],
-  declarations: [IncomeComponent, FocusOnInitDirective]
+  declarations: [IncomeComponent]
 })
-export class IncomeModule { }
+export class IncomeModule {}

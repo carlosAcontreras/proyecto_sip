@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\xampp\htdocs\app-sip"/>
+	</list>
+	<list key="installedFeatures">
+		<item value="com.genuitec.eclipse.angularide.feature:1.10.0.201712201146"/>
+		<item value="com.genuitec.eclipse.webclipse.core.feature:1.10.0.201712201146"/>
+		<item value="org.chromium.sdk:0.3.9.201712201137"/>
+		<item value="org.eclipse.egit:4.6.1.201703071140-r"/>
+		<item value="org.eclipse.emf.common:2.12.0.v20160420-0247"/>
+		<item value="org.eclipse.emf.ecore:2.12.0.v20160420-0247"/>
+		<item value="org.eclipse.epp.mpc:1.5.4.v20170222-1941"/>
+		<item value="org.eclipse.help:2.2.2.v20170301-0400"/>
+		<item value="org.eclipse.jdt:3.12.3.v20170301-0400"/>
+		<item value="org.eclipse.jgit:4.6.1.201703071140-r"/>
+		<item value="org.eclipse.jst.common.fproj.enablement.jdt:3.8.0.v201603091933"/>
+		<item value="org.eclipse.jst.enterprise_ui.feature:3.8.0.v201701262139"/>
+		<item value="org.eclipse.platform:4.6.3.v20170301-0400"/>
+		<item value="org.eclipse.rcp:4.6.3.v20170301-0400"/>
+		<item value="org.eclipse.wst.jsdt.feature:2.0.200.v201612211424"/>
+		<item value="org.eclipse.wst.json_ui.feature:1.0.2.v201612232230"/>
+		<item value="org.eclipse.wst.web_ui.feature:3.8.2.v201702270442"/>
+		<item value="org.eclipse.wst.xml_ui.feature:3.8.2.v201702270442"/>
+	</list>
+	<section name="org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog">
+		<item value="false" key="FilterByLocation"/>
+		<item value="true" key="ShowStatusLine"/>
+		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;History&gt;&#x0D;&#x0A;&lt;historyRootNode/&gt;&#x0D;&#x0A;&lt;/History&gt;" key="History"/>
+		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;workingSet workingSetName=&quot;&quot;/&gt;" key="WorkingSet"/>
+		<item value="false" key="ShowDerived"/>
+		<section name="DialogBoundsSettings">
+			<item value="600" key="DIALOG_WIDTH"/>
+			<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+			<item value="500" key="DIALOG_HEIGHT"/>
+			<item value="668" key="DIALOG_X_ORIGIN"/>
+			<item value="195" key="DIALOG_Y_ORIGIN"/>
+		</section>
+	</section>
+</section>
