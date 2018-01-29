@@ -203,69 +203,62 @@ export class PurchasesComponent implements OnInit {
 
   // funcion para insertar los materiales
   inser_purchase() {
+
     let insert = this.permisos.save;
-    console.log(insert);
+
 
     if (insert == 1) {
-      var rawData = $("#table").serializeFormJSON();
+      var rawData = $('#table').serializeFormJSON();
       var formData = JSON.stringify(rawData);
 
-      var table = $("#form").serializeObject();
+      var table = $('#form').serializeObject();
 
-      let detail_purchase = {
-        body: formData,
-        head: table,
-        user: this.user.identification
-      };
+
+      let detail_purchase = { body: formData, head: table, user: this.user.identification }
 
       console.log(detail_purchase);
 
       this.PurchasesService.insert(detail_purchase, table).subscribe(
         res => {
-          this.head = res;
+
+          this.consecutive = res.consecutive_purc;
           this.response = res.data;
 
           if (this.response == true) {
+
             this.buttonDisabled = true; // ?
 
-            swal(
-              "",
-              "Se ha Guardado la Orden de Compra correctamente",
-              "success"
-            );
+            swal("", "Se ha Guardado la Orden de Compra correctamente", "success");
           }
 
-          if (this.response == "") {
-            swal(
-              "",
-              "Ha Ocurrido un Error Comuniquese al Area de Sistemas",
-              "error"
-            );
+          if (this.response == '') {
+
+            swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
+
           }
         },
         error => {
-          swal(
-            "",
-            "Ha Ocurrido un Error Comuniquese al Area de Sistemas",
-            "error"
-          );
+          swal("", "Ha Ocurrido un Error Comuniquese al Area de Sistemas", "error");
           console.log(error);
         }
-      );
-    } else {
-      swal("", "No Tiene permisos para Guardar", "error");
-    }
-  }
+      )
 
+    } else {
+
+      swal("", "No Tiene permisos para Guardar", "error");
+
+    }
+
+  }
   // funcion para imprimir
   imprimir() {
     let consecutive_purc = $("#consecutive_purc").val();
     let id_company = $("#id_company").val();
     window.open(
       "http://192.168.1.126:8000/api/purchase/print?consecutive_purc=" +
-        consecutive_purc +
-        "&id_company=" +
-        id_company,
+      consecutive_purc +
+      "&id_company=" +
+      id_company,
       "_blank"
     );
   }
@@ -346,8 +339,8 @@ export class PurchasesComponent implements OnInit {
 
   // funcion para las operaciones de cada fila de la tabla
   operation_purchases() {
-    $(function() {
-      $(document).on("keyup", ".item_actividad .request_amount", function(
+    $(function () {
+      $(document).on("keyup", ".item_actividad .request_amount", function (
         event
       ) {
         let quantity = $(this).val();
