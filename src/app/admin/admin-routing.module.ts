@@ -14,6 +14,7 @@ const routes: Routes = [
       { path: 'reintegros', loadChildren: './refunds/refunds.module#RefundsModule' },
       { path: 'traslados', loadChildren: './transfer/transfer.module#TransferModule' },
       { path: 'control_series', loadChildren: './control-series/control-series.module#ControlSeriesModule' },
+      { path: 'usuarios', loadChildren: './users/users.module#UsersModule' }
 
     ]
   }
