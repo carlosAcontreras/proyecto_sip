@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-12">
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-10">
                             <div class="form-group row">
                                 <label for=" " class="col-1 col-form-label">Cedula</label>
                                 <div class="col-3">
@@ -74,7 +74,7 @@
                             </div>
 
                         </div>
-                        <div class="col-3 d-flex flex-column align-items-center">
+                        <div class="col-2 d-flex flex-column align-items-center">
                             <div class="foto mb-2">
                                 <img src="../../assets/images/users.png" alt="" id="imgSalida">
                             </div>
@@ -166,10 +166,10 @@
                             <input class="form-control input-modified" type="text">
                         </div>
                         <div class="col-2 text-center">
-                            <button class="btn btn-sm btn-block btn_primary">Asignar Dotación</button>
+                            <button class="btn btn-sm btn-block btn_primary" data-toggle="modal" data-target="#asignar_dotacion">Asignar Dotación</button>
                         </div>
                         <div class="col-2 text-center">
-                            <button class="btn btn-sm btn-block btn_success">Procesos Disciplinarios</button>
+                            <button class="btn btn-sm btn-block btn_success" data-toggle="modal" data-target="#asignar_permiso">Procesos Disciplinarios</button>
                         </div>
                     </div>
                 </div>
@@ -263,6 +263,156 @@
                 <button class="btn_add" (click)='addrowtable()' [disabled]="buttonaddrow">
                         <i class="fa fa-plus"></i>
                     </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal para ver dotacion -->
+<div class="modal fade" id="asignar_dotacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Dotación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Fecha</th>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>item #</td>
+                            <td>item #</td>
+                            <td>item #</td>
+                            <td>item #</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer ">
+                <button type="button " class="btn btn_danger btn-sm " data-dismiss="modal">Cerrar</button>
+                <button type="button " class="btn btn_success btn-sm " data-dismiss="modal">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- modal de permisos y suspensiones-->
+<div class="modal fade" id="asignar_permiso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Procesos Disciplinarios</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="title mb-3">Permisos & Suspenciones</h1>
+                    </div>
+                    <div class="col-12">
+                        <form>
+                            <div class="form-group row pl-3">
+                                <label for=" " class="col-1 col-form-label">Documento</label>
+                                <div class="col-3">
+                                    <input class="form-control input-modified" type="text" value="">
+                                </div>
+                                <label for=" " class="col-1 col-form-label">Fecha</label>
+                                <div class="col-3">
+                                    <input class="form-control input-modified" type="text">
+                                </div>
+                                <label for=" " class="col-1 col-form-label">Permisos</label>
+                                <div class="col-3 text-center">
+                                    <select name="" id="" class="form-control input-modified">
+                                        <option value="0"></option>
+                                        <option value="1">Remunerado</option>
+                                        <option value="2">No Remunerado</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row pl-3">
+                                <label for=" " class="col-1 col-form-label">Concepto Permiso</label>
+                                <div class="col-3">
+                                    <select name="" id="" class="form-control input-modified">
+                                        <option value="0"></option>
+                                        <option value="1">Incapacidad</option>
+                                        <option value="2">Calamidad domestica</option>
+                                        <option value="3">Lic. Remunerada</option>
+                                        <option value="4">Lic. No remunerada</option>
+                                        <option value="5">Diligencia Personal</option>
+                                        <option value="6">Otras</option>
+                                    </select>
+                                </div>
+                                <label for=" " class="col-1 col-form-label">Proceso Disciplinario</label>
+                                <div class="col-3">
+                                    <select name="" id="" class="form-control input-modified">
+                                        <option value="0"></option>
+                                        <option value="1">Llamado de atencion verbal</option>
+                                        <option value="2">1° Llamado de atencion</option>
+                                        <option value="3">2° Llamado de atencion</option>
+                                        <option value="4">3° Llamado de atencion</option>
+                                        <option value="5">Sancion disciplinaria</option>
+                                        <option value="6">Cobro imputable</option>
+                                        <option value="7">Suspension x dias</option>
+                                    </select>
+                                </div>
+                                <label for=" " class="col-1 col-form-label">Dias de Suspension</label>
+                                <div class="col-3 text-center">
+                                    <input class="form-control input-modified" type="text">
+                                </div>
+                            </div>
+                        </form>
+                        <button class="btn btn-sm btn_primary px-5">Agregar</button>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h1 class="title mb-3">Detalles</h1>
+                    </div>
+                    <div class="col-12">
+                        <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Ausentismo</th>
+                                    <th>Concepto</th>
+                                    <th>Ausentismo</th>
+                                    <th>Detalles Suspension</th>
+                                    <th>Dias Suspension</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer ">
+                <button type="button " class="btn btn_danger btn-sm " data-dismiss="modal">Cerrar</button>
+                <button type="button " class="btn btn_success btn-sm " data-dismiss="modal">Actualizar</button>
             </div>
         </div>
     </div>
