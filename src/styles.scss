@@ -267,6 +267,13 @@ table thead tr>th {
     }
 }
 
+input[type="file"]::-webkit-file-upload-button {
+    padding: 5px 10px;
+    background: #2196F3;
+    color: #fff;
+    border: none;
+}
+
 @media (min-width: 992px) {
     .modal-lg {
         max-width: 1200px;
