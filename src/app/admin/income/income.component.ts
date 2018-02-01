@@ -33,9 +33,12 @@ import { income_head } from "../../models/income_model";
 export class IncomeComponent implements OnInit {
   public moves_income: any;
   public company;
+  public botoon_insert;
   public cellar;
   public data = [];
   public dataincome = [];
+  public butoonsearch;
+  public input_reques;
 
   public rowDatatable = [];
   public datos;
@@ -47,12 +50,14 @@ export class IncomeComponent implements OnInit {
   public response;
   public buttonDisabled;
   public buttonUpdate;
+  public disabled;
+  public botoncellar;
 
   //variables para el retorno de datos consulta por compras
 
   public consecutive_purc;
 
-  public provider;
+  public providers;
   public purchases_state_purc;
   public purchases_cellar;
 
@@ -87,15 +92,17 @@ export class IncomeComponent implements OnInit {
     private IncomeService: IncomeService,
     private ListService: ListService,
     private PermitsService: PermitsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.buttonUpdate = true;
+
     this.company = localStorage.getItem("company");
     this.get_moves_income();
     this.get_cellar(this.company);
     this.AutocompleteService.autocomplete_provider();
     this.AutocompleteService.autocomplete_code_provider();
+    this.AutocompleteService.autocomplete_description_provider()
     this.SerializerService.serializer();
     this.rowDatatable = [{}];
     this.operation_purchases();
@@ -192,13 +199,13 @@ export class IncomeComponent implements OnInit {
     this.datatableservice
       .get_datatables(table, "/income/search_date")
       .subscribe(
-        response => {
-          this.datos = response.income;
-          this.addRow_income(this.datos);
-        },
-        error => {
-          console.log(error);
-        }
+      response => {
+        this.datos = response.income;
+        this.addRow_income(this.datos);
+      },
+      error => {
+        console.log(error);
+      }
       );
   }
 
@@ -222,11 +229,17 @@ export class IncomeComponent implements OnInit {
 
         this.consecutive_purc = res.purchases.consecutive_purc;
         this.headincome.providers_name = res.purchases.providers_name;
-        this.provider = res.purchases.provider;
+        this.providers = res.purchases.provider;
+
         this.purchases_state_purc = res.purchases.purchases_state_purc;
         this.purchases_cellar = res.purchases.purchases_cellar;
+        this.idincome_move = res.move;
 
         this.rowDatatable = res.detail_purchases;
+        this.disabled = true;
+        this.delete = true;
+        this.buttonaddrow = true;
+        this.input_reques = true;
       },
       error => {
         console.log(error);
@@ -261,7 +274,7 @@ export class IncomeComponent implements OnInit {
 
         this.headincome.providers_name = res.income.providers_name;
 
-        this.provider = res.income.provider;
+        this.providers = res.income.provider;
 
         this.purchases_state_purc = res.income.income_state;
 
@@ -278,15 +291,19 @@ export class IncomeComponent implements OnInit {
         this.idincome_move = res.income.income_move;
 
         if (this.idincome_move == 1) {
-          console.log(this.idincome_move);
+
           this.buttonaddrow = true;
-          this.delete = true;
-          console.log(1);
+
+
+
+
         } else {
           this.buttonaddrow = false;
-          this.delete = false;
-        }
 
+        }
+        this.input_reques = true;
+        this.butoonsearch = true;
+        this.delete = true;
         this.rowDatatable = res.detail_income;
       },
       error => {
@@ -350,6 +367,7 @@ export class IncomeComponent implements OnInit {
           this.response = res.data;
 
           if (this.response == true) {
+            this.botoon_insert = true;
             swal(
               "",
               "Se ha Guardado la Orden de Compra correctamente",
@@ -389,7 +407,7 @@ export class IncomeComponent implements OnInit {
     console.log(json);
 
     this.IncomeService.editpurchase(json).subscribe(
-      res => {},
+      res => { },
       error => {
         swal(
           "",
@@ -451,8 +469,8 @@ export class IncomeComponent implements OnInit {
 
   // funcion para las operaciones de cada fila de la tabla
   operation_purchases() {
-    $(function() {
-      $(document).on("keyup", ".item_actividad .amount_receipt", function(
+    $(function () {
+      $(document).on("keyup", ".item_actividad .amount_receipt", function (
         event
       ) {
         let requested_amount = Number(

@@ -56,6 +56,8 @@ export class PurchasesComponent implements OnInit {
   public head = new purchases_head();
   public permisos;
   public validateHead = new purchases_head();
+  public buttonProvider;
+
 
   public text: String;
   public user;
@@ -153,11 +155,13 @@ export class PurchasesComponent implements OnInit {
     this.PurchasesService.search_purchases_unit(json).subscribe(
       res => {
         this.purchases = res.purchases;
+        this.consecutive = res.purchases.consecutive_purc;
         this.rowDataHomeForm = res.detail_purchases;
         console.log(this.rowDataHomeForm);
 
         this.head = res.purchases;
         this.buttonUpdate = false;
+        this.buttonProvider = true;
       },
       error => {
         console.log(error);
@@ -168,7 +172,7 @@ export class PurchasesComponent implements OnInit {
   }
 
   //elimina las filas de los tr
-  deleteRowHomeForm(index, event) {
+  delete(index, event) {
     let eliminar = this.permisos.delete;
     if (eliminar == 1) {
       let data = event.target.value;

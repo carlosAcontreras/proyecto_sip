@@ -92,7 +92,7 @@ export class AutocompleteService {
   }
 
 
-  autocomplete_material_description() {
+  autocomplete_material_code() {
 
     $(document).on('keyup', '.item_actividad .code_mater', function (event) {
 
@@ -100,7 +100,7 @@ export class AutocompleteService {
       let company = $('#idcompany').val()
 
       $(this).autocomplete({
-        source: 'api/material/query_inventmate?cellar=' + cellar + '&company=' + company,
+        source: 'api/material/query_inventmate_code?cellar=' + cellar + '&company=' + company,
         minLength: 1,
         selectFirst: true,
         success: function () {
@@ -113,6 +113,8 @@ export class AutocompleteService {
           $(this).parents(".item_actividad").find(".unidad").val(ui.item.name_Unity);
           $(this).parents(".item_actividad").find(".stock").val(ui.item.quantity);
 
+
+
         }
       });
     });
@@ -121,6 +123,37 @@ export class AutocompleteService {
 
 
   }
+
+  autocomplete_material_description() {
+
+    $(document).on('keyup', '.item_actividad .code_description', function (event) {
+
+      let cellar = $('#cellar').val();
+      let company = $('#idcompany').val()
+
+      $(this).autocomplete({
+        source: 'api/material/query_inventmate_descrip?cellar=' + cellar + '&company=' + company,
+        minLength: 1,
+        selectFirst: true,
+        success: function () {
+
+        },
+        select: function (event, ui) {
+
+
+          $(this).parents(".item_actividad").find(".code_mater").val(ui.item.code);
+          $(this).parents(".item_actividad").find(".unidad").val(ui.item.name_Unity);
+          $(this).parents(".item_actividad").find(".stock").val(ui.item.quantity);
+
+        }
+      });
+    });
+
+
+
+
+  }
+
 
 
   autocomplete_employee() {

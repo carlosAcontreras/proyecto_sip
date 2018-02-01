@@ -3,6 +3,7 @@ import { ListService } from "../../services/list/list.service";
 import { AutocompleteService } from "../../services/autocomplete/autocomplete.service";
 import { DispatchesService } from "../../services/dispatches/dispatches.service";
 import { SerializerService } from "../../services/serializer/serializer.service";
+import { rowhear } from "../../models/dispatches_models";
 
 import { from } from "rxjs/observable/from";
 //import { PermitsService } from '../../services/permisos/permits.service';
@@ -16,6 +17,7 @@ import $ from "jquery";
 
 import { DatatablesService } from "../../services/datatables/datatables.service";
 import { datatables } from "../../utilitis/datatables";
+import { concat } from "rxjs/operators/concat";
 
 @Component({
   selector: "app-dispatches",
@@ -35,26 +37,28 @@ export class DispatchesComponent implements OnInit {
   public dispatches_move;
   public cellar;
   public destination_dispatches;
-  public rowDatatable = [{}];
+  public rowDatatable = [];
   public company;
   public consecutive;
   public response;
   public buttoinsert;
   public btndisabled;
-
+  public head = new rowhear();
   public data = [];
   public datos;
   public permisos;
   public user;
   public dispatches;
-  public head;
+  public name_last;
   public bootom_save;
   public bootom_update;
-
-  public validateHead = {
-    date: "",
-    employee_name: ""
-  };
+  public buttonaddrow;
+  public buttondelete;
+  public bottonupdate;
+  public bottoninsert;
+  public inventary_quantity;
+  public quantity;
+  public stostock_plusck;
 
   constructor(
     private ListService: ListService,
@@ -64,7 +68,7 @@ export class DispatchesComponent implements OnInit {
     private datatableservice: DatatablesService,
     private PermitsService: PermitsService,
     private datatables: datatables
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.get_dispatches_move();
@@ -73,10 +77,12 @@ export class DispatchesComponent implements OnInit {
     this.get_destination_dispatches();
     this.AutocompleteService.autocomplete_employee();
     this.AutocompleteService.autocomplete_material_description();
+    this.AutocompleteService.autocomplete_material_code();
     this.SerializerService.serializer();
     this.operation_purchases();
 
-    this.btndisabled = false;
+    this.bottonupdate = true;
+    this.bottoninsert = true;
     this.get_permits();
 
     this.permisos = this.PermitsService.getPermitsSubMenu("dispatches");
@@ -191,9 +197,7 @@ export class DispatchesComponent implements OnInit {
         res => {
           this.buttoinsert = false;
 
-          this.consecutive = res.consecutive;
-
-          this.response = res.data;
+          this.response = res.dispatches;
 
           if (this.response == true) {
             swal(
@@ -226,22 +230,15 @@ export class DispatchesComponent implements OnInit {
   }
 
   operation_purchases() {
-    $(function() {
-      $(document).on("keyup", ".item_actividad .quantity", function(event) {
-        let quantity = Number(
-          $(this)
-            .parents(".item_actividad")
-            .find(".quantity")
-            .val()
-        );
-        let stock = Number(
-          $(this)
-            .parents(".item_actividad")
-            .find(".stock")
-            .val()
-        );
+    $(function () {
+      $(document).on("keyup", ".item_actividad .quantity", function (event) {
+        let quantity = Number($(this).parents(".item_actividad").find(".quantity").val());
 
-        if (quantity > stock) {
+
+        let stock_plus = Number($(this).parents(".item_actividad").find(".stostock_plusck").val());
+
+
+        if (quantity > stock_plus) {
           $(this)
             .parents(".item_actividad")
             .find(".quantity")
@@ -258,13 +255,13 @@ export class DispatchesComponent implements OnInit {
     this.datatableservice
       .get_datatables(table, "dispatche/search_dispatches")
       .subscribe(
-        response => {
-          this.datos = response.dispatches;
-          this.addRow(this.datos);
-        },
-        error => {
-          console.log(error);
-        }
+      response => {
+        this.datos = response.dispatches;
+        this.addRow(this.datos);
+      },
+      error => {
+        console.log(error);
+      }
       );
   }
   // funciones del datatable
@@ -281,27 +278,35 @@ export class DispatchesComponent implements OnInit {
 
   handleClick(event) {
     let data = event.target.value.split(",");
-    console.log(data);
 
     let json = {
       dispatche: data[0],
       consecutive: data[1]
     };
-    console.log(json);
 
     this.DispatchesService.search_dispatche(json).subscribe(
       res => {
-        this.dispatches = res.purchases;
-        this.rowDatatable = res.detail_purchases;
+        this.head = res.dispatches;
+        this.rowDatatable = res.dispatches_body;
 
-        this.head = res.purchases;
-        this.bootom_update = false;
+        this.name_last = res.dispatches.name + " " + res.dispatches.last_name;
+        this.consecutive = res.dispatches.dispatches_conse;
+
+        this.bottonupdate = false;
+        this.buttoinsert = true;
+
+        this.inventary_quantity = res.dispatches_body[0].inventary_quantity;
+        this.quantity = res.dispatches_body[0].quantity;
+        this.stostock_plusck = Number(this.inventary_quantity + this.quantity);
+
+        console.log(this.stostock_plusck);
+
+        this.buttonaddrow = true;
+        this.buttondelete = true;
       },
       error => {
         console.log(error);
       }
     );
-
-    this.bootom_save = true; // ?
   }
 }

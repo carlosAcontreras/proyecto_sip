@@ -10,14 +10,15 @@
                 <div class="col-2">
                     <select name=" " id=" " class="form-control input-modified" name='destino'>
 
-                        <option *ngFor="let destination_dispatches of destination_dispatches" value="{{destination_dispatches.iddestination_dispatches}}">{{destination_dispatches.destination_name}}</option>
+                        <option *ngFor="let destination_dispatches of destination_dispatches" value="{{destination_dispatches.iddestination_dispatches}}"
+                            [selected]="destination_dispatches.iddestination_dispatches === head.dispatches_destino">{{destination_dispatches.destination_name}}</option>
                     </select>
                 </div>
 
                 <label for=" " class="col-1 col-form-label">Fecha</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="date" value="" name="date" [(ngModel)]="validateHead.date" #date="ngModel"
-                        date required>
+                    <input class="form-control input-modified" type="date" name="date" [(ngModel)]="head.dispatches_date" #date="ngModel" date
+                        required>
                     <span *ngIf="date.errors?.required && date.touched" class="error_message">el campo es requerido</span>
                     <span *ngIf="date.errors?.date && date.touched" class="error_message">la fecha no es validaa</span>
                 </div>
@@ -36,7 +37,8 @@
                 <div class="col-2">
                     <select name=" " id=" " class="form-control input-modified" name='dispatches_move'>
 
-                        <option *ngFor="let dispatches_move of dispatches_move" value="{{dispatches_move.iddispatches_move}}">{{dispatches_move.dispatches_move_name}}</option>
+                        <option *ngFor="let dispatches_move of dispatches_move" value="{{dispatches_move.iddispatches_move}}" [selected]="dispatches_move.iddispatches_move === head.dispatches_move">{{dispatches_move.dispatches_move_name}}</option>
+
 
                     </select>
                 </div>
@@ -46,12 +48,14 @@
                 <label for=" " class="col-1 col-form-label">Consecutivo</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" value="{{consecutive}}" name='consecutive'>
+                    <input class="form-control input-modified" type="text" value="{{company}}" name="idcompany" id="idcompany" hidden>
+                    <input class="form-control input-modified" type="text" value="{{head.iddispatches}}" name="iddispatches" id="iddispatches"
+                        hidden>
                 </div>
 
                 <label for=" " class="col-1 col-form-label">Consecutivo Obra</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" value="" id="description" name='consec_obra'>
-                    <input class="form-control input-modified" type="text" value="{{company}}" name="idcompany" id="idcompany" hidden>
                 </div>
             </div>
 
@@ -61,7 +65,8 @@
                 <div class="col-2">
                     <select name=" " id=" " class="form-control input-modified" name="cellar" id="cellar">
 
-                        <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}">{{cellar.name}}</option>
+
+                        <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}" [selected]="cellar.idcellar === head.dispatches_cellar">{{cellar.name}}</option>
                     </select>
                 </div>
 
@@ -74,10 +79,11 @@
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Encargado</label>
                 <div class="col-2">
-                    <input class="employee form-control input-modified" type="text" name="employee" id="employee" [(ngModel)]="employee_name"
-                        #employee="ngModel" required>
+                    <input class="employee form-control input-modified" type="text" name="employee" id="employee" [(ngModel)]="name_last" #employee="ngModel"
+                        employee required>
                     <span *ngIf="employee.errors?.required && employee.touched" class="error_message">el campo es requerido</span>
-                    <input class="employee form-control input-modified" type="text" name="employeeid" id="employeehiden" hidden>
+                    <input class="employee form-control input-modified" type="text" name="employeeid" id="employeehiden" value="{{head.dispatches_incharge}}"
+                        hidden>
                 </div>
                 <label for=" " class="col-1 col-form-label">Dirección</label>
                 <div class="col-2">
@@ -86,8 +92,8 @@
 
             </div>
         </form>
-        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#guardar_dispatches" [disabled]="!form_dispaches.valid || buttoinsert==false">Guardar</button>
-        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar_dispatches">Actualizar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#guardar_dispatches" [disabled]="!form_dispaches.valid || buttoinsert">Guardar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar_dispatches" [disabled]="bottonupdate">Actualizar</button>
         <button class=" btn btn_success btn-sm mr-3 my-3">
             <i class="fa fa-print" aria-hidden="true"></i>Imprimir
         </button>
@@ -117,43 +123,48 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="item_actividad " *ngFor="let newrow of rowDatatable; let i=index">
+
+                        <tr class="item_actividad eliminar_tr" *ngFor="let newrow of rowDatatable; let i=index">
                             <td class="text-center">
 
-                                <button class="btn_delete fa fa-trash-o" type="button">
+                                <button class="btn_delete fa fa-trash-o" type="button" [disabled]="buttondelete">
                                 </button>
                             </td>
 
                             <td>
-                                <input class="code_mater form-control input-modified" name="cod_mater" type="text">
-                                <input class="form-control purchase hiden input-modified" type="text" name="idcode" value="{{newrow.idincome_details}}" hidden>
+                                <input class="code_mater form-control input-modified" name="cod_mater" type="text" value="{{newrow.cod_mater}}">
+                                <input class="form-control purchase hiden input-modified" type="text" name="idcode" hidden value="{{newrow.iddetail_dispatches}}">
                             </td>
 
                             <td>
-                                <input class="description form-control input-modified" type="text" name="">
+                                <input class="code_description description form-control input-modified" type="text" name="" value="{{newrow.description}}">
                             </td>
 
                             <td>
-                                <input class="unidad form-control input-modified" type="text" name="">
+                                <input class="unidad form-control input-modified" type="text" name="" value="{{newrow.name_Unity}}">
                             </td>
                             <td>
-                                <input class="quantity form-control input-modified" type="text" name="quantity">
+                                <input class="quantity form-control input-modified" type="text" name="quantity" value="{{newrow.quantity}}">
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text" name="refund" [disabled]="btndisabled==false">
+                                <input class=" form-control input-modified" type="text" name="refund" readonly value="{{newrow.refund}}">
                             </td>
                             <td>
-                                <input class="missing form-control input-modified" type="text" name="missing" [disabled]="btndisabled==false">
+                                <input class="missing form-control input-modified" type="text" name="missing" readonly value="{{newrow.missing}}">
                             </td>
                             <td>
-                                <input class="stock form-control input-modified" type="text" name="stock" [disabled]="btndisabled==false">
+                                <input class="stock form-control input-modified" type="text" name="stock" value="{{newrow.inventary_quantity}}" readonly>
+                                <input class="stostock_plusck form-control input-modified" type="text" name="stock_plus" value="{{stostock_plusck}}" readonly
+                                    hidden>
                             </td>
-                            <td class="text-center"> </td>
+                            <td class="text-center">
+                                <input class="stock form-control input-modified" type="text" name="serie" value="{{newrow.series}}">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
                 <div>
-                    <button class="btn_add" (click)='addrowtable()' [disabled]="buttonaddrow==false">
+                    <button class="btn_add" (click)='addrowtable()' [disabled]="buttonaddrow">
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
@@ -184,7 +195,7 @@
                             <label for="">Fecha Final</label>
                             <input type="date" class="form-control input-modified" name="end_date">
                         </div>
-                        <div class=" btn_primary btn-sm" (click)="search_dispatche()">
+                        <div class=" btn_primary btn-sm" (click)='search_dispatche()'>
                             Consultar
                         </div>
                     </div>
@@ -193,9 +204,9 @@
 
                 <div class="row data-tables">
                     <div class="col-sm-12">
-                        <table id="table_dispatches" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
-                                <tr class="tr1 text-center ">
+                                <tr>
                                     <th>N° Orden</th>
                                     <th>Encargado</th>
                                     <th>Selección</th>
@@ -203,10 +214,10 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let row of data; let i=index" class="tr1 text-center ">
-                                    <td>{{row.dispatches_conse}}</td>
+                                    <td>{{row.iddispatches}}</td>
                                     <td>{{row.name}} {{row.last_name}}</td>
                                     <td>
-                                        <button class="btn btn_select btn-sm" (click)="handleClick($event)" data-dismiss="modal" value="{{row.iddispatches}},{{row.dispatches_conse}}">Selecionar</button>
+                                        <button class="btn btn_select btn-sm" data-dismiss="modal" value="{{row.iddispatches}},{{row.dispatches_conse}}" (click)="handleClick($event)">Selecionar</button>
                                     </td>
                                 </tr>
                             </tbody>
