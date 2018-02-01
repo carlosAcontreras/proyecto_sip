@@ -8,4 +8,4 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
   imports: [CommonModule, AdminRoutingModule],
   declarations: [AdminComponent, NavbarComponent]
 })
-export class AdminModule {}
+export class AdminModule { }

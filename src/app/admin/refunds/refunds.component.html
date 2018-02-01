@@ -9,7 +9,7 @@
                 <label for=" " class="col-1 col-form-label">Movimiento</label>
                 <div class="col-2">
                     <select name=" " id=" " class="form-control input-modified">
-                        </select>
+                    </select>
                 </div>
                 <label for=" " class="col-1 col-form-label">Extracto</label>
                 <div class="col-2">
@@ -18,20 +18,16 @@
                 <label for=" " class="col-1 col-form-label">Destino</label>
                 <div class="col-2">
                     <select name=" " id=" " class="form-control input-modified">
-                        </select>
+                    </select>
                 </div>
             </div>
 
 
             <div class="form-group row">
-                <label for=" " class="col-1 col-form-label">Empresa</label>
-                <div class="col-2">
-                    <select name=" " id=" " class="form-control input-modified">
-                        </select>
-                </div>
+
                 <label for=" " class="col-1 col-form-label">Fecha</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
+                    <input class="form-control input-modified" type="date" value=" " id="">
                 </div>
                 <label for=" " class="col-1 col-form-label">N° Movimiento</label>
                 <div class="col-2">
@@ -44,7 +40,8 @@
                 <label for=" " class="col-1 col-form-label">Almacen</label>
                 <div class="col-2">
                     <select name=" " id=" " class="form-control input-modified">
-                        </select>
+                        <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}">{{cellar.name}}</option>
+                    </select>
                 </div>
                 <label for=" " class="col-1 col-form-label">N° Despacho</label>
                 <div class="col-2">
@@ -74,7 +71,7 @@
         <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#guardar_refunds">Guardar</button>
         <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar_refunds">Actualizar</button>
         <button class=" btn btn_success btn-sm mr-3 my-3">
-            <i class="fa fa-print" aria-hidden="true"></i>  Imprimir
+            <i class="fa fa-print" aria-hidden="true"></i> Imprimir
         </button>
         <button class="btn btn_success btn-sm mr-3 my-3" data-target="#buscar_refunds" data-toggle="modal">Buscar
             <i aria-hidden="true" class="fa fa-search"></i>
@@ -171,19 +168,19 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">BUSCAR</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="row">
                         <div class="col-2">
                             <label for="">Fecha Inicial</label>
-                            <input type="text" class="form-control input-modified">
+                            <input type="date" class="form-control input-modified">
                         </div>
                         <div class="col-2">
                             <label for="">Fecha Final</label>
-                            <input type="text" class="form-control input-modified">
+                            <input type="date" class="form-control input-modified">
                         </div>
                         <div class="col-2 d-flex align-items-end">
                             <button class="btn btn_primary btn-sm">Consultar</button>
@@ -229,8 +226,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form>
@@ -253,8 +250,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Guardar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form>

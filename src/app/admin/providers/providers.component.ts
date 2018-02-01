@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-declare var upload_image;
 import { PermitsService } from '../../services/permisos/permits.service';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
+  selector: 'app-providers',
+  templateUrl: './providers.component.html',
+  styleUrls: ['./providers.component.scss'],
   providers: [PermitsService]
 })
-export class UsersComponent implements OnInit {
+export class ProvidersComponent implements OnInit {
   public permisos;
 
   constructor(private _PermitsService: PermitsService) { }
@@ -17,14 +16,10 @@ export class UsersComponent implements OnInit {
     this.getPermits();
   }
 
-  upload_file() {
-    upload_image();
-  }
-
   /*Obtener los permisos del menu*/
   getPermits() {
-    this._PermitsService.getPermits('9', 'users');
-    this.permisos = this._PermitsService.getPermitsSubMenu('users');
+    this._PermitsService.getPermits('10', 'providers');
+    this.permisos = this._PermitsService.getPermitsSubMenu('providers');
     console.log(this.permisos);
   }
 

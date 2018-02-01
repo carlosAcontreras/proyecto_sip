@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsersComponent } from './users.component';
-import { UsersRoutingModule } from './users-routing.module';
+import { ProvidersRoutingModule } from './providers-routing.module';
+import { ProvidersComponent } from './providers.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
 
 @NgModule({
   imports: [
     CommonModule,
-    UsersRoutingModule,
+    ProvidersRoutingModule,
     FormsModule,
     HttpModule
   ],
-  declarations: [UsersComponent]
+  declarations: [ProvidersComponent]
 })
-export class UsersModule { }
+export class ProvidersModule { }

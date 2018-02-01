@@ -135,8 +135,8 @@ label {
 }
 
 .textarea-modified {
-    min-height: 90%;
-    max-height: 90%;
+    min-height: 80px;
+    max-height: 80px;
 }
 
 
@@ -265,6 +265,13 @@ table thead tr>th {
     &>table {
         min-width: 4000px;
     }
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    padding: 5px 10px;
+    background: #2196F3;
+    color: #fff;
+    border: none;
 }
 
 @media (min-width: 992px) {

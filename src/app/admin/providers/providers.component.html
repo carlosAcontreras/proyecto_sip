@@ -1,0 +1,154 @@
+<div class="container-fluid container-modified">
+    <div class="col-12">
+        <h3 class="mb-3 title">Proveedores</h3>
+    </div>
+
+    <div class="col-12">
+        <form #form_providers="ngForm">
+            <div class="form-group row">
+                <label for=" " class="col-1 col-form-label">Codigo</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" />
+                </div>
+                <label for=" " class="col-1 col-form-label">Fecha/Registro</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" />
+                </div>
+                <label for=" " class="col-1 col-form-label">Nit/ID</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for=" " class="col-1 col-form-label">Nombre</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" />
+                </div>
+                <label for=" " class="col-1 col-form-label">E-mail</label>
+                <div class="col-2 ">
+                    <input class="form-control input-modified" type="text" />
+                </div>
+                <label for=" " class="col-1 col-form-label">Fax</label>
+                <div class="col-2 ">
+                    <input class="form-control input-modified" type="text" />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for=" " class="col-1 col-form-label">Dirección</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" />
+                </div>
+                <label for=" " class="col-1 col-form-label">Telefono</label>
+                <div class="col-2">
+
+                    <input class="form-control input-modified" type="text" />
+                </div>
+                <label for=" " class="col-1 col-form-label">Extension</label>
+                <div class="col-2 text-center">
+                    <input class="form-control input-modified" type="text" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for=" " class="col-1 col-form-label">Nombre Contato</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="text" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="" class="col-1 col-form-label">Observaciones</label>
+                <div class="col-8">
+                    <textarea class="form-control textarea-modified"></textarea>
+                </div>
+            </div>
+
+            <button class="btn btn_primary btn-sm mr-3 my-3">Crear Proveedor</button>
+            <button class="btn btn_danger btn-sm mr-3 my-3">Actualizar Proveedor</button>
+            <button class="btn btn_success btn-sm mr-3 my-3" data-toggle="modal" data-target="#agregar_material">Agregar Material</button>
+        </form>
+    </div>
+</div>
+
+<div class="container-fluid container-modified">
+    <table id="table_providers" class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Descripción</th>
+                <th>Codigo</th>
+                <th>V/Unitario</th>
+                <th>Descuento</th>
+                <th>V/con Descuento</th>
+                <th>Iva</th>
+                <th>V/Total</th>
+                <th>Ver Precios</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>item #</td>
+                <td>item #</td>
+                <td>item #</td>
+                <td>item #</td>
+                <td>item #</td>
+                <td>item #</td>
+                <td>item #</td>
+                <td>item #</td>
+                <td>item #</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+<!-- Large modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="agregar_material" tabindex="-1" role="dialog" aria-labelledby="agregar_material" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Guardar Materiales</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <table id="table_providers" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Descripción</th>
+                                    <th>Codigo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            <button class="btn_add">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn_success btn-sm" data-dismiss="modal">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

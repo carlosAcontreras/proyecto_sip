@@ -14,8 +14,10 @@ const routes: Routes = [
       { path: 'reintegros', loadChildren: './refunds/refunds.module#RefundsModule' },
       { path: 'traslados', loadChildren: './transfer/transfer.module#TransferModule' },
       { path: 'control_series', loadChildren: './control-series/control-series.module#ControlSeriesModule' },
-      { path: 'usuarios', loadChildren: './users/users.module#UsersModule' }
-
+      { path: 'usuarios', loadChildren: './users/users.module#UsersModule' },
+      { path: 'proveedores', loadChildren: './providers/providers.module#ProvidersModule' },
+      { path: 'contratos', loadChildren: './contracts/contracts.module#ContractsModule' },
+      { path: 'empresas', loadChildren: './company/company.module#CompanyModule' }
     ]
   }
 ]
