@@ -1,82 +1,41 @@
 <div class="container-fluid container-modified">
     <div class="col-12">
-        <h3 class="mb-3 title">Reintegros</h3>
+        <h3 class="mb-3 title">Reintegros Masivos</h3>
     </div>
 
     <div class="col-12">
         <form>
             <div class="form-group row">
-                <label for=" " class="col-1 col-form-label">Movimiento</label>
-                <div class="col-2">
-                    <select name=" " id=" " class="form-control input-modified">
-                        </select>
-                </div>
-                <label for=" " class="col-1 col-form-label">Extracto</label>
+                <label for=" " class="col-1 col-form-label">Consecutivo</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" value=" " id="description">
-                </div>
-                <label for=" " class="col-1 col-form-label">Destino</label>
-                <div class="col-2">
-                    <select name=" " id=" " class="form-control input-modified">
-                        </select>
-                </div>
-            </div>
-
-
-            <div class="form-group row">
-                <label for=" " class="col-1 col-form-label">Empresa</label>
-                <div class="col-2">
-                    <select name=" " id=" " class="form-control input-modified">
-                        </select>
                 </div>
                 <label for=" " class="col-1 col-form-label">Fecha</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
+                    <input class="form-control input-modified" type="date" value=" " id="description">
                 </div>
-                <label for=" " class="col-1 col-form-label">N° Movimiento</label>
-                <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="description">
-                </div>
-            </div>
-
-
-            <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Almacen</label>
                 <div class="col-2">
                     <select name=" " id=" " class="form-control input-modified">
                         </select>
                 </div>
-                <label for=" " class="col-1 col-form-label">N° Despacho</label>
-                <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
-                </div>
-                <label for=" " class="col-1 col-form-label">Tipo Obra</label>
+            </div>
+
+
+            <div class="form-group row">
+                <label for=" " class="col-1 col-form-label">Encargado</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="text" value=" " id="description">
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label for=" " class="col-1 col-form-label">Encargado</label>
-                <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
-                </div>
-                <label for=" " class="col-1 col-form-label">Dirección</label>
-                <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
-                </div>
-                <label for=" " class="col-1 col-form-label">Consecutivo</label>
-                <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="description">
-                </div>
-            </div>
         </form>
-        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#guardar_refunds">Guardar</button>
-        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar_refunds">Actualizar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#guardar_massive">Guardar</button>
+        <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#actualizar_massive">Actualizar</button>
         <button class=" btn btn_success btn-sm mr-3 my-3">
             <i class="fa fa-print" aria-hidden="true"></i>  Imprimir
         </button>
-        <button class="btn btn_success btn-sm mr-3 my-3" data-target="#buscar_refunds" data-toggle="modal">Buscar
+        <button class="btn btn_success btn-sm mr-3 my-3" data-target="#buscar_massive" data-toggle="modal">Buscar
             <i aria-hidden="true" class="fa fa-search"></i>
         </button>
     </div>
@@ -165,7 +124,7 @@
 
 
 <!--MODAL PARA BUSCAR LOS DESPACHOS-->
-<div class="modal fade" id="buscar_refunds" tabindex="-1" role="dialog" aria-labelledby="buscar_refunds" aria-hidden="true">
+<div class="modal fade" id="buscar_massive" tabindex="-1" role="dialog" aria-labelledby="buscar_massive" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -184,6 +143,11 @@
                         <div class="col-2">
                             <label for="">Fecha Final</label>
                             <input type="date" class="form-control input-modified">
+                        </div>
+                        <div class="col-2">
+                            <label for="">Almacen</label>
+                            <select name=" " id=" " class="form-control input-modified">
+                        </select>
                         </div>
                         <div class="col-2 d-flex align-items-end">
                             <button class="btn btn_primary btn-sm">Consultar</button>
@@ -223,7 +187,7 @@
 </div>
 
 <!--MODAL DE CONFIMACION-->
-<div class="modal fade" id="actualizar_refunds" tabindex="-1" role="dialog" aria-labelledby="actualizar_refunds" aria-hidden="true">
+<div class="modal fade" id="actualizar_massive" tabindex="-1" role="dialog" aria-labelledby="actualizar_massive" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -247,7 +211,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="guardar_refunds" tabindex="-1" role="dialog" aria-labelledby="guardar_refunds" aria-hidden="true">
+<div class="modal fade" id="guardar_massive" tabindex="-1" role="dialog" aria-labelledby="guardar_massive" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
