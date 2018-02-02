@@ -19,7 +19,9 @@ const routes: Routes = [
       { path: 'usuarios', loadChildren: './users/users.module#UsersModule' },
       { path: 'proveedores', loadChildren: './providers/providers.module#ProvidersModule' },
       { path: 'contratos', loadChildren: './contracts/contracts.module#ContractsModule' },
-      { path: 'empresas', loadChildren: './company/company.module#CompanyModule' }
+      { path: 'empresas', loadChildren: './company/company.module#CompanyModule' },
+      { path: 'bodegas', loadChildren: './wineries/wineries.module#WineriesModule' },
+
     ]
   }
 ]
