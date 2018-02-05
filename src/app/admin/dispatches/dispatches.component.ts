@@ -281,7 +281,8 @@ export class DispatchesComponent implements OnInit {
 
     let json = {
       dispatche: data[0],
-      consecutive: data[1]
+      consecutive: data[1],
+      company: data[1]
     };
 
     this.DispatchesService.search_dispatche(json).subscribe(

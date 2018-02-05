@@ -9,6 +9,7 @@
                 <label for=" " class="col-1 col-form-label">Movimiento</label>
                 <div class="col-2">
                     <select name=" " id=" " class="form-control input-modified">
+                        <option *ngFor="let dispatches_move of dispatches_move" value="{{dispatches_move.iddispatches_move}}">{{dispatches_move.dispatches_move_name}}</option>
                     </select>
                 </div>
                 <label for=" " class="col-1 col-form-label">Extracto</label>
@@ -56,7 +57,8 @@
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Encargado</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
+                    <input class="employee form-control input-modified" type="text" name="employee" id="employee">
+                    <input class="employee form-control input-modified" type="text" name="employeeid" id="employeehiden">
                 </div>
                 <label for=" " class="col-1 col-form-label">Dirección</label>
                 <div class="col-2">
@@ -99,7 +101,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="item_actividad eliminar_tr">
+                        <tr class="item_actividad eliminar_tr" *ngFor="let newrow of rowDatatable; let i=index">
                             <td class="text-center">
 
                                 <button class="btn_delete" type="button">
@@ -108,51 +110,41 @@
                             </td>
 
                             <td>
-                                <input class="form-control input-modified" type="text">
+                                <input class="form-control input-modified" type="text" name="code" value="{{newrow.cod_mater}}" readonly>
                             </td>
 
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class=" form-control input-modified" type="text" value="{{newrow.description}}" readonly>
                             </td>
 
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class=" form-control input-modified" type="text" value="{{newrow.name_Unity}}" readonly>
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class=" form-control input-modified" type="text" value="{{newrow.quantity}}" readonly>
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class=" form-control input-modified" type="text" value="{{newrow.refund}}">
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class=" form-control input-modified" type="text" value="{{newrow.missing}}" readonly>
                             </td>
                             <td>
-                                <input class="form-control input-modified" type="text">
+                                <input class="form-control input-modified" type="text" value="{{newrow.inventary_quantity}}">
                             </td>
-                            <td class="text-center"> </td>
+                            <td>
+                                <input class="form-control input-modified" type="text" value="{{newrow.series}}">
+                            </td>
+
 
                         </tr>
                     </tbody>
                 </table>
                 <div>
-                    <button class="btn_add">
-                        <i class="fa fa-plus"></i>
-                    </button>
+
                 </div>
 
-                <div class="d-flex justify-content-end pr-3">
-                    <div class="resumen mr-5">
-                        <p class="info border_botom">SUBTOTAL</p>
-                        <p class="info border_botom">IVA</p>
-                        <p class="info border_botom">TOTAL</p>
-                    </div>
-                    <div class="resumen text-right">
-                        <p class="sub_total border_botom">0</p>
-                        <p class="sub_iva border_botom">0</p>
-                        <p class="total border_botom">0</p>
-                    </div>
-                </div>
+
 
             </div>
 
@@ -172,18 +164,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="search_date">
                     <div class="row">
                         <div class="col-2">
                             <label for="">Fecha Inicial</label>
-                            <input type="date" class="form-control input-modified">
+                            <input type="date" class="form-control input-modified" name="start_date">
                         </div>
                         <div class="col-2">
                             <label for="">Fecha Final</label>
-                            <input type="date" class="form-control input-modified">
+                            <input type="date" class="form-control input-modified" name="end_date">
                         </div>
                         <div class="col-2 d-flex align-items-end">
-                            <button class="btn btn_primary btn-sm">Consultar</button>
+                            <button class="btn btn_primary btn-sm" (click)='search_date()'>Consultar</button>
                         </div>
                     </div>
                 </form>
@@ -191,7 +183,7 @@
 
                 <div class="row data-tables">
                     <div class="col-sm-12">
-                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="table_dispatche" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>N° Orden</th>
@@ -200,11 +192,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center">
-                                    <td></td>
-                                    <td></td>
+                                <tr *ngFor="let row of data; let i=index" class="tr1 text-center ">
+                                    <td>{{row.dispatches_conse}}</td>
+                                    <td>{{row.name}} {{row.last_name}}</td>
                                     <td>
-                                        <button class="btn btn_select btn-sm" data-dismiss="modal">Selecionar</button>
+                                        <button class="btn btn_select btn-sm" value="{{row.iddispatches}},{{row.dispatches_conse}},{{row.dispatches_company}}" (click)='select_dispatch($event)'
+                                            data-dismiss="modal">Selecionar</button>
                                     </td>
                                 </tr>
                             </tbody>

@@ -10,7 +10,7 @@ export class PurchasesService {
 
 
 
- private constantes;
+  private constantes;
   private url;
 
   constructor(private http: Http) {
@@ -26,23 +26,23 @@ export class PurchasesService {
     return this.http.post(url, params, options).map(res => res.json());
   }
 
-  insert(params,table){
+  insert(params, table) {
 
     this.url = this.constantes.getRouterGlobal() + 'purchase/create';
-    return this.http.post(this.url, params).map(res => res.json());  
-}
+    return this.http.post(this.url, params).map(res => res.json());
+  }
 
-  update(params,table){
+  update(params, table) {
 
     this.url = this.constantes.getRouterGlobal() + 'purchase/update';
-    return this.http.post(this.url, params).map(res => res.json());  
-}
+    return this.http.post(this.url, params).map(res => res.json());
+  }
 
 
 
-  delete(params){
+  delete(params) {
 
     this.url = this.constantes.getRouterGlobal() + 'purchase/delete';
-    return this.http.post(this.url, params).map(res => res.json());  
-}
+    return this.http.post(this.url, params).map(res => res.json());
+  }
 }
