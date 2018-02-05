@@ -22,12 +22,12 @@ export class ListService {
     return this.http.post(this.url, this.params).map(res => res.json());
   }
 
-  moves_income(){
+  moves_income() {
 
     this.url = this.constantes.getRouterGlobal() + 'income_move';
     return this.http.post(this.url, this.params).map(res => res.json());
-    
-}
+
+  }
 
   cellar(idcompany) {
     let params = { 'idcompany': idcompany };
@@ -40,14 +40,13 @@ export class ListService {
 
     this.url = this.constantes.getRouterGlobal() + 'dispatches/dispatches_move';
     return this.http.post(this.url, this.params).map(res => res.json());
-    
+
   }
 
-    destination_dispatches() {
+  destination_dispatches() {
 
     this.url = this.constantes.getRouterGlobal() + 'dispatches/destination_dispatches';
     return this.http.post(this.url, this.params).map(res => res.json());
-    
   }
 
 

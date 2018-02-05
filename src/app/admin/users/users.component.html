@@ -16,7 +16,7 @@
                                 <label for=" " class="col-1 col-form-label">Empresa</label>
                                 <div class="col-3">
                                     <select name="" id="" class="form-control input-modified">
-                                       <option value=""></option>
+                                       <option *ngFor="let company of list_company" value="company.idbusiness">{{company.company_name}}</option>
                                    </select>
                                 </div>
                                 <label for=" " class="col-1 col-form-label">Clasificacion</label>
