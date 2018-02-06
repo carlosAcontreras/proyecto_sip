@@ -4,29 +4,30 @@
     </div>
 
     <div class="col-12">
-        <form>
+        <form id="head_refund">
             <div class="form-group row">
-                <label for=" " class="col-1 col-form-label">Movimiento</label>
+                <label class="col-1 col-form-label">Movimiento</label>
                 <div class="col-2">
-                    <select name=" " id=" " class="form-control input-modified">
-                        <option *ngFor="let dispatches_move of dispatches_move" value="{{dispatches_move.iddispatches_move}}">{{dispatches_move.dispatches_move_name}}</option>
+                    <select name="move" id="move" class="form-control input-modified">
+                        <option *ngFor="let dispatches_move of dispatches_move" value="{{dispatches_move.iddispatches_move}}" [selected]="dispatches_move === dispatche_move">{{dispatches_move.dispatches_move_name}}</option>
                     </select>
                 </div>
 
-                <label for=" " class="col-1 col-form-label">#Ingreso
-                    <button class="fa fa-search btn btn-sm btn_success" data-toggle="modal" data-target="#buscar_despacho"
-                        type="button">
+                <label class="col-1 col-form-label">N° Despacho
+                    <button class="fa fa-search btn btn-sm btn_success" data-toggle="modal" data-target="#buscar_despacho" type="button">
                     </button>
                 </label>
 
 
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value="" name="">
+                    <input class="form-control input-modified" type="text" name="cosec_dispatch" id="cosec" value="{{dispatches_conse}}" readonly>
                 </div>
 
-                <label for=" " class="col-1 col-form-label">Destino</label>
+                <label class="col-1 col-form-label">Destino</label>
                 <div class="col-2">
-                    <select name=" " id=" " class="form-control input-modified">
+                    <select name="destination" id="destination" class="form-control input-modified">
+                        <option *ngFor="let destination_dispatches of destination_dispatches" value="{{destination_dispatches.iddestination_dispatches}}"
+                            [selected]="destination_dispatches.iddestination_dispatches === destino"> {{destination_dispatches.destination_name}}</option>
                     </select>
                 </div>
             </div>
@@ -34,51 +35,53 @@
 
             <div class="form-group row">
 
-                <label for=" " class="col-1 col-form-label">Fecha</label>
+                <label class="col-1 col-form-label">Fecha</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="date" value=" " id="">
+                    <input class="form-control input-modified" type="date" value="{{date}}" id="date" name="date">
                 </div>
-                <label for=" " class="col-1 col-form-label">N° Movimiento</label>
+                <label class="col-1 col-form-label">N° Movimiento</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="description">
+                    <input class="form-control input-modified" type="text" name="nMovimiento" id="nMovimiento">
                 </div>
-                <label for=" " class="col-1 col-form-label">Extracto</label>
+                <label class="col-1 col-form-label">Extracto</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="description">
+                    <input class="form-control input-modified" type="text" value=" " id="Extracto" name="Extracto">
                 </div>
             </div>
 
 
             <div class="form-group row">
-                <label for=" " class="col-1 col-form-label">Almacen</label>
+                <label class="col-1 col-form-label">Almacen</label>
                 <div class="col-2">
-                    <select name=" " id=" " class="form-control input-modified">
-                        <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}">{{cellar.name}}</option>
+                    <select name=" " id=" " class="form-control input-modified" name="cellar">
+                        <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}" [selected]="cellar.idcellar === dispatche_cellar"> {{cellar.name}}</option>
                     </select>
                 </div>
-                <label for=" " class="col-1 col-form-label">N° Despacho</label>
+                <label class="col-1 col-form-label">N° Reintegro</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
+
+                    <input class="form-control input-modified" type="text" name="cosec_reintegro" id="cosec_reintegro" value="{{consec_refund}}">
                 </div>
-                <label for=" " class="col-1 col-form-label">Tipo Obra</label>
+                <label class="col-1 col-form-label">Tipo Obra</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="description">
+                    <input class="form-control input-modified" type="text" value="" id="tobra">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for=" " class="col-1 col-form-label">Encargado</label>
+                <label class="col-1 col-form-label">Encargado</label>
                 <div class="col-2">
-                    <input class="employee form-control input-modified" type="text" name="employee" id="employee">
-                    <input class="employee form-control input-modified" type="text" name="employeeid" id="employeehiden">
+                    <input class="employee form-control input-modified" type="text" name="employee" id="employee" value="{{name}}">
+                    <input class="employee form-control input-modified" type="text" name="employeeid" id="employeehiden" value="{{idemployees}}"
+                        hidden>
                 </div>
-                <label for=" " class="col-1 col-form-label">Dirección</label>
+                <label class="col-1 col-form-label">Dirección</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="">
+                    <input class="form-control input-modified" type="text" value=" " id="dieccion">
                 </div>
-                <label for=" " class="col-1 col-form-label">Consecutivo</label>
+                <label class="col-1 col-form-label">Consecutivo</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="description">
+                    <input class="form-control input-modified" type="text" value=" " name="Consecutivo" id="Consecutivo" value="{{consec_workI}}">
                 </div>
             </div>
         </form>
@@ -98,7 +101,7 @@
         <div class="form-group">
 
             <div class="datagrid">
-                <table id="table" class="table table-striped table-hover table-bordered table-relative">
+                <table id="body_refund" class="table table-striped table-hover table-bordered table-relative">
                     <thead>
                         <tr>
                             <th class="width-table-1">Eliminar</th>
@@ -123,6 +126,11 @@
 
                             <td>
                                 <input class="form-control input-modified" type="text" name="code" value="{{newrow.cod_mater}}" readonly>
+                                <input class="form-control input-modified" type="text" name="iddetail_dispatches" value="{{newrow.iddetail_dispatches}}"
+                                    readonly hidden>
+
+                                <input class="form-control input-modified" type="text" name="iddetail_refund" value="{{newrow.iddetail_refund}}" readonly
+                                    hidden>
                             </td>
 
                             <td>
@@ -133,19 +141,19 @@
                                 <input class=" form-control input-modified" type="text" value="{{newrow.name_Unity}}" readonly>
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text" value="{{newrow.quantity}}" readonly>
+                                <input class=" form-control input-modified" type="text" name="quantity" value="{{newrow.quantity}}" readonly>
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text" value="{{newrow.refund}}">
+                                <input class=" form-control input-modified" type="text" name="refund" value="{{newrow.refund}}">
                             </td>
                             <td>
                                 <input class=" form-control input-modified" type="text" value="{{newrow.missing}}" readonly>
                             </td>
                             <td>
-                                <input class="form-control input-modified" type="text" value="{{newrow.inventary_quantity}}">
+                                <input class="form-control input-modified" type="text" name="inventary_quantity" value="{{newrow.inventary_quantity}}" readonly>
                             </td>
                             <td>
-                                <input class="form-control input-modified" type="text" value="{{newrow.series}}">
+                                <input class="form-control input-modified" type="text" name="series" value="{{newrow.series}}" readonly>
                             </td>
 
 
@@ -166,7 +174,7 @@
 
 
 <!--MODAL PARA BUSCAR LOS LOS DESPACHOS-->
-<div class="modal fade" id="buscar_despacho" tabindex="-1" role="dialog" aria-labelledby="buscar_despacho" aria-hidden="true">
+<div class="modal fade" id="buscar_refunds" tabindex="-1" role="dialog" aria-labelledby="buscar_despacho" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -176,18 +184,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="search_date_refund">
                     <div class="row">
                         <div class="col-2">
                             <label for="">Fecha Inicial</label>
-                            <input type="date" class="form-control input-modified">
+                            <input type="date" class="form-control input-modified" name="start_date">
                         </div>
                         <div class="col-2">
                             <label for="">Fecha Final</label>
-                            <input type="date" class="form-control input-modified">
+                            <input type="date" class="form-control input-modified" name="end_date">
                         </div>
                         <div class="col-2 d-flex align-items-end">
-                            <button class="btn btn_primary btn-sm">Consultar</button>
+                            <button class="btn btn_primary btn-sm" (click)='search_date_refund()'>Consultar</button>
                         </div>
                     </div>
                 </form>
@@ -195,7 +203,8 @@
 
                 <div class="row data-tables">
                     <div class="col-sm-12">
-                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="search_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+
                             <thead>
                                 <tr>
                                     <th>N° Orden</th>
@@ -204,11 +213,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center">
-                                    <td></td>
-                                    <td></td>
+                                <tr *ngFor="let row of data_refund; let i=index" class="tr1 text-center ">
+                                    <td>{{row.refund_conse}}</td>
+                                    <td>{{row.name}} {{row.last_name}}</td>
                                     <td>
                                         <button class="btn btn_select btn-sm" data-dismiss="modal">Selecionar</button>
+
+                                        <button class="btn btn_select btn-sm" value="{{row.idrefund}},{{row.refund_conse}},{{row.refund_company}}" (click)='select_refound($event)'
+                                            data-dismiss="modal">Selecionar</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -225,7 +237,7 @@
 
 
 <!--MODAL PARA BUSCAR LOS DESPACHOS-->
-<div class="modal fade" id="buscar_refunds" tabindex="-1" role="dialog" aria-labelledby="buscar_refunds" aria-hidden="true">
+<div class="modal fade" id="buscar_despacho" tabindex="-1" role="dialog" aria-labelledby="buscar_refunds" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -326,7 +338,7 @@
             </div>
             <div class=" modal-footer">
                 <button type="button" class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn_success btn-sm">Guardar</button>
+                <button type="button" class="btn btn_success btn-sm" data-dismiss="modal" (click)='insert()'>Guardar</button>
             </div>
         </div>
     </div>

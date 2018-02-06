@@ -25,6 +25,16 @@ export class RefundService {
     return this.http.post(url, params, options).map(res => res.json());
   }
 
+  insert(params) {
+    this.url = this.constantes.getRouterGlobal() + "refund/create";
 
+    return this.http.post(this.url, params).map(res => res.json());
+  }
+
+  search_refund(params) {
+    this.url = this.constantes.getRouterGlobal() + "refund/search_refund";
+
+    return this.http.post(this.url, params).map(res => res.json());
+  }
 
 }
