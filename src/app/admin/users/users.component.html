@@ -9,36 +9,40 @@
                     <div class="row">
                         <div class="col-10">
                             <div class="form-group row">
+                                <label for=" " class="col-1 col-form-label">Codigo</label>
+                                <div class="col-3">
+                                    <input class="form-control input-modified" type="text" value="" readonly>
+                                </div>
                                 <label for=" " class="col-1 col-form-label">Cedula</label>
-                                <div class="col-3">
-                                    <input class="form-control input-modified" type="text" value="">
-                                </div>
-                                <label for=" " class="col-1 col-form-label">Empresa</label>
-                                <div class="col-3">
-                                    <select name="" id="" class="form-control input-modified">
-                                       <option *ngFor="let company of list_company" value="company.idbusiness">{{company.company_name}}</option>
-                                   </select>
-                                </div>
-                                <label for=" " class="col-1 col-form-label">Clasificacion</label>
                                 <div class="col-3 text-center">
                                     <input class="form-control input-modified" type="text">
                                 </div>
-                            </div>
-                            <div class="form-group row">
                                 <label for=" " class="col-1 col-form-label">Nombre</label>
                                 <div class="col-3">
                                     <input class="form-control input-modified" type="text" value="">
                                 </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for=" " class="col-1 col-form-label">Apellido</label>
                                 <div class="col-3">
                                     <input class="form-control input-modified" type="text">
                                 </div>
+                                <label for=" " class="col-1 col-form-label">Sexo</label>
+                                <div class="col-3 text-center">
+                                    <select class="form-control input-modified">
+                                        <option *ngFor="let sex of list_sex" value="{{sex.idsexo}}">{{sex.name}}</option>
+                                    </select>
+                                </div>
+                                <label for=" " class="col-1 col-form-label">Edad</label>
+                                <div class="col-3">
+                                    <input class="form-control input-modified" type="text" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for=" " class="col-1 col-form-label">Telefono</label>
                                 <div class="col-3 text-center">
                                     <input class="form-control input-modified" type="text">
                                 </div>
-                            </div>
-                            <div class="form-group row">
                                 <label for=" " class="col-1 col-form-label">Direccion</label>
                                 <div class="col-3">
                                     <input class="form-control input-modified" type="text" value="">
@@ -47,18 +51,33 @@
                                 <div class="col-3">
                                     <input class="form-control input-modified" type="text">
                                 </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for=" " class="col-1 col-form-label">Estado/Civil</label>
                                 <div class="col-3 text-center">
                                     <select name="" id="" class="form-control input-modified">
                                        <option value=""></option>
                                    </select>
                                 </div>
+                                <label for=" " class="col-1 col-form-label">Empresa</label>
+                                <div class="col-3">
+                                    <select name="" id="" class="form-control input-modified">
+                                       <option *ngFor="let company of list_company" value="{{company.idbusiness}}">{{company.company_name}}</option>
+                                   </select>
+                                </div>
+                                <label for=" " class="col-1 col-form-label">Clasificacion</label>
+                                <div class="col-3">
+                                    <select name="" id="" class="form-control input-modified">
+                                       <option *ngFor="let calsificacion of list_clasificaciones" value="{{calsificacion.idclasificaciones}}">{{calsificacion.name}}</option>
+                                   </select>
+                                </div>
                             </div>
+
                             <div class="form-group row">
                                 <label for=" " class="col-1 col-form-label">Entidad</label>
                                 <div class="col-3">
                                     <select name="" id="" class="form-control input-modified">
-                                       <option value=""></option>
+                                       <option *ngFor="let bank of list_bank" value="{{bank.idbank}}">{{bank.name}}</option>
                                    </select>
                                 </div>
                                 <label for=" " class="col-1 col-form-label">N°/Cuenta</label>
@@ -68,11 +87,10 @@
                                 <label for=" " class="col-1 col-form-label">Tipo/Cuenta</label>
                                 <div class="col-3 text-center">
                                     <select name="" id="" class="form-control input-modified">
-                                       <option value=""></option>
+                                       <option *ngFor="let account of list_account_type" value="{{account.idaccount_type}}">{{account.name}}</option>
                                    </select>
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-2 d-flex flex-column align-items-center">
                             <div class="foto mb-2">
@@ -84,6 +102,14 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group row">
+                <div class="col-2 text-center">
+                    <button class="btn btn-sm btn-block btn_success" data-toggle="modal" data-target="#asignar_dotacion">Asignar Dotación</button>
+                </div>
+                <div class="col-2 text-center">
+                    <button class="btn btn-sm btn-block btn_success" data-toggle="modal" data-target="#asignar_permiso">Procesos Disciplinarios</button>
+                </div>
+            </div>
         </div>
         <div class=" container-fluid container-modified">
             <div class="row px-3">
@@ -92,20 +118,26 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group row">
-                        <label for=" " class="col-1 col-form-label">Origen</label>
+                        <label for=" " class="col-1 col-form-label">Departamento</label>
                         <div class="col-3">
-                            <select name="" id="" class="form-control input-modified">
-                               <option value=""></option>
+
+
+                            <select name="" id="" class="form-control input-modified" (change)="get_city($event)">
+                                <option></option>
+                               <option  *ngFor="let departaments of list_departaments" value="{{departaments.id_dane}}">{{departaments.name_departments}}</option>
                             </select>
                         </div>
-                        <label for=" " class="col-1 col-form-label">Lugar/Fuente</label>
+                        <label for=" " class="col-1 col-form-label">Municipio</label>
                         <div class="col-3">
-                            <input class="form-control input-modified" type="text">
+                            <select class="form-control input-modified">
+                                <option></option>
+                                <option *ngFor="let city of list_city" value="{{city.idmunicipality}}">{{city.name_municipality}}</option>
+                            </select>
                         </div>
                         <label for=" " class="col-1 col-form-label">Estado</label>
                         <div class="col-3 text-center">
                             <select name="" id="" class="form-control input-modified">
-                               <option value=""></option>
+                               <option *ngFor="let state of list_state" value="{{state.idstate}}">{{state.state}}</option>
                             </select>
                         </div>
                     </div>
@@ -114,22 +146,79 @@
                         <label for=" " class="col-1 col-form-label">Lugar/Labor</label>
                         <div class="col-3">
                             <select name="" id="" class="form-control input-modified">
+                               <option *ngFor="let place of list_place_of_work" value="{{place.idplace_of_work}}">{{place.place_of_work_name}}</option>
+                            </select>
+                        </div>
+                        <label for=" " class="col-1 col-form-label">Nivel/Educativo</label>
+                        <div class="col-3">
+                            <select class="form-control input-modified">
+                                <option *ngFor="let education of  list_education_level" value="{{education.ideducation_level}}">{{education.education_level_name}}</option>
+                            </select>
+                        </div>
+                        <label for=" " class="col-1 col-form-label">Ubicacion</label>
+                        <div class="col-3">
+                            <select name="" id="" class="form-control input-modified">
                                <option value=""></option>
                             </select>
                         </div>
-                        <label for=" " class="col-1 col-form-label">Nombre/Fuente</label>
+                    </div>
+                    <div class="form-group row">
+                        <label for=" " class="col-1 col-form-label">Perfil</label>
                         <div class="col-3">
-                            <input class="form-control input-modified" type="text">
+                            <select name="" id="" class="form-control input-modified">
+                                <option *ngFor="let profile of list_profiles " value="{{profile.idP_profiles}}">{{profile.name}}</option>
+                            </select>
                         </div>
-                        <label for=" " class="col-1 col-form-label">Codigo</label>
-                        <div class="col-3 text-center">
-                            <input class="form-control input-modified" type="text">
+                        <label for=" " class="col-1 col-form-label">Cargo</label>
+                        <div class="col-3">
+                            <select name="" id="" class="form-control input-modified">
+                               <option *ngFor="let charge of list_charges" value="{{charge.idcharges}}">{{charge.name_charges}}</option>
+                            </select>
+                        </div>
+                        <label for=" " class="col-1 col-form-label">Contrato</label>
+                        <div class="col-3">
+                            <select name="" id="" class="form-control input-modified">
+                               <option value=""></option>
+                            </select>
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label for=" " class="col-1 col-form-label">EPS</label>
+                        <div class="col-3">
+                            <select name="" id="" class="form-control input-modified">
+                               <option *ngFor="let eps of list_eps" value="{{eps.id_list}}">{{eps.name_eps}}</option>
+                            </select>
+                        </div>
+                        <label for=" " class="col-1 col-form-label">ARL</label>
+                        <div class="col-3">
+                            <select name="" id="" class="form-control input-modified">
+                               <option *ngFor="let arl of list_arl" value="{{arl.idarl}}">{{arl.name_arl}}</option>
+                            </select>
+                        </div>
+                        <label for=" " class="col-1 col-form-label">Pensiones</label>
+                        <div class="col-3">
+                            <select name="" id="" class="form-control input-modified">
+                               <option *ngFor="let pension of list_pension" value="{{pension.idpensions}}">{{pension.name_pensions}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for=" " class="col-1 col-form-label">Cuadrillas</label>
+                        <div class="col-3">
+                            <select name="" id="" class="form-control input-modified">
+                               <option  value=""></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn btn_primary btn-sm mr-3 my-3">Guardar</button>
+                    <button class="btn btn_primary btn-sm mr-3 my-3">Actualizar</button>
                 </div>
             </div>
         </div>
-        <div class="container-fluid container-modified ">
+        <!--<div class="container-fluid container-modified ">
             <div class="row px-3">
                 <div class="col-12 ">
                     <h1 class="mb-3 title ">Acceso al Sistema</h1>
@@ -146,8 +235,8 @@
                         <div class="col-3">
                             <input class="form-control input-modified" type="text">
                         </div>
-                        <label for=" " class="col-1 col-form-label">Disponible</label>
-                        <div class="col-3 text-center">
+                        <label for=" " class="col-1 col-form-label">Cargo</label>
+                        <div class="col-3">
                             <select name="" id="" class="form-control input-modified">
                                <option value=""></option>
                             </select>
@@ -155,12 +244,6 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for=" " class="col-1 col-form-label">Cargo</label>
-                        <div class="col-3">
-                            <select name="" id="" class="form-control input-modified">
-                               <option value=""></option>
-                            </select>
-                        </div>
                         <label for=" " class="col-1 col-form-label">Contrato</label>
                         <div class="col-3">
                             <input class="form-control input-modified" type="text">
@@ -203,10 +286,13 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
+
 </form>
 
+
+<!--  CONTRATOS -->
 <div class="container-fluid container-modified ">
     <div class="row ">
         <div class="col-12 ">

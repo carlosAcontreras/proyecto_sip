@@ -50,4 +50,11 @@ export class ListService {
   }
 
 
+  get_list(url, params = null) {
+    this.url = this.constantes.getRouterGlobal() + url;
+    let headers = new Headers({ 'content-type': 'aplication/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.url, params, options).map(res => res.json());
+  }
+
 }
