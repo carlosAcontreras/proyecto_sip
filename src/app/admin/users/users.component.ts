@@ -28,6 +28,11 @@ export class UsersComponent implements OnInit {
   public list_education_level;
   public list_profiles;
   public list_place_of_work;
+  public list_gangs;
+  public list_contracts = [];
+  public list_location;
+  public list_civil_status;
+
 
   constructor(private _PermitsService: PermitsService, private CompanyService: CompanyService, private ListService: ListService) { }
 
@@ -47,6 +52,9 @@ export class UsersComponent implements OnInit {
     this.get_education_level();
     this.get_profiles();
     this.get_place_of_work();
+    this.get_place_gangs();
+    this.get_place_location();
+    this.get_civil_status();
 
 
   }
@@ -252,4 +260,67 @@ export class UsersComponent implements OnInit {
     );
 
   }
+
+  get_place_gangs() {
+    let url = "list/gangs";
+    let company = localStorage.getItem('company');
+    let params = { 'company': company };
+    this.ListService.get_list(url, params).subscribe(
+      res => {
+        this.list_gangs = res.gangs;
+        console.log(this.list_gangs);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  get_contracts(e) {
+    let url = "list/contract";
+    let company = e.target.value;
+    let params = { 'company': company };
+    this.ListService.get_list(url, params).subscribe(
+      res => {
+        this.list_contracts = res.contract;
+        console.log(this.list_contracts);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  get_place_location() {
+    let url = "list/location";
+    let company = localStorage.getItem('company');
+    let params = { 'company': company };
+    this.ListService.get_list(url, params).subscribe(
+      res => {
+        this.list_location = res.location;
+        console.log(this.list_location);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  get_civil_status() {
+    let url = "list/civil_status";
+    this.ListService.get_list(url).subscribe(
+      res => {
+        this.list_civil_status = res.civil_status;
+        console.log(this.list_civil_status);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
 }

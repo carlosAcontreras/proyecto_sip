@@ -56,12 +56,13 @@
                                 <label for=" " class="col-1 col-form-label">Estado/Civil</label>
                                 <div class="col-3 text-center">
                                     <select name="" id="" class="form-control input-modified">
-                                       <option value=""></option>
+                                       <option *ngFor="let civil of list_civil_status" value="{{civil.idcivil_status}}">{{civil.name}}</option>
                                    </select>
                                 </div>
                                 <label for=" " class="col-1 col-form-label">Empresa</label>
                                 <div class="col-3">
-                                    <select name="" id="" class="form-control input-modified">
+                                    <select name="" id="" class="form-control input-modified" (change)="get_contracts($event)">
+                                        <option></option>
                                        <option *ngFor="let company of list_company" value="{{company.idbusiness}}">{{company.company_name}}</option>
                                    </select>
                                 </div>
@@ -130,7 +131,6 @@
                         <label for=" " class="col-1 col-form-label">Municipio</label>
                         <div class="col-3">
                             <select class="form-control input-modified">
-                                <option></option>
                                 <option *ngFor="let city of list_city" value="{{city.idmunicipality}}">{{city.name_municipality}}</option>
                             </select>
                         </div>
@@ -158,7 +158,7 @@
                         <label for=" " class="col-1 col-form-label">Ubicacion</label>
                         <div class="col-3">
                             <select name="" id="" class="form-control input-modified">
-                               <option value=""></option>
+                               <option *ngFor="let location of list_location" value="{{location.id_location}}">{{location.name_location}}</option>
                             </select>
                         </div>
                     </div>
@@ -178,7 +178,8 @@
                         <label for=" " class="col-1 col-form-label">Contrato</label>
                         <div class="col-3">
                             <select name="" id="" class="form-control input-modified">
-                               <option value=""></option>
+                                <option *ngFor="let contract of list_contracts" value="{{contract.idcontract}}">{{contract.name}}</option>
+                              
                             </select>
                         </div>
                     </div>
@@ -502,4 +503,7 @@
             </div>
         </div>
     </div>
+</div>
+<div class="loader" *ngIf="!list_civil_status">
+    <img src="../../assets/images/preload.svg" alt=" ">
 </div>
