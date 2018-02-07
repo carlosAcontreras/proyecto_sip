@@ -3,13 +3,19 @@ declare var upload_image;
 import { PermitsService } from '../../services/permisos/permits.service';
 import { CompanyService } from '../../services/login/company.service';
 import { ListService } from '../../services/list/list.service';
+import swal from 'sweetalert2';
+import { Employees } from '../../models/employees_models';
+import { CustomValidators } from 'ng2-validation';
+import $ from 'jquery';
+import { SerializerService } from "../../services/serializer/serializer.service";
+import { UserService } from '../../services/users/user.service';
 
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
-  providers: [PermitsService, CompanyService, ListService]
+  providers: [PermitsService, CompanyService, ListService, SerializerService, UserService]
 })
 export class UsersComponent implements OnInit {
   public permisos;
@@ -32,9 +38,14 @@ export class UsersComponent implements OnInit {
   public list_contracts = [];
   public list_location;
   public list_civil_status;
+  public edad: number;
+  public user;
+  public employees = new Employees();
+  public user_identification;
 
 
-  constructor(private _PermitsService: PermitsService, private CompanyService: CompanyService, private ListService: ListService) { }
+
+  constructor(private UserService: UserService, private SerializerService: SerializerService, private _PermitsService: PermitsService, private CompanyService: CompanyService, private ListService: ListService) { }
 
   ngOnInit() {
     this.getPermits();
@@ -55,9 +66,10 @@ export class UsersComponent implements OnInit {
     this.get_place_gangs();
     this.get_place_location();
     this.get_civil_status();
-
-
+    this.SerializerService.serializer();
   }
+
+  // funcion para los permisos
 
   upload_file() {
     upload_image();
@@ -65,7 +77,7 @@ export class UsersComponent implements OnInit {
 
   /*Obtener los permisos del menu*/
   getPermits() {
-    this._PermitsService.getPermits('9', 'users');
+    this._PermitsService.getPermits('11', 'users');
     this.permisos = this._PermitsService.getPermitsSubMenu('users');
   }
 
@@ -89,7 +101,6 @@ export class UsersComponent implements OnInit {
     this.ListService.get_list(url).subscribe(
       res => {
         this.list_departaments = res.departments;
-        console.log(res);
       },
       error => {
         console.log(error);
@@ -268,7 +279,6 @@ export class UsersComponent implements OnInit {
     this.ListService.get_list(url, params).subscribe(
       res => {
         this.list_gangs = res.gangs;
-        console.log(this.list_gangs);
       },
       error => {
         console.log(error);
@@ -284,7 +294,6 @@ export class UsersComponent implements OnInit {
     this.ListService.get_list(url, params).subscribe(
       res => {
         this.list_contracts = res.contract;
-        console.log(this.list_contracts);
       },
       error => {
         console.log(error);
@@ -300,7 +309,6 @@ export class UsersComponent implements OnInit {
     this.ListService.get_list(url, params).subscribe(
       res => {
         this.list_location = res.location;
-        console.log(this.list_location);
       },
       error => {
         console.log(error);
@@ -314,7 +322,6 @@ export class UsersComponent implements OnInit {
     this.ListService.get_list(url).subscribe(
       res => {
         this.list_civil_status = res.civil_status;
-        console.log(this.list_civil_status);
       },
       error => {
         console.log(error);
@@ -322,5 +329,56 @@ export class UsersComponent implements OnInit {
     );
 
   }
+
+  calcular_anios(date) {
+    if (date.value === '' || date.value === null) {
+      this.edad = 0;
+      swal('', 'por favor ingrese la fecha de nacimiento', 'info');
+      return false;
+    } else {
+      var fechaNace = new Date(date.value);
+      var fechaActual = new Date()
+      var mes = fechaActual.getMonth();
+      var dia = fechaActual.getDate();
+      var año = fechaActual.getFullYear();
+      fechaActual.setDate(dia);
+      fechaActual.setMonth(mes);
+      fechaActual.setFullYear(año);
+      this.edad = Math.floor(((Number(fechaActual) - Number(fechaNace)) / (1000 * 60 * 60 * 24) / 365));
+    }
+  }
+
+  save_user() {
+    let permiso = this.permisos.save;
+
+    if (permiso === 1) {
+      const user = $('#form').serializeObject();
+      let params = JSON.stringify(user);
+      this.UserService.save_user(params).subscribe(
+        res => {
+          console.log(res);
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    } else {
+      swal("", "No Tiene permisos para almacenar", "error");
+      return false;
+    }
+
+
+  }
+
+  abrir_procesos(user) {
+    if (user === undefined) {
+      swal("", "debe consultar un usuario", "info");
+      return false;
+    } else {
+      this.user_identification = user;
+    }
+  }
+
+
 
 }
