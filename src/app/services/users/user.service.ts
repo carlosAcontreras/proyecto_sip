@@ -11,10 +11,21 @@ export class UserService {
 
   constructor(private http: Http) { }
 
-  public save_user(params) {
-    this.url = this.constantes.getRouterGlobal() + 'employee/insert_employee';
+  public _headers() {
     let headers = new Headers({ 'content-type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
+    return options;
+  }
+
+  public save_user(params) {
+    this.url = this.constantes.getRouterGlobal() + 'employee/insert_employee';
+    let options = this._headers();
+    return this.http.post(this.url, params, options).map(res => res.json());
+  }
+
+  public consultar_users(params) {
+    this.url = this.constantes.getRouterGlobal() + '';
+    let options = this._headers();
     return this.http.post(this.url, params, options).map(res => res.json());
   }
 

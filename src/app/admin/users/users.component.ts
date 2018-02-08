@@ -9,13 +9,14 @@ import { CustomValidators } from 'ng2-validation';
 import $ from 'jquery';
 import { SerializerService } from "../../services/serializer/serializer.service";
 import { UserService } from '../../services/users/user.service';
+import { AutocompleteService } from "../../services/autocomplete/autocomplete.service";
 
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
-  providers: [PermitsService, CompanyService, ListService, SerializerService, UserService]
+  providers: [PermitsService, CompanyService, ListService, SerializerService, UserService, AutocompleteService]
 })
 export class UsersComponent implements OnInit {
   public permisos;
@@ -40,12 +41,14 @@ export class UsersComponent implements OnInit {
   public list_civil_status;
   public edad: number;
   public user;
-  public employees = new Employees();
+  public employees: Employees;
   public user_identification;
 
 
 
-  constructor(private UserService: UserService, private SerializerService: SerializerService, private _PermitsService: PermitsService, private CompanyService: CompanyService, private ListService: ListService) { }
+  constructor(private AutocompleteService: AutocompleteService, private UserService: UserService, private SerializerService: SerializerService, private _PermitsService: PermitsService, private CompanyService: CompanyService, private ListService: ListService) {
+    this.employees = new Employees();
+  }
 
   ngOnInit() {
     this.getPermits();
@@ -67,6 +70,8 @@ export class UsersComponent implements OnInit {
     this.get_place_location();
     this.get_civil_status();
     this.SerializerService.serializer();
+    this.AutocompleteService.autocomplete_user(this.employees);
+    this.consultar_usuario(this.employees);
   }
 
   // funcion para los permisos
@@ -370,15 +375,39 @@ export class UsersComponent implements OnInit {
 
   }
 
-  abrir_procesos(user) {
-    if (user === undefined) {
+  abrir_procesos() {
+    if (this.employees.user_id_identification === undefined || this.employees.user_id_identification === null) {
       swal("", "debe consultar un usuario", "info");
       return false;
     } else {
-      this.user_identification = user;
+      this.user_identification = this.employees.user_id_identification;
     }
+  }
+
+  consultar_usuario(user) {
+    $(document).on('keyup', function (e) {
+      if (e.keyCode === 113) {
+        if (user.user_id_identification === undefined) {
+          swal('', 'por favor ingrese un numero de documento valido', 'error');
+        } else {
+          let params = { 'user_id_identification': user.user_id_identification };
+          this.UserService.consultar_usuario(params).subscribe(
+            res => {
+              console.log(res);
+            },
+            error => {
+              console.log(error);
+            }
+          )
+        }
+      }
+    })
   }
 
 
 
 }
+
+
+
+
