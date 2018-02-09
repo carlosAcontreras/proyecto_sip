@@ -6,11 +6,12 @@
     <div class="col-12">
         <form id="head_refund">
             <div class="form-group row">
-                <label class="col-1 col-form-label">Movimiento</label>
+                <label class="col-1 col-form-label">Movimiento </label>
                 <div class="col-2">
                     <select name="move" id="move" class="form-control input-modified">
-                        <option *ngFor="let dispatches_move of dispatches_move" value="{{dispatches_move.iddispatches_move}}" [selected]="dispatches_move === dispatche_move">{{dispatches_move.dispatches_move_name}}</option>
+                        <option *ngFor="let dispatches_move of dispatches_move" value="{{dispatches_move.iddispatches_move}}" [selected]="dispatches_move.iddispatches_move === move">{{dispatches_move.dispatches_move_name}}</option>
                     </select>
+
                 </div>
 
                 <label class="col-1 col-form-label">N° Despacho
@@ -59,7 +60,7 @@
                 </div>
                 <label class="col-1 col-form-label">N° Reintegro</label>
                 <div class="col-2">
-
+                    <input class="form-control input-modified" type="text" name="idrefund" id="idrefund" value="{{idrefund}}" hidden>
                     <input class="form-control input-modified" type="text" name="cosec_reintegro" id="cosec_reintegro" value="{{consec_refund}}">
                 </div>
                 <label class="col-1 col-form-label">Tipo Obra</label>
@@ -141,16 +142,19 @@
                                 <input class=" form-control input-modified" type="text" value="{{newrow.name_Unity}}" readonly>
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text" name="quantity" value="{{newrow.quantity}}" readonly>
+                                <input class="quantity form-control input-modified" type="text" name="quantity" value="{{newrow.quantity}}" readonly>
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text" name="refund" value="{{newrow.refund}}">
+                                <input class="refund form-control input-modified" type="text" name="refund" value="{{newrow.refund}}">
+                                <input class="refundStock form-control input-modified" type="text" name="refundStock" readonly value="{{newrow.refund}}"
+                                    hidden>
                             </td>
                             <td>
                                 <input class=" form-control input-modified" type="text" value="{{newrow.missing}}" readonly>
                             </td>
                             <td>
-                                <input class="form-control input-modified" type="text" name="inventary_quantity" value="{{newrow.inventary_quantity}}" readonly>
+                                <input class="inventary_quantity form-control input-modified" type="text" name="inventary_quantity" value="{{newrow.inventary_quantity}}"
+                                    readonly>
                             </td>
                             <td>
                                 <input class="form-control input-modified" type="text" name="series" value="{{newrow.series}}" readonly>
@@ -217,7 +221,6 @@
                                     <td>{{row.refund_conse}}</td>
                                     <td>{{row.name}} {{row.last_name}}</td>
                                     <td>
-                                        <button class="btn btn_select btn-sm" data-dismiss="modal">Selecionar</button>
 
                                         <button class="btn btn_select btn-sm" value="{{row.idrefund}},{{row.refund_conse}},{{row.refund_company}}" (click)='select_refound($event)'
                                             data-dismiss="modal">Selecionar</button>
@@ -314,7 +317,7 @@
             </div>
             <div class=" modal-footer">
                 <button type="button" class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn_success btn-sm">Actualizar</button>
+                <button type="button" class="btn btn_success btn-sm" data-dismiss="modal" (click)='update()'>Actualizar</button>
             </div>
         </div>
     </div>

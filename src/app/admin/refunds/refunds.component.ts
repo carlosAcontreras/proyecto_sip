@@ -46,7 +46,7 @@ export class RefundsComponent implements OnInit {
 
   public cellar;
   public dispatche_cellar;
-  public dispatche_move;
+  public move;
   public consec_workI;
   public dispatches_conse;
   public date;
@@ -55,6 +55,7 @@ export class RefundsComponent implements OnInit {
   public iddispatches;
   public idemployees;
   public name;
+  public idrefund;
 
   public permisos;
   public user;
@@ -86,6 +87,7 @@ export class RefundsComponent implements OnInit {
     this.permisos = this.PermitsService.getPermitsSubMenu("Refund");
     this.user = JSON.parse(localStorage.getItem("user"));
     this.get_permits();
+    this.javascript();
   }
 
   get_permits() {
@@ -201,7 +203,7 @@ export class RefundsComponent implements OnInit {
 
       res => {
 
-        this.dispatche_move = res.dispatches.dispatches_move;
+        this.move = res.dispatches.dispatches_move;
         this.dispatche_cellar = res.dispatches.dispatches_cellar
 
         this.consec_workI = res.dispatches.consec_workI;
@@ -296,7 +298,7 @@ export class RefundsComponent implements OnInit {
       res => {
         this.rowDatatable = res.search_body;
 
-        this.dispatche_move = res.search_head.refund_move;
+        this.move = res.search_head.refund_move;
         this.dispatche_cellar = res.search_head.refund_cellar
 
         this.consec_workI = res.search_head.refund_workI;
@@ -304,10 +306,11 @@ export class RefundsComponent implements OnInit {
         this.date = res.search_head.refund_date;
         this.destino = res.search_head.refund_destino;
         this.incharge = res.search_head.refund_incharge;
-        this.iddispatches = res.search_head.idrefund;
+        this.idrefund = res.search_head.idrefund;
         this.idemployees = res.search_head.refund_incharge;
 
         this.name = res.search_head.name + ' ' + res.search_head.last_name;
+        this.consec_refund = res.search_head.refund_conse;
 
 
       },
@@ -317,4 +320,103 @@ export class RefundsComponent implements OnInit {
     )
 
   }
+
+  update() {
+
+
+    if (this.permisos.update == 1) {
+
+      var rawData = $("#body_refund").serializeFormJSON();
+
+      var formData = JSON.stringify(rawData);
+
+      var table = $("#head_refund").serializeObject();
+
+
+
+      let refund = {
+        body: formData,
+        head: table,
+        user: this.user.identification,
+        company: this.company
+
+      };
+
+      this.RefundService.update_refund(refund).subscribe(
+
+        res => {
+
+          if (res.data = true) {
+            swal(
+              "",
+              "Se ha Atualizado El Reintegro",
+              "success"
+            );
+
+          }
+
+        }, error => {
+          swal(
+            "",
+            "Ha Ocurrido un Error Comuniquese al Area de Sistemas",
+            "error"
+          );
+        }
+      )
+
+    }
+    else {
+      swal("", "No Cuenta con Permiso Para Atualizar", "error");
+    }
+
+  }
+
+  javascript() {
+
+    $(function () {
+      $(document).on("keyup", ".item_actividad .refund", function (event) {
+
+        let refund = Number($(this).parents(".item_actividad").find(".refund").val());
+
+        let quantity = Number($(this).parents(".item_actividad").find(".quantity").val());
+
+        let refundStock = Number($(this).parents(".item_actividad").find(".refundStock").val());
+
+        let inventary_quantity = Number($(this).parents(".item_actividad").find(".inventary_quantity").val());
+        //let stock_plus = Number($(this).parents(".item_actividad").find(".stostock_plusck").val());
+
+        if (refund > quantity) {
+          $(this)
+            .parents(".item_actividad")
+            .find(".refund")
+            .val('');
+
+        }
+        if (refund < 0) {
+          $(this)
+            .parents(".item_actividad")
+            .find(".refund")
+            .val('');
+
+        }
+        if (refund < refundStock) {
+
+          var v = Number(refundStock - refund);
+          console.log(refund)
+          console.log(refundStock)
+          console.log(v)
+
+        }
+
+        if (v > inventary_quantity) {
+
+          Number($(this).parents(".item_actividad").find(".refund").val(''))
+        }
+
+
+
+      });
+    });
+  }
+
 }
