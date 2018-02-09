@@ -111,9 +111,7 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  get_city(e) {
-
-    let id = e.target.value;
+  get_city(id) {
     let params = { 'id_departamento': id };
     let url = "departamentos/municipios";
     this.ListService.get_list(url, params).subscribe(
@@ -288,13 +286,13 @@ export class UsersComponent implements OnInit {
 
   }
 
-  get_contracts(e) {
+  get_contracts(company) {
     let url = "list/contract";
-    let company = e.target.value;
     let params = { 'company': company };
     this.ListService.get_list(url, params).subscribe(
       res => {
         this.list_contracts = res.contract;
+        console.log(this.list_contracts);
       },
       error => {
         console.log(error);
@@ -349,6 +347,43 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  abrir_procesos() {
+    if (this.employees.Users_id_identification === undefined || this.employees.Users_id_identification === null) {
+      swal("", "debe consultar un usuario", "info");
+      return false;
+    } else {
+      this.user_identification = this.employees.Users_id_identification;
+    }
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.keyCode === KEY_CODE.TECLA_F2) {
+      if (this.employees.Users_id_identification === undefined) {
+        swal('', 'por favor ingrese un numero de documento valido', 'error');
+        return false;
+      } else {
+        let params = { 'identification': this.employees.Users_id_identification };
+        this.query_users(params);
+      }
+    }
+  }
+
+  query_users(params) {
+    this.UserService.consultar_users(params).subscribe(
+      response => {
+        this.get_contracts(response.data[0].id_company);
+        this.get_city(response.data[0].id_depart);
+        this.employees = response.data[0];
+        this.calcular_anios(this.employees.birth_date);
+        console.log(this.employees);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   //variables para almacenar el resultado de la imagen
   public filesToUploads;
   public resultUpload;
@@ -373,87 +408,14 @@ export class UsersComponent implements OnInit {
     console.log(this.filesToUploads);
   }
 
-  //funcion para almacenar el usuario junto con la imagen
-  save_user() {
-    this.employees.image = this.filesToUploads[0].name;
+  insert_user() {
 
+    this.employees.image = this.filesToUploads != undefined ? this.filesToUploads[0].name : '';
+    console.log(this.employees.image);
 
-    this.insert_data_user();
-    /*let permiso = this.permisos.save;
+    console.log(this.employees);
 
-    if (permiso === 1) {
-      this.insert_data_user();
-    } else {
-      swal("", "No Tiene permisos para almacenar", "error");
-      return false;
-    }*/
   }
-
-  insert_data_user() {
-    const user = $('#form').serializeObject();
-    let params = JSON.stringify(user);
-    this.UserService.save_user(params).subscribe(
-      res => {
-        console.log(res);
-      },
-      error => {
-        console.log(error);
-      }
-    )
-  }
-
-  update_user() {
-    let permiso = this.permisos.update;
-
-    if (permiso === 1) {
-      const user = $('#form').serializeObject();
-      let params = JSON.stringify(user);
-      this.UserService.actualizar_users(params).subscribe(
-        res => {
-          console.log(res);
-        },
-        error => {
-          console.log(error);
-        }
-      )
-    } else {
-      swal("", "No Tiene permisos para almacenar", "error");
-      return false;
-    }
-  }
-
-  abrir_procesos() {
-    if (this.employees.Users_id_identification === undefined || this.employees.Users_id_identification === null) {
-      swal("", "debe consultar un usuario", "info");
-      return false;
-    } else {
-      this.user_identification = this.employees.Users_id_identification;
-    }
-  }
-
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-    if (event.keyCode === KEY_CODE.TECLA_F2) {
-      if (this.employees.Users_id_identification === undefined && this.employees.idemployees === undefined) {
-        swal('', 'por favor ingrese un numero de documento valido', 'error');
-        return false;
-      } else {
-        let params = { 'id': this.employees.idemployees, 'identification': this.employees.Users_id_identification };
-        this.UserService.consultar_users(params).subscribe(
-          response => {
-            this.employees = response.data[0];
-            this.calcular_anios(this.employees.birth_date);
-            console.log(this.employees);
-          },
-          error => {
-            console.log(error);
-          }
-        )
-      }
-    }
-  }
-
-
 
 }
 

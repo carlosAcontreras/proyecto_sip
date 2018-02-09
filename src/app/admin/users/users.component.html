@@ -32,11 +32,12 @@
                                     <span *ngIf="last_name.errors?.required && last_name.touched" class="error_message">el campo es requerido</span>
 
                                 </div>
-                                <label for="" class="col-1 col-form-label">Sexo</label>
+                                <label for="" class="col-1 col-form-label label-required">Sexo</label>
                                 <div class="col-3">
-                                    <select class="form-control input-modified" name="id_sex" #id_sex="ngModel" [(ngModel)]="employees.id_sex">
+                                    <select class="form-control input-modified" name="id_sex" #id_sex="ngModel" [(ngModel)]="employees.id_sex" required> 
                                         <option *ngFor="let sex of list_sex" value="{{sex.idsexo}}" [selected]="employees.id_sex === sex.idsexo">{{sex.name}}</option>
                                     </select>
+                                    <span *ngIf="id_sex.errors?.required && id_sex.touched" class="error_message">el campo es requerido</span>
                                 </div>
                                 <label for="" class="col-1 col-form-label">Edad</label>
                                 <div class="col-3">
@@ -52,51 +53,56 @@
                                 </div>
                                 <label for="" class="col-1 col-form-label">Direccion</label>
                                 <div class="col-3">
-                                    <input class="form-control input-modified" type="text" value="" name="address">
+                                    <input class="form-control input-modified" type="text" value="" name="address" #address="ngModel" [(ngModel)]="employees.address">
                                 </div>
-                                <label for="" class="col-1 col-form-label">Fecha/Nac</label>
+                                <label for="" class="col-1 col-form-label label-required">Fecha/Nac</label>
                                 <div class="col-3">
-                                    <input class="form-control input-modified" type="date" name="birth_date" #birth_date="ngModel" [(ngModel)]="employees.birth_date" (blur)="calcular_anios(birth_date.value)">
+                                    <input class="form-control input-modified" type="date" name="birth_date" #birth_date="ngModel" [(ngModel)]="employees.birth_date" (blur)="calcular_anios(birth_date.value)" required>
+                                    <span *ngIf="birth_date.errors?.required && birth_date.touched" class="error_message">el campo es requerido</span>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="" class="col-1 col-form-label">Estado/Civil</label>
+                                <label for="" class="col-1 col-form-label label-required">Estado/Civil</label>
                                 <div class="col-3">
-                                    <select id="" class="form-control input-modified" name="civil_status" #civil_status="ngModel" [(ngModel)]="employees.civil_status">
-                                       <option *ngFor="let civil of list_civil_status" value="{{civil.idcivil_status}}" [disabled]="employees.civil_status===civil.idcivil_status">{{civil.name}}</option>
+                                    <select id="" class="form-control input-modified" name="civil_status" #civil_status="ngModel" [(ngModel)]="employees.civil_status" required>
+                                       <option *ngFor="let civil of list_civil_status" value="{{civil.idcivil_status}}" [selected]="employees.civil_status===civil.idcivil_status">{{civil.name}}</option>
                                    </select>
+                                    <span *ngIf="civil_status.errors?.required && civil_status.touched" class="error_message">el campo es requerido</span>
                                 </div>
                                 <label for="" class="col-1 col-form-label label-required">Empresa</label>
                                 <div class="col-3">
-                                    <select id="" class="form-control input-modified" (change)="get_contracts($event)" name="id_company" #id_company='ngModel' [(ngModel)]="employees.id_company" required>
+                                    <select id="" class="form-control input-modified" (change)="get_contracts(id_company.value)" name="id_company" #id_company='ngModel' [(ngModel)]="employees.id_company" required>
                                        <option *ngFor="let company of list_company" value="{{company.idbusiness}}">{{company.company_name}}</option>
                                    </select>
                                     <span *ngIf="id_company.errors?.required && id_company.touched" class="error_message">el campo es requerido</span>
                                 </div>
-                                <label for="" class="col-1 col-form-label">Clasificacion</label>
+                                <label for="" class="col-1 col-form-label label-required">Clasificacion</label>
                                 <div class="col-3">
-                                    <select id="" class="form-control input-modified" name="id_clasification" #id_clasificacion="ngModel" [(ngModel)]="employees.id_clasificacion">
-                                       <option *ngFor="let calsificacion of list_clasificaciones" [disabled]="employees.id_clasificacion === calsificacion.idclasificaciones" value="{{calsificacion.idclasificaciones}}">{{calsificacion.name}}</option>
+                                    <select id="" class="form-control input-modified" name="id_clasification" #id_clasificacion="ngModel" [(ngModel)]="employees.id_clasificacion" required>
+                                       <option *ngFor="let calsificacion of list_clasificaciones"  value="{{calsificacion.idclasificaciones}}" [selected]="employees.id_clasificacion === calsificacion.idclasificaciones">{{calsificacion.name}}</option>
                                    </select>
+                                    <span *ngIf="id_clasificacion.errors?.required && id_clasificacion.touched" class="error_message">el campo es requerido</span>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="" class="col-1 col-form-label">Entidad</label>
+                                <label for="" class="col-1 col-form-label label-required">Entidad</label>
                                 <div class="col-3">
-                                    <select id="" class="form-control input-modified" name="id_bank" #id_bank="ngModel" [(ngModel)]="employees.id_bank">
-                                       <option *ngFor="let bank of list_bank" [disabled]="employees.id_bank === bank.idbank" value="{{bank.idbank}}">{{bank.name}}</option>
+                                    <select id="" class="form-control input-modified" name="id_bank" #id_bank="ngModel" [(ngModel)]="employees.id_bank" required>
+                                       <option *ngFor="let bank of list_bank" [selected]="employees.id_bank === bank.idbank" value="{{bank.idbank}}">{{bank.name}}</option>
                                    </select>
+                                    <span *ngIf="id_bank.errors?.required && id_bank.touched" class="error_message">el campo es requerido</span>
                                 </div>
                                 <label for="" class="col-1 col-form-label">N°/Cuenta</label>
                                 <div class="col-3">
                                     <input class="form-control input-modified" type="text" name="n_account" #n_account="ngModel" [(ngModel)]="employees.n_account">
                                 </div>
-                                <label for="" class="col-1 col-form-label">Tipo/Cuenta</label>
+                                <label for="" class="col-1 col-form-label label-required">Tipo/Cuenta</label>
                                 <div class="col-3">
-                                    <select id="" class="form-control input-modified" name="account_type" #account_type="ngModel" [(ngModel)]="employees.account_type">
+                                    <select id="" class="form-control input-modified" name="account_type" #account_type="ngModel" [(ngModel)]="employees.account_type" required>
                                        <option *ngFor="let account of list_account_type" [selected]="employees.account_type === account.idaccount_type" value="{{account.idaccount_type}}">{{account.name}}</option>
                                    </select>
+                                    <span *ngIf="account_type.errors?.required && account_type.touched" class="error_message">el campo es requerido</span>
                                 </div>
                             </div>
                         </div>
@@ -126,18 +132,19 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group row">
-                        <label for="" class="col-1 col-form-label">Departamento</label>
+                        <label for="" class="col-1 col-form-label label-required">Departamento</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" (change)="get_city($event)" name="id_depart">
-                                <option></option>
+                            <select id="" class="form-control input-modified" (change)="get_city(id_depart.value)" name="id_depart" #id_depart='ngModel' [(ngModel)]="employees.id_depart" required>
                                <option  *ngFor="let departaments of list_departaments" value="{{departaments.id_dane}}">{{departaments.name_departments}}</option>
                             </select>
+                            <span *ngIf="id_depart.errors?.required && id_depart.touched" class="error_message">el campo es requerido</span>
                         </div>
-                        <label for="" class="col-1 col-form-label">Municipio</label>
+                        <label for="" class="col-1 col-form-label label-required">Municipio</label>
                         <div class="col-3">
-                            <select class="form-control input-modified" name="id_municipality">
-                                <option *ngFor="let city of list_city" value="{{city.idmunicipality}}">{{city.name_municipality}}</option>
+                            <select class="form-control input-modified" name="id_municipality" #id_municipality="ngModel" [(ngModel)]="employees.id_municipality" required>
+                                <option *ngFor="let city of list_city" [selected]="employees.id_municipality === city.idmunicipality" value="{{city.idmunicipality}}" >{{city.name_municipality}}</option>
                             </select>
+                            <span *ngIf="id_municipality.errors?.required && id_municipality.touched" class="error_message">el campo es requerido</span>
                         </div>
                         <label for="" class="col-1 col-form-label label-required">Estado</label>
                         <div class="col-3">
@@ -149,77 +156,86 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="" class="col-1 col-form-label">Lugar/Labor</label>
+                        <label for="" class="col-1 col-form-label label-required">Lugar/Labor</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="place_of_work" #idplace_of_work="ngModel" [(ngModel)]="employees.idplace_of_work">
-                               <option *ngFor="let place of list_place_of_work" value="{{place.idplace_of_work}}" [disabled]="employees.idplace_of_work === place.idplace_of_work">{{place.place_of_work_name}}</option>
+                            <select id="" class="form-control input-modified" name="place_of_work" #place_of_work="ngModel" [(ngModel)]="employees.place_of_work" required>
+                               <option *ngFor="let place of list_place_of_work" [selected]="employees.place_of_work === place.idplace_of_work" value="{{place.idplace_of_work}}" >{{place.place_of_work_name}}</option>
                             </select>
+                            <span *ngIf="place_of_work.errors?.required && place_of_work.touched" class="error_message">el campo es requerido</span>
                         </div>
-                        <label for="" class="col-1 col-form-label">Nivel/Educativo</label>
+                        <label for="" class="col-1 col-form-label label-required">Nivel/Educativo</label>
                         <div class="col-3">
-                            <select class="form-control input-modified" name="education_level" #education_level="ngModel" [(ngModel)]="employees.education_level">
-                                <option *ngFor="let education of  list_education_level" [disabled]="employees.education_level === education.ideducation_level" value="{{education.ideducation_level}}">{{education.education_level_name}}</option>
+                            <select class="form-control input-modified" name="education_level" #education_level="ngModel" [(ngModel)]="employees.education_level" required>
+                                <option *ngFor="let education of  list_education_level" [selected]="employees.education_level === education.ideducation_level" value="{{education.ideducation_level}}">{{education.education_level_name}}</option>
                             </select>
+                            <span *ngIf="education_level.errors?.required && education_level.touched" class="error_message">el campo es requerido</span>
                         </div>
-                        <label for="" class="col-1 col-form-label">Ubicacion</label>
+                        <label for="" class="col-1 col-form-label label-required">Ubicacion</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="location" #location="ngModel" [(ngModel)]="employees.location">
-                               <option *ngFor="let location of list_location" [disabled]="employees.location === location.id_location" value="{{location.id_location}}">{{location.name_location}}</option>
+                            <select id="" class="form-control input-modified" name="location" #location="ngModel" [(ngModel)]="employees.location" required>
+                               <option *ngFor="let location of list_location" value="{{location.id_location}}" [selected]="employees.location === location.id_location">{{location.name_location}}</option>
                             </select>
+                            <span *ngIf="location.errors?.required && location.touched" class="error_message">el campo es requerido</span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-1 col-form-label">Perfil</label>
+                        <label for="" class="col-1 col-form-label label-required">Perfil</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="id_profile" #id_profile="ngModel" [(ngModel)]="employees.id_profile">
-                                <option *ngFor="let profile of list_profiles" [disabled]="employees.id_profile === profile.idP_profiles" value="{{profile.idP_profiles}}">{{profile.name}}</option>
+                            <select id="" class="form-control input-modified" name="id_profile" #id_profile="ngModel" [(ngModel)]="employees.id_profile" required>
+                                <option *ngFor="let profile of list_profiles" [selected]="employees.id_profile === profile.idP_profiles" value="{{profile.idP_profiles}}">{{profile.name}}</option>
                             </select>
+                            <span *ngIf="id_profile.errors?.required && id_profile.touched" class="error_message">el campo es requerido</span>
                         </div>
-                        <label for="" class="col-1 col-form-label">Cargo</label>
+                        <label for="" class="col-1 col-form-label label-required">Cargo</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="id_charge" #id_charge="ngModel" [(ngModel)]="employees.id_charge">
-                               <option *ngFor="let charge of list_charges" [disabled]="employees.id_charge === charge.idcharges" value="{{charge.idcharges}}">{{charge.name_charges}}</option>
+                            <select id="" class="form-control input-modified" name="id_charge" #id_charge="ngModel" [(ngModel)]="employees.id_charge" required>
+                               <option *ngFor="let charge of list_charges" [selected]="employees.id_charge === charge.idcharges" value="{{charge.idcharges}}">{{charge.name_charges}}</option>
                             </select>
+                            <span *ngIf="id_charge.errors?.required && id_charge.touched" class="error_message">el campo es requerido</span>
                         </div>
                         <label for="" class="col-1 col-form-label label-required">Contrato</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="contracts_idcontracts" #contracts_idcontracts="ngModel" [(ngModel)]="employees.contracts_idcontracts">
-                                <option *ngFor="let contract of list_contracts" value="{{contract.idcontract}}">{{contract.name}}</option>
+                            <select id="" class="form-control input-modified" name="contrac" #contrac="ngModel" [(ngModel)]="employees.contrac" required>
+                                <option *ngFor="let contract of list_contracts" [selected]="employees.contrac === contract.idcontract" value="{{contract.idcontract}}">{{contract.name}}</option>
                             </select>
-                            <span *ngIf="contracts_idcontracts.errors?.required && contracts_idcontracts.touched" class="error_message">el campo es requerido</span>
+                            <span *ngIf="contrac.errors?.required && contrac.touched" class="error_message">el campo es requerido</span>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="" class="col-1 col-form-label">EPS</label>
+                        <label for="" class="col-1 col-form-label label-required">EPS</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="eps" #eps="ngModel" [(ngModel)]="employees.eps">
-                               <option *ngFor="let eps of list_eps" value="{{eps.id_list}}" [disabled]="employees.eps === eps.id_list">{{eps.name_eps}}</option>
+                            <select id="" class="form-control input-modified" name="eps" #eps="ngModel" [(ngModel)]="employees.eps" required>
+                               <option *ngFor="let eps of list_eps" value="{{eps.id_list}}" [selected]="employees.eps === eps.id_list">{{eps.name_eps}}</option>
                             </select>
+                            <span *ngIf="eps.errors?.required && eps.touched" class="error_message">el campo es requerido</span>
                         </div>
-                        <label for="" class="col-1 col-form-label">ARL</label>
+                        <label for="" class="col-1 col-form-label label-required">ARL</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="arp" #arp="ngModel" [(ngModel)]="employees.arp">
-                               <option *ngFor="let arl of list_arl" value="{{arl.idarl}}" [disabled]="employees.arp === arl.idarl">{{arl.name_arl}}</option>
+                            <select id="" class="form-control input-modified" name="arp" #arp="ngModel" [(ngModel)]="employees.arp" required>
+                               <option *ngFor="let arl of list_arl" value="{{arl.idarl}}" [selected]="employees.arp === arl.idarl">{{arl.name_arl}}</option>
                             </select>
+                            <span *ngIf="arp.errors?.required && arp.touched" class="error_message">el campo es requerido</span>
                         </div>
-                        <label for="" class="col-1 col-form-label">Pensiones</label>
+                        <label for="" class="col-1 col-form-label label-required">Pensiones</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="pension" #pension="ngModel" [(ngModel)]="employees.pension">
-                               <option *ngFor="let pension of list_pension" value="{{pension.idpensions}}" [disabled]="employees.pension === pension.idpensions">{{pension.name_pensions}}</option>
+                            <select id="" class="form-control input-modified" name="pension" #pension="ngModel" [(ngModel)]="employees.pension" required>
+                               <option *ngFor="let pension of list_pension" value="{{pension.idpensions}}" [selected]="employees.pension === pension.idpensions">{{pension.name_pensions}}</option>
                             </select>
+                            <span *ngIf="pension.errors?.required && pension.touched" class="error_message">el campo es requerido</span>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="" class="col-1 col-form-label">Cuadrillas</label>
+                        <label for="" class="col-1 col-form-label label-required">Cuadrillas</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified">
-                               <option *ngFor="let gangs of list_gangs"  value="{{gangs}}">{{gangs}}</option>
+                            <select id="" class="form-control input-modified" #id_gangs="ngModel" name="id_gangs" [(ngModel)]="employees.id_gangs" required>
+                               <option *ngFor="let gangs of list_gangs" [selected]="employees.id_gangs === gangs.idgangs" value="{{gangs.idgangs}}">{{gangs.gangs_name}}</option>
                             </select>
+                            <span *ngIf="id_gangs.errors?.required && id_gangs.touched" class="error_message">el campo es requerido</span>
                         </div>
                     </div>
-                    <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_usuarios.valid" (click)="save_user()">Guardar</button>
+                    <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_usuarios.valid" (click)="insert_user()">Guardar</button>
                     <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_usuarios.valid" (click)="update_user()">Actualizar</button>
                 </div>
             </div>
