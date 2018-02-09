@@ -7,15 +7,15 @@
                 </div>
                 <div class="col-12">
                     <div class="row">
-                        <div class="col-10">
+                        <div class="col-9">
                             <div class="form-group row">
                                 <label for="" class="col-1 col-form-label">Codigo</label>
                                 <div class="col-3">
-                                    <input class="form-control input-modified" type="text" value="" readonly name="idemployees">
+                                    <input class="form-control input-modified" type="text" value="" readonly name="idemployees" #idemployees="ngModel" [(ngModel)]="employees.idemployees">
                                 </div>
                                 <label for="" class="col-1 col-form-label label-required">Cedula</label>
                                 <div class="col-3">
-                                    <input class="form-control input-modified" type="text" name="user_id_identification" #user_id_identification="ngModel" [(ngModel)]="employees.user_id_identification" required number/>
+                                    <input class="form-control input-modified" type="text" name="user_id_identification" #user_id_identification="ngModel" [(ngModel)]="employees.Users_id_identification" required number/>
                                     <span *ngIf="user_id_identification.errors?.number" class="error_message">ingrese un valor numerico</span>
                                     <span *ngIf="user_id_identification.errors?.required && user_id_identification.touched" class="error_message">el campo es requerido</span>
                                 </div>
@@ -34,8 +34,8 @@
                                 </div>
                                 <label for="" class="col-1 col-form-label">Sexo</label>
                                 <div class="col-3">
-                                    <select class="form-control input-modified" name="id_sex">
-                                        <option *ngFor="let sex of list_sex" value="{{sex.idsexo}}">{{sex.name}}</option>
+                                    <select class="form-control input-modified" name="id_sex" #id_sex="ngModel" [(ngModel)]="employees.id_sex">
+                                        <option *ngFor="let sex of list_sex" value="{{sex.idsexo}}" [selected]="employees.id_sex === sex.idsexo">{{sex.name}}</option>
                                     </select>
                                 </div>
                                 <label for="" class="col-1 col-form-label">Edad</label>
@@ -56,14 +56,14 @@
                                 </div>
                                 <label for="" class="col-1 col-form-label">Fecha/Nac</label>
                                 <div class="col-3">
-                                    <input class="form-control input-modified" type="date" name="birth_date" #birth_date (blur)="calcular_anios(birth_date)">
+                                    <input class="form-control input-modified" type="date" name="birth_date" #birth_date="ngModel" [(ngModel)]="employees.birth_date" (blur)="calcular_anios(birth_date.value)">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="" class="col-1 col-form-label">Estado/Civil</label>
                                 <div class="col-3">
-                                    <select id="" class="form-control input-modified" name="civil_status">
-                                       <option *ngFor="let civil of list_civil_status" value="{{civil.idcivil_status}}">{{civil.name}}</option>
+                                    <select id="" class="form-control input-modified" name="civil_status" #civil_status="ngModel" [(ngModel)]="employees.civil_status">
+                                       <option *ngFor="let civil of list_civil_status" value="{{civil.idcivil_status}}" [disabled]="employees.civil_status===civil.idcivil_status">{{civil.name}}</option>
                                    </select>
                                 </div>
                                 <label for="" class="col-1 col-form-label label-required">Empresa</label>
@@ -75,8 +75,8 @@
                                 </div>
                                 <label for="" class="col-1 col-form-label">Clasificacion</label>
                                 <div class="col-3">
-                                    <select id="" class="form-control input-modified" name="id_clasification">
-                                       <option *ngFor="let calsificacion of list_clasificaciones" value="{{calsificacion.idclasificaciones}}">{{calsificacion.name}}</option>
+                                    <select id="" class="form-control input-modified" name="id_clasification" #id_clasificacion="ngModel" [(ngModel)]="employees.id_clasificacion">
+                                       <option *ngFor="let calsificacion of list_clasificaciones" [disabled]="employees.id_clasificacion === calsificacion.idclasificaciones" value="{{calsificacion.idclasificaciones}}">{{calsificacion.name}}</option>
                                    </select>
                                 </div>
                             </div>
@@ -84,38 +84,38 @@
                             <div class="form-group row">
                                 <label for="" class="col-1 col-form-label">Entidad</label>
                                 <div class="col-3">
-                                    <select id="" class="form-control input-modified" name="id_bank">
-                                       <option *ngFor="let bank of list_bank" value="{{bank.idbank}}">{{bank.name}}</option>
+                                    <select id="" class="form-control input-modified" name="id_bank" #id_bank="ngModel" [(ngModel)]="employees.id_bank">
+                                       <option *ngFor="let bank of list_bank" [disabled]="employees.id_bank === bank.idbank" value="{{bank.idbank}}">{{bank.name}}</option>
                                    </select>
                                 </div>
                                 <label for="" class="col-1 col-form-label">N°/Cuenta</label>
                                 <div class="col-3">
-                                    <input class="form-control input-modified" type="text" name="n_account">
+                                    <input class="form-control input-modified" type="text" name="n_account" #n_account="ngModel" [(ngModel)]="employees.n_account">
                                 </div>
                                 <label for="" class="col-1 col-form-label">Tipo/Cuenta</label>
                                 <div class="col-3">
-                                    <select id="" class="form-control input-modified" name="account_type">
-                                       <option *ngFor="let account of list_account_type" value="{{account.idaccount_type}}">{{account.name}}</option>
+                                    <select id="" class="form-control input-modified" name="account_type" #account_type="ngModel" [(ngModel)]="employees.account_type">
+                                       <option *ngFor="let account of list_account_type" [selected]="employees.account_type === account.idaccount_type" value="{{account.idaccount_type}}">{{account.name}}</option>
                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-2 d-flex flex-column align-items-center">
+                        <div class="col-3 d-flex flex-column align-items-center">
                             <div class="foto mb-2">
                                 <img src="../../assets/images/users.png" alt="" id="imgSalida">
                             </div>
-                            <input type="file" id="upload_file" hidden>
-                            <label for="upload_file" class="btn btn-sm btn_primary px-3 py-1" (click)="upload_file()">Cargar Fotos</label>
+                            <input type="file" id="upload_file" (change)="upload_file($event)">
+                            <!-- <label for="upload_file" class="btn btn-sm btn_primary px-3 py-1" (change)="upload_file()">Cargar Fotos</label>-->
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-2">
-                    <button class="btn btn-sm btn-block btn_success" data-toggle="modal" data-target="#asignar_dotacion" [disabled]="!employees.user_id_identification" (click)="ver_dotacion()">Ver Dotación</button>
+                    <button class="btn btn-sm btn-block btn_success" data-toggle="modal" data-target="#asignar_dotacion" [disabled]="!employees.Users_id_identification" (click)="ver_dotacion()">Ver Dotación</button>
                 </div>
                 <div class="col-2">
-                    <button class="btn btn-sm btn-block btn_success" data-toggle="modal" data-target="#asignar_permiso" [disabled]="!employees.user_id_identification" (click)="abrir_procesos()">Procesos Disciplinarios</button>
+                    <button class="btn btn-sm btn-block btn_success" data-toggle="modal" data-target="#asignar_permiso" [disabled]="!employees.Users_id_identification" (click)="abrir_procesos()">Procesos Disciplinarios</button>
                 </div>
             </div>
         </div>
@@ -151,34 +151,34 @@
                     <div class="form-group row">
                         <label for="" class="col-1 col-form-label">Lugar/Labor</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="place_of_work">
-                               <option *ngFor="let place of list_place_of_work" value="{{place.idplace_of_work}}">{{place.place_of_work_name}}</option>
+                            <select id="" class="form-control input-modified" name="place_of_work" #idplace_of_work="ngModel" [(ngModel)]="employees.idplace_of_work">
+                               <option *ngFor="let place of list_place_of_work" value="{{place.idplace_of_work}}" [disabled]="employees.idplace_of_work === place.idplace_of_work">{{place.place_of_work_name}}</option>
                             </select>
                         </div>
                         <label for="" class="col-1 col-form-label">Nivel/Educativo</label>
                         <div class="col-3">
-                            <select class="form-control input-modified" name="education_level">
-                                <option *ngFor="let education of  list_education_level" value="{{education.ideducation_level}}">{{education.education_level_name}}</option>
+                            <select class="form-control input-modified" name="education_level" #education_level="ngModel" [(ngModel)]="employees.education_level">
+                                <option *ngFor="let education of  list_education_level" [disabled]="employees.education_level === education.ideducation_level" value="{{education.ideducation_level}}">{{education.education_level_name}}</option>
                             </select>
                         </div>
                         <label for="" class="col-1 col-form-label">Ubicacion</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="location">
-                               <option *ngFor="let location of list_location" value="{{location.id_location}}">{{location.name_location}}</option>
+                            <select id="" class="form-control input-modified" name="location" #location="ngModel" [(ngModel)]="employees.location">
+                               <option *ngFor="let location of list_location" [disabled]="employees.location === location.id_location" value="{{location.id_location}}">{{location.name_location}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-1 col-form-label">Perfil</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="id_profile">
-                                <option *ngFor="let profile of list_profiles" value="{{profile.idP_profiles}}">{{profile.name}}</option>
+                            <select id="" class="form-control input-modified" name="id_profile" #id_profile="ngModel" [(ngModel)]="employees.id_profile">
+                                <option *ngFor="let profile of list_profiles" [disabled]="employees.id_profile === profile.idP_profiles" value="{{profile.idP_profiles}}">{{profile.name}}</option>
                             </select>
                         </div>
                         <label for="" class="col-1 col-form-label">Cargo</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="id_charge">
-                               <option *ngFor="let charge of list_charges" value="{{charge.idcharges}}">{{charge.name_charges}}</option>
+                            <select id="" class="form-control input-modified" name="id_charge" #id_charge="ngModel" [(ngModel)]="employees.id_charge">
+                               <option *ngFor="let charge of list_charges" [disabled]="employees.id_charge === charge.idcharges" value="{{charge.idcharges}}">{{charge.name_charges}}</option>
                             </select>
                         </div>
                         <label for="" class="col-1 col-form-label label-required">Contrato</label>
@@ -193,20 +193,20 @@
                     <div class="form-group row">
                         <label for="" class="col-1 col-form-label">EPS</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="eps">
-                               <option *ngFor="let eps of list_eps" value="{{eps.id_list}}">{{eps.name_eps}}</option>
+                            <select id="" class="form-control input-modified" name="eps" #eps="ngModel" [(ngModel)]="employees.eps">
+                               <option *ngFor="let eps of list_eps" value="{{eps.id_list}}" [disabled]="employees.eps === eps.id_list">{{eps.name_eps}}</option>
                             </select>
                         </div>
                         <label for="" class="col-1 col-form-label">ARL</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="arp">
-                               <option *ngFor="let arl of list_arl" value="{{arl.idarl}}">{{arl.name_arl}}</option>
+                            <select id="" class="form-control input-modified" name="arp" #arp="ngModel" [(ngModel)]="employees.arp">
+                               <option *ngFor="let arl of list_arl" value="{{arl.idarl}}" [disabled]="employees.arp === arl.idarl">{{arl.name_arl}}</option>
                             </select>
                         </div>
                         <label for="" class="col-1 col-form-label">Pensiones</label>
                         <div class="col-3">
-                            <select id="" class="form-control input-modified" name="pension">
-                               <option *ngFor="let pension of list_pension" value="{{pension.idpensions}}">{{pension.name_pensions}}</option>
+                            <select id="" class="form-control input-modified" name="pension" #pension="ngModel" [(ngModel)]="employees.pension">
+                               <option *ngFor="let pension of list_pension" value="{{pension.idpensions}}" [disabled]="employees.pension === pension.idpensions">{{pension.name_pensions}}</option>
                             </select>
                         </div>
                     </div>
@@ -220,12 +220,11 @@
                         </div>
                     </div>
                     <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_usuarios.valid" (click)="save_user()">Guardar</button>
-                    <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_usuarios.valid">Actualizar</button>
+                    <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_usuarios.valid" (click)="update_user()">Actualizar</button>
                 </div>
             </div>
         </div>
     </div>
-
 </form>
 
 

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-declare var upload_image;
+import { Component, OnInit, HostListener } from '@angular/core';
 import { PermitsService } from '../../services/permisos/permits.service';
 import { CompanyService } from '../../services/login/company.service';
 import { ListService } from '../../services/list/list.service';
@@ -10,6 +9,10 @@ import $ from 'jquery';
 import { SerializerService } from "../../services/serializer/serializer.service";
 import { UserService } from '../../services/users/user.service';
 import { AutocompleteService } from "../../services/autocomplete/autocomplete.service";
+
+export enum KEY_CODE {
+  TECLA_F2 = 113
+}
 
 
 @Component({
@@ -43,6 +46,8 @@ export class UsersComponent implements OnInit {
   public user;
   public employees: Employees;
   public user_identification;
+  public btn_save: boolean;
+  public btn_update: boolean;
 
 
 
@@ -71,14 +76,11 @@ export class UsersComponent implements OnInit {
     this.get_civil_status();
     this.SerializerService.serializer();
     this.AutocompleteService.autocomplete_user(this.employees);
-    this.consultar_usuario(this.employees);
+
   }
 
-  // funcion para los permisos
 
-  upload_file() {
-    upload_image();
-  }
+
 
   /*Obtener los permisos del menu*/
   getPermits() {
@@ -97,10 +99,6 @@ export class UsersComponent implements OnInit {
     )
   }
 
-
-
-
-
   get_departments() {
     let url = "departamentos/departamentos";
     this.ListService.get_list(url).subscribe(
@@ -112,8 +110,6 @@ export class UsersComponent implements OnInit {
       }
     );
   }
-
-
 
   get_city(e) {
 
@@ -336,12 +332,12 @@ export class UsersComponent implements OnInit {
   }
 
   calcular_anios(date) {
-    if (date.value === '' || date.value === null) {
+    if (date === '' || date === null || date === undefined) {
       this.edad = 0;
       swal('', 'por favor ingrese la fecha de nacimiento', 'info');
       return false;
     } else {
-      var fechaNace = new Date(date.value);
+      var fechaNace = new Date(date);
       var fechaActual = new Date()
       var mes = fechaActual.getMonth();
       var dia = fechaActual.getDate();
@@ -353,13 +349,66 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  //variables para almacenar el resultado de la imagen
+  public filesToUploads;
+  public resultUpload;
+
+  //function para mostar la imagen 
+  upload_file(fileInput: any) {
+    this.filesToUploads = <Array<File>>fileInput.target.files;
+
+    let file = this.filesToUploads[0],
+      imageType = /image.*/;
+    if (!file.type.match(imageType)) {
+      swal("", "El tipo de archivo no es una imagen", "error");
+      return false;
+    }
+
+    let reader = new FileReader();
+    reader.onload = function (fileInput) {
+      let result = fileInput.target.result;
+      $('#imgSalida').attr("src", result);
+    }
+    reader.readAsDataURL(file);
+    console.log(this.filesToUploads);
+  }
+
+  //funcion para almacenar el usuario junto con la imagen
   save_user() {
-    let permiso = this.permisos.save;
+    this.employees.image = this.filesToUploads[0].name;
+
+
+    this.insert_data_user();
+    /*let permiso = this.permisos.save;
+
+    if (permiso === 1) {
+      this.insert_data_user();
+    } else {
+      swal("", "No Tiene permisos para almacenar", "error");
+      return false;
+    }*/
+  }
+
+  insert_data_user() {
+    const user = $('#form').serializeObject();
+    let params = JSON.stringify(user);
+    this.UserService.save_user(params).subscribe(
+      res => {
+        console.log(res);
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
+  update_user() {
+    let permiso = this.permisos.update;
 
     if (permiso === 1) {
       const user = $('#form').serializeObject();
       let params = JSON.stringify(user);
-      this.UserService.save_user(params).subscribe(
+      this.UserService.actualizar_users(params).subscribe(
         res => {
           console.log(res);
         },
@@ -371,37 +420,37 @@ export class UsersComponent implements OnInit {
       swal("", "No Tiene permisos para almacenar", "error");
       return false;
     }
-
-
   }
 
   abrir_procesos() {
-    if (this.employees.user_id_identification === undefined || this.employees.user_id_identification === null) {
+    if (this.employees.Users_id_identification === undefined || this.employees.Users_id_identification === null) {
       swal("", "debe consultar un usuario", "info");
       return false;
     } else {
-      this.user_identification = this.employees.user_id_identification;
+      this.user_identification = this.employees.Users_id_identification;
     }
   }
 
-  consultar_usuario(user) {
-    $(document).on('keyup', function (e) {
-      if (e.keyCode === 113) {
-        if (user.user_id_identification === undefined) {
-          swal('', 'por favor ingrese un numero de documento valido', 'error');
-        } else {
-          let params = { 'user_id_identification': user.user_id_identification };
-          this.UserService.consultar_usuario(params).subscribe(
-            res => {
-              console.log(res);
-            },
-            error => {
-              console.log(error);
-            }
-          )
-        }
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.keyCode === KEY_CODE.TECLA_F2) {
+      if (this.employees.Users_id_identification === undefined && this.employees.idemployees === undefined) {
+        swal('', 'por favor ingrese un numero de documento valido', 'error');
+        return false;
+      } else {
+        let params = { 'id': this.employees.idemployees, 'identification': this.employees.Users_id_identification };
+        this.UserService.consultar_users(params).subscribe(
+          response => {
+            this.employees = response.data[0];
+            this.calcular_anios(this.employees.birth_date);
+            console.log(this.employees);
+          },
+          error => {
+            console.log(error);
+          }
+        )
       }
-    })
+    }
   }
 
 

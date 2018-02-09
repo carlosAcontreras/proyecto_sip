@@ -46,9 +46,10 @@ export class AutocompleteService {
 
         }, select: function (event, ui) {
           console.log(ui.item);
-          user.user_id_identification = ui.item.identification;
+          user.Users_id_identification = ui.item.identification;
           user.name = ui.item.name;
           user.last_name = ui.item.last_name;
+          user.idemployees = ui.item.idemployees;
         }
       });
     })

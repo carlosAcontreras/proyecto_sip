@@ -1,6 +1,6 @@
 export class Employees {
     public idemployees: number;
-    public user_id_identification: number;
+    public Users_id_identification: number;
     public name: string;
     public last_name: string;
     public id_sex: number;
@@ -9,7 +9,7 @@ export class Employees {
     public birth_date: number;
     public civil_status: number;
     public id_company: number;
-    public id_clasification: number;
+    public id_clasificacion: number;
     public id_bank: number;
     public n_account: number;
     public account_type: number;
@@ -25,4 +25,5 @@ export class Employees {
     public eps: number;
     public arp: number;
     public pension: number;
+    public image: string;
 }
