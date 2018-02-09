@@ -32,6 +32,15 @@ export class MassiveWithdrawalsComponent implements OnInit {
   public datos;
   public selectedName;
 
+
+  public cod_mater;
+  public encargado;
+  public descripcion;
+  public despachos;
+  public reintegros;
+  public reintegros_masivo;
+  public id_encargado;
+
   constructor(private ListService: ListService,
 
     private AutocompleteService: AutocompleteService,
@@ -95,6 +104,7 @@ export class MassiveWithdrawalsComponent implements OnInit {
 
   public selectRow(index: number, row: any) {
     this.selectedName = "row#" + index + " " + row.cod_mater;
+
 
     console.log(this.selectedName);
   }

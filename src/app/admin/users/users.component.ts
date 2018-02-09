@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-declare var upload_image;
+import { Component, OnInit, HostListener } from '@angular/core';
 import { PermitsService } from '../../services/permisos/permits.service';
 import { CompanyService } from '../../services/login/company.service';
 import { ListService } from '../../services/list/list.service';
+import swal from 'sweetalert2';
+import { Employees } from '../../models/employees_models';
+import { CustomValidators } from 'ng2-validation';
+import $ from 'jquery';
+import { SerializerService } from "../../services/serializer/serializer.service";
+import { UserService } from '../../services/users/user.service';
+import { AutocompleteService } from "../../services/autocomplete/autocomplete.service";
+
+export enum KEY_CODE {
+  TECLA_F2 = 113
+}
 
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
-  providers: [PermitsService, CompanyService, ListService]
+  providers: [PermitsService, CompanyService, ListService, SerializerService, UserService, AutocompleteService]
 })
 export class UsersComponent implements OnInit {
   public permisos;
@@ -28,8 +38,22 @@ export class UsersComponent implements OnInit {
   public list_education_level;
   public list_profiles;
   public list_place_of_work;
+  public list_gangs;
+  public list_contracts = [];
+  public list_location;
+  public list_civil_status;
+  public edad: number;
+  public user;
+  public employees: Employees;
+  public user_identification;
+  public btn_save: boolean;
+  public btn_update: boolean;
 
-  constructor(private _PermitsService: PermitsService, private CompanyService: CompanyService, private ListService: ListService) { }
+
+
+  constructor(private AutocompleteService: AutocompleteService, private UserService: UserService, private SerializerService: SerializerService, private _PermitsService: PermitsService, private CompanyService: CompanyService, private ListService: ListService) {
+    this.employees = new Employees();
+  }
 
   ngOnInit() {
     this.getPermits();
@@ -47,17 +71,20 @@ export class UsersComponent implements OnInit {
     this.get_education_level();
     this.get_profiles();
     this.get_place_of_work();
-
+    this.get_place_gangs();
+    this.get_place_location();
+    this.get_civil_status();
+    this.SerializerService.serializer();
+    this.AutocompleteService.autocomplete_user(this.employees);
 
   }
 
-  upload_file() {
-    upload_image();
-  }
+
+
 
   /*Obtener los permisos del menu*/
   getPermits() {
-    this._PermitsService.getPermits('9', 'users');
+    this._PermitsService.getPermits('11', 'users');
     this.permisos = this._PermitsService.getPermitsSubMenu('users');
   }
 
@@ -72,24 +99,17 @@ export class UsersComponent implements OnInit {
     )
   }
 
-
-
-
-
   get_departments() {
     let url = "departamentos/departamentos";
     this.ListService.get_list(url).subscribe(
       res => {
         this.list_departaments = res.departments;
-        console.log(res);
       },
       error => {
         console.log(error);
       }
     );
   }
-
-
 
   get_city(e) {
 
@@ -252,4 +272,191 @@ export class UsersComponent implements OnInit {
     );
 
   }
+
+  get_place_gangs() {
+    let url = "list/gangs";
+    let company = localStorage.getItem('company');
+    let params = { 'company': company };
+    this.ListService.get_list(url, params).subscribe(
+      res => {
+        this.list_gangs = res.gangs;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  get_contracts(e) {
+    let url = "list/contract";
+    let company = e.target.value;
+    let params = { 'company': company };
+    this.ListService.get_list(url, params).subscribe(
+      res => {
+        this.list_contracts = res.contract;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  get_place_location() {
+    let url = "list/location";
+    let company = localStorage.getItem('company');
+    let params = { 'company': company };
+    this.ListService.get_list(url, params).subscribe(
+      res => {
+        this.list_location = res.location;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  get_civil_status() {
+    let url = "list/civil_status";
+    this.ListService.get_list(url).subscribe(
+      res => {
+        this.list_civil_status = res.civil_status;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  calcular_anios(date) {
+    if (date === '' || date === null || date === undefined) {
+      this.edad = 0;
+      swal('', 'por favor ingrese la fecha de nacimiento', 'info');
+      return false;
+    } else {
+      var fechaNace = new Date(date);
+      var fechaActual = new Date()
+      var mes = fechaActual.getMonth();
+      var dia = fechaActual.getDate();
+      var año = fechaActual.getFullYear();
+      fechaActual.setDate(dia);
+      fechaActual.setMonth(mes);
+      fechaActual.setFullYear(año);
+      this.edad = Math.floor(((Number(fechaActual) - Number(fechaNace)) / (1000 * 60 * 60 * 24) / 365));
+    }
+  }
+
+  //variables para almacenar el resultado de la imagen
+  public filesToUploads;
+  public resultUpload;
+
+  //function para mostar la imagen 
+  upload_file(fileInput: any) {
+    this.filesToUploads = <Array<File>>fileInput.target.files;
+
+    let file = this.filesToUploads[0],
+      imageType = /image.*/;
+    if (!file.type.match(imageType)) {
+      swal("", "El tipo de archivo no es una imagen", "error");
+      return false;
+    }
+
+    let reader = new FileReader();
+    reader.onload = function (fileInput) {
+      let result = fileInput.target.result;
+      $('#imgSalida').attr("src", result);
+    }
+    reader.readAsDataURL(file);
+    console.log(this.filesToUploads);
+  }
+
+  //funcion para almacenar el usuario junto con la imagen
+  save_user() {
+    this.employees.image = this.filesToUploads[0].name;
+
+
+    this.insert_data_user();
+    /*let permiso = this.permisos.save;
+
+    if (permiso === 1) {
+      this.insert_data_user();
+    } else {
+      swal("", "No Tiene permisos para almacenar", "error");
+      return false;
+    }*/
+  }
+
+  insert_data_user() {
+    const user = $('#form').serializeObject();
+    let params = JSON.stringify(user);
+    this.UserService.save_user(params).subscribe(
+      res => {
+        console.log(res);
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
+  update_user() {
+    let permiso = this.permisos.update;
+
+    if (permiso === 1) {
+      const user = $('#form').serializeObject();
+      let params = JSON.stringify(user);
+      this.UserService.actualizar_users(params).subscribe(
+        res => {
+          console.log(res);
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    } else {
+      swal("", "No Tiene permisos para almacenar", "error");
+      return false;
+    }
+  }
+
+  abrir_procesos() {
+    if (this.employees.Users_id_identification === undefined || this.employees.Users_id_identification === null) {
+      swal("", "debe consultar un usuario", "info");
+      return false;
+    } else {
+      this.user_identification = this.employees.Users_id_identification;
+    }
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.keyCode === KEY_CODE.TECLA_F2) {
+      if (this.employees.Users_id_identification === undefined && this.employees.idemployees === undefined) {
+        swal('', 'por favor ingrese un numero de documento valido', 'error');
+        return false;
+      } else {
+        let params = { 'id': this.employees.idemployees, 'identification': this.employees.Users_id_identification };
+        this.UserService.consultar_users(params).subscribe(
+          response => {
+            this.employees = response.data[0];
+            this.calcular_anios(this.employees.birth_date);
+            console.log(this.employees);
+          },
+          error => {
+            console.log(error);
+          }
+        )
+      }
+    }
+  }
+
+
+
 }
+
+
+
+

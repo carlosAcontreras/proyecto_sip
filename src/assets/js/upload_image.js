@@ -1,7 +1,5 @@
 const upload_image = () => {
-    $('#upload_file').change(function(e) {
-        addImage(e);
-    });
+
 
     const addImage = (e) => {
         let file = e.target.files[0],

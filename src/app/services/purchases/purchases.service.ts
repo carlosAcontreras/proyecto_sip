@@ -27,13 +27,11 @@ export class PurchasesService {
   }
 
   insert(params, table) {
-
     this.url = this.constantes.getRouterGlobal() + 'purchase/create';
     return this.http.post(this.url, params).map(res => res.json());
   }
 
   update(params, table) {
-
     this.url = this.constantes.getRouterGlobal() + 'purchase/update';
     return this.http.post(this.url, params).map(res => res.json());
   }
@@ -41,7 +39,6 @@ export class PurchasesService {
 
 
   delete(params) {
-
     this.url = this.constantes.getRouterGlobal() + 'purchase/delete';
     return this.http.post(this.url, params).map(res => res.json());
   }

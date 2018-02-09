@@ -33,10 +33,26 @@ export class AutocompleteService {
           }
         });
       });
-
-
-
     });
+  }
+
+  autocomplete_user(user) {
+    $(document).on('keyup', '.user_name', function (event) {
+      $(this).autocomplete({
+        source: 'api/employee/autocomplete_employee',
+        minLength: 1,
+        selectFirst: true,
+        success: function () {
+
+        }, select: function (event, ui) {
+          console.log(ui.item);
+          user.Users_id_identification = ui.item.identification;
+          user.name = ui.item.name;
+          user.last_name = ui.item.last_name;
+          user.idemployees = ui.item.idemployees;
+        }
+      });
+    })
   }
 
   autocomplete_code_provider() {
