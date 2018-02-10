@@ -372,11 +372,14 @@ export class UsersComponent implements OnInit {
   query_users(params) {
     this.UserService.consultar_users(params).subscribe(
       response => {
-        this.get_contracts(response.data[0].id_company);
-        this.get_city(response.data[0].id_depart);
-        this.employees = response.data[0];
-        this.calcular_anios(this.employees.birth_date);
-        console.log(this.employees);
+        if (response.data.length === 0) {
+          swal("", "el usuario no se encuentra registrado", "info");
+        } else {
+          this.get_contracts(response.data[0].id_company);
+          this.get_city(response.data[0].id_depart);
+          this.employees = response.data[0];
+          this.calcular_anios(this.employees.birth_date);
+        }
       },
       error => {
         console.log(error);
@@ -409,12 +412,51 @@ export class UsersComponent implements OnInit {
   }
 
   insert_user() {
-
+    let permisos = JSON.parse(localStorage.getItem('users'));
+    permisos = permisos.save;
     this.employees.image = this.filesToUploads != undefined ? this.filesToUploads[0].name : '';
-    console.log(this.employees.image);
+    let params = { 'identification': this.employees.Users_id_identification };
+    this.UserService.consultar_users(params).subscribe(
+      response => {
+        if (response.data.length !== 0) {
+          swal("", "el usuario ya esta registrado", "info")
+        } else {
+          if (permisos !== 1) {
+            swal("", "no tiene permisos para registrar usuarios", "error");
+          } else {
+            alert('enviando...');
+            if (this.filesToUploads === undefined) {
+              alert('sin imagen');
+              this.validate_save_user();
+            } else {
+              alert('con imagen');
+              this.upload_image();
+            }
+          }
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
-    console.log(this.employees);
+  validate_save_user() {
+    this.UserService.save_user(this.employees).subscribe(
+      response => {
+      }, error => {
+      }
+    )
+  }
 
+  upload_image() {
+    this.UserService.upload_image(this.filesToUploads).then((response) => {
+      this.validate_save_user();
+      console.log(response);
+    },
+      (error) => {
+        console.log(error);
+      })
   }
 
 }
