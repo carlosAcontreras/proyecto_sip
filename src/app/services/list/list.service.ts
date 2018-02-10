@@ -10,6 +10,7 @@ export class ListService {
   private url: string;
   private params: string;
   private constantes;
+  public generate_list: any[];
 
 
   constructor(private http: Http) {
@@ -56,5 +57,5 @@ export class ListService {
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.url, params, options).map(res => res.json());
   }
-
 }
+
