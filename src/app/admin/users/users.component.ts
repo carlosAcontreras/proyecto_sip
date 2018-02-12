@@ -404,8 +404,8 @@ export class UsersComponent implements OnInit {
 
     let reader = new FileReader();
     reader.onload = function (fileInput) {
-      let result = fileInput.target.result;
-      $('#imgSalida').attr("src", result);
+     // let result = fileInput.target.result;
+     // $('#imgSalida').attr("src", result);
     }
     reader.readAsDataURL(file);
     console.log(this.filesToUploads);

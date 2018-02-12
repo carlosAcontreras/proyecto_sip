@@ -4,15 +4,23 @@
     </div>
 
     <div class="col-12">
-        <form>
+        <form id="massive_head">
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Consecutivo</label>
                 <div class="col-2">
+<<<<<<< HEAD
                     <input class="form-control input-modified" type="text" value="" name="consec" id="description">
                 </div>
                 <label for=" " class="col-1 col-form-label">Fecha</label>
                 <div class="col-2">
                     <input class="form-control input-modified" type="date" value=" " name="date" id="description">
+=======
+                    <input class="form-control input-modified" type="text" name="consec" id="consec" readonly>
+                </div>
+                <label for=" " class="col-1 col-form-label">Fecha</label>
+                <div class="col-2">
+                    <input class="form-control input-modified" type="date" name="date" id="date">
+>>>>>>> 1fdf35656f801e0ddfcbb4e11e3ca5ed201c2683
                 </div>
                 <label for=" " class="col-1 col-form-label">Almacen</label>
                 <div class="col-2">
@@ -26,7 +34,8 @@
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Encargado</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value=" " id="description">
+                    <input class="form-control input-modified" type="text" id="employee1">
+                    <input class="employee form-control input-modified" type="text" name="employeeid1" id="employeehiden1" hidden>
                 </div>
             </div>
 
@@ -47,7 +56,7 @@
         <div class="form-group">
 
             <div class="datagrid">
-                <table id="table" class="table table-striped table-hover table-bordered table-relative">
+                <table id="refund_massive" class="table table-striped table-hover table-bordered table-relative">
                     <thead>
                         <tr>
                             <th class="width-table-1">Eliminar</th>
@@ -56,55 +65,55 @@
                             <th class="width-table-2">Unidad</th>
                             <th class="width-table-2">Despachos</th>
                             <th class="width-table-2">Reintegos</th>
-                            <th class="width-table-2">Faltante</th>
-                            <th class="width-table-1">Existencias</th>
+
+                            <th class="width-table-1">Reintegrar</th>
                             <th class="width-table-2">Series</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="item_actividad eliminar_tr">
+                        <tr class="item_actividad eliminar_tr" *ngFor="let newrow of rowDatatable; let i=index">
                             <td class="text-center">
 
-                                <button class="btn_delete" type="button">
-                                    <i class="fa fa-trash"></i>
+
+
+                                <button class="btn_delete  fa fa-trash-o" type="button" (click)="delete(i,$event)" style="padding: 2px">
                                 </button>
                             </td>
 
                             <td>
-                                <input class="form-control input-modified" type="text">
+                                <input class="form-control input-modified" type="text" value="{{newrow.cod_mater}}" name="cod_mater" readonly>
                             </td>
 
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class=" form-control input-modified" type="text" value="{{newrow.descri}}" readonly>
                             </td>
 
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class=" form-control input-modified" type="text" value="{{newrow.name_Unity}}" readonly>
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class="despachos form-control input-modified" type="text" value="{{newrow.despachos}}" readonly>
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class="reintegros form-control input-modified" type="text" value="{{newrow.total_reintegro}}" readonly>
                             </td>
                             <td>
-                                <input class=" form-control input-modified" type="text">
+                                <input class="refund form-control input-modified" type="text" value="{{newrow.reintegro}}">
                             </td>
                             <td>
-                                <input class="form-control input-modified" type="text">
+                                <input class="form-control input-modified" type="text" readonly>
                             </td>
-                            <td class="text-center"> </td>
+
 
                         </tr>
                     </tbody>
                 </table>
-                <div>
-                    <button class="btn_add">
-                        <i class="fa fa-plus"></i>
-                    </button>
-                </div>
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1fdf35656f801e0ddfcbb4e11e3ca5ed201c2683
 
             </div>
 
@@ -136,7 +145,13 @@
                         </div>
                         <div class="col-2">
                             <label for="">Empleado</label>
+<<<<<<< HEAD
                             <input type="Text" class="form-control input-modified" name="employee">
+=======
+
+                            <input class="employee form-control input-modified" type="text" name="employee" id="employee">
+                            <input class="employee form-control input-modified" type="text" name="employeeid" id="employeehiden" hidden>
+>>>>>>> 1fdf35656f801e0ddfcbb4e11e3ca5ed201c2683
                         </div>
 
                         <div class="col-2">
@@ -163,6 +178,11 @@
                                     <th>Despachos </th>
                                     <th>Reintegros </th>
                                     <th>Seleccionar </th>
+<<<<<<< HEAD
+=======
+                                    <th hidden>unidad </th>
+
+>>>>>>> 1fdf35656f801e0ddfcbb4e11e3ca5ed201c2683
                                 </tr>
                             </thead>
                             <tbody>
@@ -171,9 +191,15 @@
                                     <td>{{row.description}}</td>
                                     <td>{{row.cod_mater}}</td>
                                     <td>{{row.despacho}}</td>
+<<<<<<< HEAD
                                     <td>{{row.reintegrado}}</td>
+=======
+                                    <td>{{row.reintegrosmasivos}}</td>
+                                    <td hidden>{{row.name_Unity}}</td>
+
+>>>>>>> 1fdf35656f801e0ddfcbb4e11e3ca5ed201c2683
                                     <td>
-                                        <button class="btn btn_select btn-sm" data-dismiss="modal">Selecionar</button>
+                                        <button class="btn btn_select btn-sm">Selecionar</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -231,7 +257,7 @@
             </div>
             <div class=" modal-footer">
                 <button type="button" class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn_success btn-sm">Guardar</button>
+                <button type="button" class="btn btn_success btn-sm" (click)="insert()">Guardar</button>
             </div>
         </div>
     </div>
