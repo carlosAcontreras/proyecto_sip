@@ -37,4 +37,12 @@ export class RefundService {
     return this.http.post(this.url, params).map(res => res.json());
   }
 
+  update_refund(params){
+
+    this.url = this.constantes.getRouterGlobal() + "refund/update";
+
+    return this.http.post(this.url, params).map(res => res.json());
+
+  }
+
 }

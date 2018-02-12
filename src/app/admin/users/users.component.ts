@@ -442,9 +442,12 @@ export class UsersComponent implements OnInit {
   }
 
   validate_save_user() {
+    console.log(this.employees);
     this.UserService.save_user(this.employees).subscribe(
       response => {
+        console.log(response);
       }, error => {
+        console.log(error);
       }
     )
   }
