@@ -404,8 +404,8 @@ export class UsersComponent implements OnInit {
 
     let reader = new FileReader();
     reader.onload = function (fileInput) {
-     // let result = fileInput.target.result;
-     // $('#imgSalida').attr("src", result);
+      // let result = fileInput.target.result;
+      // $('#imgSalida').attr("src", result);
     }
     reader.readAsDataURL(file);
     console.log(this.filesToUploads);
@@ -427,10 +427,10 @@ export class UsersComponent implements OnInit {
             alert('enviando...');
             if (this.filesToUploads === undefined) {
               alert('sin imagen');
-              this.validate_save_user();
+              this.insert_data();
             } else {
               alert('con imagen');
-              this.upload_image();
+              this.insert_data_image();
             }
           }
         }
@@ -441,20 +441,41 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  validate_save_user() {
-    console.log(this.employees);
+  insert_data_image() {
     this.UserService.save_user(this.employees).subscribe(
       response => {
-        console.log(response);
+        if (response.idemploye !== '' || response.idemploye !== null || response.idemploye !== undefined) {
+          this.employees.idemployees = response.idemploye;
+          this.upload_image();
+        } else {
+          swal("", "error al crear el usuario por favor cominicarse con el area de sistemas", "error");
+          return false;
+        }
       }, error => {
         console.log(error);
       }
     )
   }
 
+  insert_data() {
+    this.UserService.save_user(this.employees).subscribe(
+      response => {
+        if (response.idemploye !== '' || response.idemploye !== null || response.idemploye !== undefined) {
+          this.employees.idemployees = response.idemploye;
+          swal("", "usuario creado correctamente", "success");
+        } else {
+          swal("", "error al crear el usuario por favor cominicarse con el area de sistemas", "error");
+          return false;
+        }
+      }, error => {
+        console.log(error);
+      }
+    )
+  }
+
+
   upload_image() {
     this.UserService.upload_image(this.filesToUploads).then((response) => {
-      this.validate_save_user();
       console.log(response);
     },
       (error) => {
