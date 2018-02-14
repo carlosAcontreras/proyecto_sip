@@ -28,7 +28,7 @@ export class Employees {
     public id_gangs: number;
     public contrac: number;
     public place_of_birth: number;
-    public image: number;
+    public image: string;
 }
 
 

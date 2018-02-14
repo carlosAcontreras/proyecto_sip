@@ -6,18 +6,24 @@
                     <h1 class="mb-5">Login</h1>
                     <form class="mb-5" #form_login="ngForm">
                         <input type=" text" class="form-control  input_login" placeholder="Ingrese Usuario" name="user" #user="ngModel" required number [(ngModel)]="user.user">
-
                         <span class="error_login" *ngIf="user.errors?.required && user.touched || user.errors?.number">Ingrese un numero de documento valido</span>
-
                         <input type="password" class="form-control mt-4 input_login" placeholder="Ingrese Contraseña" name="password" #password="ngModel" [(ngModel)]="user.password" required>
                         <span class="error_login" *ngIf="password.errors?.required && password.touched">el valor de contraseña no puede ser vacio</span>
-                        <select name="company" id=" " class="form-control select_login mt-4 " #company="ngModel" [(ngModel)]="user.company " required>                     
+
+                        <label for="" class="mt-4 d-block" style="margin-bottom:0">seleccione una empresa</label>
+                        <select name="company" class="form-control select_login" #company="ngModel" [(ngModel)]="user.company" (change)="get_contracts(company.value)" required>                
                         <option *ngFor="let company of company_list " value="{{company.idbusiness}} ">{{company.company_name}}</option>
                         </select>
                         <span class="error_login " *ngIf="company.errors?.required && company.touched ">Seleccione una empresa</span>
-                        <button type="submit " class="btn float-right btn_login " (click)="SessionStart(form_login.value) ">Login</button>
+
+                        <label for="" class="mt-4 d-block" style="margin-bottom:0">seleccione un contrato</label>
+                        <select name="contract" class="form-control select_login" #contract="ngModel" [(ngModel)]="user.contract" required>                     
+                        <option *ngFor="let contract of contracts_list" value="{{contract.idcontract}}">{{contract.name}}</option>
+                        </select>
+                        <span class="error_login" *ngIf="contract.errors?.required && contract.touched">Seleccione un contrato</span>
+                        <button type="submit" class="btn float-right btn_login" [disabled]="!form_login.valid" (click)="SessionStart(form_login.value) ">Login</button>
                     </form>
-                    <a class="change-password ">Cambiar contraseña</a>
+                    <!--<a class="change-password ">Cambiar contraseña</a>-->
                 </div>
                 <div class="col-4 text-center d-flex flex-column justify-content-center forms-text ">
                     <h1>Bienvenido</h1>

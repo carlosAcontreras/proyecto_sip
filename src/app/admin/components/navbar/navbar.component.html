@@ -75,6 +75,9 @@
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">{{company_name}}</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">{{contract_name}}contrato</a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{user_name}}
@@ -86,3 +89,24 @@
         </ul>
     </div>
 </nav>
+
+<div class="config">
+    <div class="btn-config">
+        <i class="fa fa-cog" (click)="fnConfig()"></i>
+    </div>
+    <form class="form">
+        <div class="form-group">
+            <label>cambiar empresa</label>
+            <select name="" id="" #id_company class="form-control input-modified" (change)="get_contracts(id_company.value)">
+                <option *ngFor="let company of list_company" value="{{company.idbusiness}}" [selected]="company.idbusiness === this.selectedCompany">{{company.company_name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>cambiar contrato</label>
+            <select name="" id="" class="form-control input-modified">
+                <option *ngFor="let contracts of list_contracts"value="{{contracts.idcontract}}">{{contracts.name}}</option>
+            </select>
+        </div>
+    </form>
+    <button class="btn btn-sm btn_success btn-block" (click)="change_company(id_company.value)">Cambiar</button>
+</div>
