@@ -48,6 +48,8 @@ export class UsersComponent implements OnInit {
   public user_identification;
   public btn_save: boolean;
   public btn_update: boolean;
+  public data;
+  public result;
 
 
 
@@ -404,8 +406,8 @@ export class UsersComponent implements OnInit {
 
     let reader = new FileReader();
     reader.onload = function (fileInput) {
-      let result = fileInput.target.result;
-      $('#imgSalida').attr("src", result);
+      // let response = fileInput.target.result;
+      //$('#imgSalida').attr("src", response);
     }
     reader.readAsDataURL(file);
     console.log(this.filesToUploads);
@@ -424,13 +426,12 @@ export class UsersComponent implements OnInit {
           if (permisos !== 1) {
             swal("", "no tiene permisos para registrar usuarios", "error");
           } else {
-            alert('enviando...');
             if (this.filesToUploads === undefined) {
-              alert('sin imagen');
               this.insert_data();
+              return;
             } else {
-              alert('con imagen');
               this.insert_data_image();
+              return;
             }
           }
         }
@@ -475,14 +476,20 @@ export class UsersComponent implements OnInit {
 
 
   upload_image() {
+    var result;
     this.UserService.upload_image(this.filesToUploads).then((response) => {
-      console.log(response);
+      result = response;
+      if (result.data) {
+        swal("", "usuario creado correctamente", "success")
+      } else {
+        swal("", "la foto del usuario no fue almacenada, comuniquese con erea de sistemas", "info");
+        return false;
+      }
     },
       (error) => {
         console.log(error);
       })
   }
-
 }
 
 

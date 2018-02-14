@@ -8,16 +8,18 @@
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Consecutivo</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value="consec" name="consec" id="consec" hidden>
+                    <input class="form-control input-modified" type="text" name="consec" id="consec" value="{{consecutive}}" readonly>
+                    <input class="form-control input-modified" type="text" name="idrefund_masive" id="idrefund_masive" value="{{idrefund_masive}}"
+                        hidden>
                 </div>
                 <label for=" " class="col-1 col-form-label">Fecha</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="date" value="date" name="date" id="date">
+                    <input class="form-control input-modified" type="date" name="date" id="date">
                 </div>
                 <label for=" " class="col-1 col-form-label">Almacen</label>
                 <div class="col-2">
                     <select name="cellar" class="form-control input-modified">
-                        <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}" [selected]="cellar.idcellar === dispatche_cellar"> {{cellar.name}}</option>
+                        <option *ngFor="let cellar of cellar" value="{{cellar.idcellar}}" [selected]="cellar.idcellar === cellar3">{{cellar.name}}</option>
                     </select>
                 </div>
             </div>
@@ -26,8 +28,8 @@
             <div class="form-group row">
                 <label for=" " class="col-1 col-form-label">Encargado</label>
                 <div class="col-2">
-                    <input class="form-control input-modified" type="text" value="employee1" id="employee1">
-                    <input class="employee form-control input-modified" type="text" name="employeeid1" id="employeehiden1" hidden>
+                    <input class="form-control input-modified" type="text" id="employee1" value="{{employees}}">
+                    <input class="employee form-control input-modified" type="text" name="employeeid1" id="employeehiden1" hidden value="{{idemployees}}">
                 </div>
             </div>
 
@@ -56,7 +58,7 @@
                             <th class="width-table-4">Descripcion</th>
                             <th class="width-table-2">Unidad</th>
                             <th class="width-table-2">Despachos</th>
-                            <th class="width-table-2">Reintegos</th>
+                            <th class="width-table-2">Reintegros</th>
 
                             <th class="width-table-1">Reintegrar</th>
                             <th class="width-table-2">Series</th>
@@ -74,6 +76,7 @@
 
                             <td>
                                 <input class="form-control input-modified" type="text" value="{{newrow.cod_mater}}" name="cod_mater" readonly>
+                                <input class="form-control input-modified" type="text" value="{{newrow.idmsrefound}}" name="idmsrefound" hidden>
                             </td>
 
                             <td>
@@ -90,7 +93,7 @@
                                 <input class="reintegros form-control input-modified" type="text" value="{{newrow.total_reintegro}}" readonly>
                             </td>
                             <td>
-                                <input class="refund form-control input-modified" type="text" value="{{newrow.reintegro}}">
+                                <input class="refund form-control input-modified" type="text" name="refund" value="{{newrow.reintegro}}">
                             </td>
                             <td>
                                 <input class="form-control input-modified" type="text" readonly>
@@ -141,8 +144,8 @@
 
                         <div class="col-2">
                             <label for="">Almacen</label>
-                            <select name=" " id=" " class="form-control input-modified" name="cellar2">
-                                <option *ngFor="let cellar2 of cellar" value="{{cellar2.idcellar}}" [selected]="cellar2.idcellar === dispatche_cellar"> {{cellar2.name}}</option>
+                            <select class="form-control input-modified" name="cellar2" id="cellar2">
+                                <option *ngFor="let cellar2 of cellar" value="{{cellar2.idcellar}}"> {{cellar2.name}}</option>
                             </select>
                         </div>
                         <div class="col-2 d-flex align-items-end">

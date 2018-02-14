@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ListService } from "../../services/list/list.service";
 import "jquery-ui/ui/widgets/autocomplete";
 import { AutocompleteService } from "../../services/autocomplete/autocomplete.service";
@@ -8,7 +8,8 @@ import { DatatablesService } from "../../services/datatables/datatables.service"
 import { datatables } from "../../utilitis/datatables";
 import { massive_refund } from "../../services/massive-refund/massive_refund.service";
 import $ from "jquery";
-
+import { asNativeElements } from '@angular/core/src/debug/debug_node';
+import swal from "sweetalert2";
 @Component({
   selector: 'app-massive-withdrawals',
   templateUrl: './massive-withdrawals.component.html',
@@ -27,6 +28,7 @@ import $ from "jquery";
 })
 export class MassiveWithdrawalsComponent implements OnInit {
 
+  @ViewChild('cellar3') textinput: ElementRef;
 
   public cellar;
   public company;
@@ -47,8 +49,13 @@ export class MassiveWithdrawalsComponent implements OnInit {
   public id_encargado;
   public unity;
   public user;
+  public consecutive;
+  public idrefund_masive;
 
 
+  public cellar3: number;
+  public employees;
+  public idemployees;
 
   constructor(private ListService: ListService,
 
@@ -57,7 +64,8 @@ export class MassiveWithdrawalsComponent implements OnInit {
     private datatableservice: DatatablesService,
     private PermitsService: PermitsService,
     private datatables: datatables,
-    private mamassive_refund: massive_refund
+    private mamassive_refund: massive_refund,
+    private ElementRef: ElementRef
 
   ) { }
 
@@ -93,7 +101,7 @@ export class MassiveWithdrawalsComponent implements OnInit {
       .subscribe(
       response => {
         this.datos = response.search;
-        console.log(this.datos)
+
         this.addRow(this.datos);
       },
       error => {
@@ -110,7 +118,7 @@ export class MassiveWithdrawalsComponent implements OnInit {
     let data1;
     let json = datos;
     for (data1 of json) {
-      console.log(data1);
+
       this.data.push(data1);
     }
     this.datatables.reInitDatatable("#massive_refound");
@@ -118,7 +126,7 @@ export class MassiveWithdrawalsComponent implements OnInit {
 
   public selectRow(index: number, row: any) {
     this.selectedName = row.cod_mater;
-    console.log(index);
+
 
 
     this.descri = row.description;
@@ -133,13 +141,21 @@ export class MassiveWithdrawalsComponent implements OnInit {
 
 
     var table = $('#refund_massive').serializeFormJSON();
-    console.log(table);
+
     let data1;
+
+
+
+    var var_cellar = (<HTMLInputElement>document.getElementById('cellar2')).value;
+    this.employees = $('#employee').val();
+    this.idemployees = $('#employeehiden').val();
+
+    this.cellar3 = Number(var_cellar);
+
 
     for (data1 of table) {
 
       if (data1.cod_mater == this.selectedName) {
-        console.log('codigo repetido');
 
         return
       }
@@ -170,6 +186,14 @@ export class MassiveWithdrawalsComponent implements OnInit {
 
     this.mamassive_refund.insert(detail_massive).subscribe(
       res => {
+
+        this.consecutive = res.consecutive;
+        this.idrefund_masive = res.idrefund_masive;
+
+        if (res.data = true) {
+
+          swal("", "Se ha Creado correctamente el Ingreso", "success");
+        }
 
       },
       error => {
