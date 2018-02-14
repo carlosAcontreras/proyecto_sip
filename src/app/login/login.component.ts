@@ -57,6 +57,8 @@ export class LoginComponent implements OnInit {
     this.login.login_autch(user).subscribe(
       response => {
         this.validate_auth(response, user.company);
+        console.log(response);
+        return false;
       },
       error => {
         console.log(error);
@@ -67,7 +69,7 @@ export class LoginComponent implements OnInit {
   validate_auth(user, company) {
 
     if (!user.identification) {
-      swal("", "usuario / contraseña / empresa incorrecto", "error");
+      swal("", "usuario / contraseña / empresa / contrato incorrecto", "error");
     } else {
       let _user = JSON.stringify(user);
       localStorage.setItem('user', _user);
