@@ -49,6 +49,7 @@ ul.ui-autocomplete {
     z-index: 1100;
 }
 
+
 /*style for buttons colors*/
 
 .btn_primary {
@@ -287,6 +288,46 @@ input[type="file"]::-webkit-file-upload-button {
     background: rgba(255, 255, 255, .5);
     &>img {
         margin: auto;
+    }
+}
+
+.config {
+    background: $colorblack;
+    min-width: 300px;
+    padding: 30px 20px;
+    position: fixed;
+    right: -300px;
+    top: 50px;
+    z-index: 1000;
+    display: flex;
+    color: $colorwhite;
+    flex-direction: column;
+    &>.btn-config {
+        background: white;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: -5px;
+        left: -40px;
+        display: flex;
+        &>.fa-cog {
+            margin: auto;
+            font-size: 1.6em;
+            color: $colorblack;
+            animation: rotate 3s infinite linear;
+        }
+    }
+    &>.form {
+        flex-basis: 100%;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }
 

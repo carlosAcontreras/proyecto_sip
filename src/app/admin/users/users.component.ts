@@ -9,6 +9,7 @@ import $ from 'jquery';
 import { SerializerService } from "../../services/serializer/serializer.service";
 import { UserService } from '../../services/users/user.service';
 import { AutocompleteService } from "../../services/autocomplete/autocomplete.service";
+import { Contracts } from '../../models/contracts_models';
 
 export enum KEY_CODE {
   TECLA_F2 = 113
@@ -19,7 +20,7 @@ export enum KEY_CODE {
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
-  providers: [PermitsService, CompanyService, ListService, SerializerService, UserService, AutocompleteService]
+  providers: [PermitsService, CompanyService, ListService, SerializerService, UserService, AutocompleteService, Contracts]
 })
 export class UsersComponent implements OnInit {
   public permisos;
@@ -48,13 +49,23 @@ export class UsersComponent implements OnInit {
   public user_identification;
   public btn_save: boolean;
   public btn_update: boolean;
+<<<<<<< HEAD
   public data;
   public result;
 
 
+=======
+  public img_base = "../../assets/images/users.png";
+  public url_image = this.img_base;
+  public contracts: Contracts;
+  public list_type_contracts;
+>>>>>>> dd5a3f64091ed71f2438c1b3144d1245051305e7
 
   constructor(private AutocompleteService: AutocompleteService, private UserService: UserService, private SerializerService: SerializerService, private _PermitsService: PermitsService, private CompanyService: CompanyService, private ListService: ListService) {
     this.employees = new Employees();
+    this.btn_save = false;
+    this.btn_update = true;
+    this.contracts = new Contracts();
   }
 
   ngOnInit() {
@@ -78,6 +89,7 @@ export class UsersComponent implements OnInit {
     this.get_civil_status();
     this.SerializerService.serializer();
     this.AutocompleteService.autocomplete_user(this.employees);
+    this.get_type_contracts();
 
   }
 
@@ -294,7 +306,6 @@ export class UsersComponent implements OnInit {
     this.ListService.get_list(url, params).subscribe(
       res => {
         this.list_contracts = res.contract;
-        console.log(this.list_contracts);
       },
       error => {
         console.log(error);
@@ -330,6 +341,21 @@ export class UsersComponent implements OnInit {
     );
 
   }
+
+  get_type_contracts() {
+    let url = "list/type_contract";
+    this.ListService.get_list(url).subscribe(
+      res => {
+        this.list_type_contracts = res.type_contract;
+        console.log(this.list_type_contracts);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
 
   calcular_anios(date) {
     if (date === '' || date === null || date === undefined) {
@@ -375,12 +401,28 @@ export class UsersComponent implements OnInit {
     this.UserService.consultar_users(params).subscribe(
       response => {
         if (response.data.length === 0) {
+          let get_document = this.employees.Users_id_identification;
+          this.employees = new Employees();
+          this.employees.Users_id_identification = get_document;
+          this.url_image = this.img_base;
           swal("", "el usuario no se encuentra registrado", "info");
+          this.btn_update = true;
+          this.btn_save = false;
+          return false;
         } else {
           this.get_contracts(response.data[0].id_company);
           this.get_city(response.data[0].id_depart);
           this.employees = response.data[0];
           this.calcular_anios(this.employees.birth_date);
+          this.btn_update = false;
+          this.btn_save = true;
+          console.log(this.employees.image)
+          if (this.employees.image !== '' && this.employees.image !== null) {
+            this.url_image = "http://192.168.1.126/public/images/" + this.employees.image;
+          } else {
+            this.url_image = this.img_base;
+          }
+
         }
       },
       error => {
@@ -447,7 +489,9 @@ export class UsersComponent implements OnInit {
       response => {
         if (response.idemploye !== '' || response.idemploye !== null || response.idemploye !== undefined) {
           this.employees.idemployees = response.idemploye;
-          this.upload_image();
+          this.upload_image("usuario creado correctamente");
+          this.btn_save = true;
+          this.btn_update = false;
         } else {
           swal("", "error al crear el usuario por favor cominicarse con el area de sistemas", "error");
           return false;
@@ -463,6 +507,8 @@ export class UsersComponent implements OnInit {
       response => {
         if (response.idemploye !== '' || response.idemploye !== null || response.idemploye !== undefined) {
           this.employees.idemployees = response.idemploye;
+          this.btn_save = true;
+          this.btn_update = false;
           swal("", "usuario creado correctamente", "success");
         } else {
           swal("", "error al crear el usuario por favor cominicarse con el area de sistemas", "error");
@@ -475,14 +521,22 @@ export class UsersComponent implements OnInit {
   }
 
 
+<<<<<<< HEAD
   upload_image() {
+=======
+  upload_image(message) {
+>>>>>>> dd5a3f64091ed71f2438c1b3144d1245051305e7
     var result;
     this.UserService.upload_image(this.filesToUploads).then((response) => {
       result = response;
       if (result.data) {
+<<<<<<< HEAD
         swal("", "usuario creado correctamente", "success")
+=======
+        swal("", message, "success")
+>>>>>>> dd5a3f64091ed71f2438c1b3144d1245051305e7
       } else {
-        swal("", "la foto del usuario no fue almacenada, comuniquese con erea de sistemas", "info");
+        swal("", "la foto del usuario no fue almacenada, comuniquese con el area de sistemas", "info");
         return false;
       }
     },
@@ -490,6 +544,64 @@ export class UsersComponent implements OnInit {
         console.log(error);
       })
   }
+<<<<<<< HEAD
+=======
+
+  update_user() {
+    let permisos = JSON.parse(localStorage.getItem('users'));
+    permisos = permisos.update;
+    if (permisos !== 1) {
+      swal("", "no tiene permisos para actualizar", "error")
+    } else {
+      this.employees.image = this.filesToUploads != undefined ? this.filesToUploads[0].name : this.employees.image;
+      this.UserService.actualizar_users(this.employees).subscribe(
+        response => {
+          if (response.update === true) {
+            if (this.filesToUploads != undefined) {
+              this.upload_image('usuario actualizado con exito');
+            } else {
+              swal("", "usuario actualizado con exito", "success")
+            }
+            let params = { 'identification': this.employees.Users_id_identification };
+            this.query_users(params)
+
+            this.btn_update = false;
+            this.btn_save = true;
+          } else {
+            swal("", "error al actualizar el usuario por favor cominuquese con el area de sistemas", "error");
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    }
+  }
+
+  save_contracts() {
+    let permisos = JSON.parse(localStorage.getItem('users'));
+    permisos = permisos.update;
+    if (permisos !== 1) {
+      this.contracts.id_employee = this.employees.idemployees;
+      console.log(this.contracts);
+      this.UserService.save_contracts(this.contracts).subscribe(
+        response => {
+          if (response.idcontrat !== '' || response.idcontrat !== null || response.idcontrat !== undefined) {
+            swal("", "el contrato se creo correctamente", "success");
+          } else {
+            swal("", "no se pudo crear en contrato, comuniquese con el area de sistemas", "error");
+            return false;
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    } else {
+      swal("", "no tiene permisos para registrar usuarios", "error");
+    }
+  }
+>>>>>>> dd5a3f64091ed71f2438c1b3144d1245051305e7
 }
 
 

@@ -30,7 +30,7 @@ export class UserService {
   }
 
   public actualizar_users(params) {
-    this.url = this.constantes.getRouterGlobal() + '';
+    this.url = this.constantes.getRouterGlobal() + 'employee/update_employee';
     let options = this._headers();
     return this.http.post(this.url, params, options).map(res => res.json());
   }
@@ -57,5 +57,13 @@ export class UserService {
       xhr.open('POST', url, true);
       xhr.send(formData);
     })
+  }
+
+  save_contracts(params) {
+    this.url = this.constantes.getRouterGlobal() + 'employee/insert_contrat';
+    let headers = new Headers({ 'content-type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.url, params, options).map(res => res.json());
+
   }
 }

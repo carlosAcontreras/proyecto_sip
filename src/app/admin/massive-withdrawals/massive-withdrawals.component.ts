@@ -99,14 +99,14 @@ export class MassiveWithdrawalsComponent implements OnInit {
     this.datatableservice
       .get_datatables(table, "refund/massive_refound")
       .subscribe(
-      response => {
-        this.datos = response.search;
+        response => {
+          this.datos = response.search;
 
-        this.addRow(this.datos);
-      },
-      error => {
-        console.log(error);
-      }
+          this.addRow(this.datos);
+        },
+        error => {
+          console.log(error);
+        }
       );
 
   }
@@ -118,7 +118,6 @@ export class MassiveWithdrawalsComponent implements OnInit {
     let data1;
     let json = datos;
     for (data1 of json) {
-
       this.data.push(data1);
     }
     this.datatables.reInitDatatable("#massive_refound");

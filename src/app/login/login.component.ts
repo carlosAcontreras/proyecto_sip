@@ -5,19 +5,21 @@ import { CompanyService } from '../services/login/company.service';
 import { LoginService } from '../services/login/login.service';
 import { Routes, Router } from '@angular/router';
 import swal from 'sweetalert2';
+import { ListService } from '../services/list/list.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [Login, CompanyService, LoginService]
+  providers: [Login, CompanyService, LoginService, ListService]
 })
 export class LoginComponent implements OnInit {
 
   private user;
   private company_list: any[];
+  public contracts_list: any[];
 
-  constructor(private company: CompanyService, private login: LoginService, private router: Router) {
+  constructor(private company: CompanyService, private login: LoginService, private router: Router, private _ListService: ListService) {
     this.user = new Login();
   }
 
@@ -35,6 +37,20 @@ export class LoginComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  get_contracts(company) {
+    let url = "list/contract";
+    let params = { 'company': company };
+    this._ListService.get_list(url, params).subscribe(
+      res => {
+        this.contracts_list = res.contract;
+        console.log(this.contracts_list);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   SessionStart(user) {
