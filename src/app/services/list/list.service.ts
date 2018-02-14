@@ -51,6 +51,20 @@ export class ListService {
   }
 
 
+
+  company(params) {
+
+    this.url = this.constantes.getRouterGlobal() + 'list/company';
+    return this.http.post(this.url, params).map(res => res.json());
+  }
+
+  contract(params) {
+
+    this.url = this.constantes.getRouterGlobal() + 'list/local_contract';
+    return this.http.post(this.url, params).map(res => res.json());
+  }
+
+
   get_list(url, params = null) {
     this.url = this.constantes.getRouterGlobal() + url;
     let headers = new Headers({ 'content-type': 'aplication/json' });

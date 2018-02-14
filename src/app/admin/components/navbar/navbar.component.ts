@@ -93,7 +93,9 @@ export class NavbarComponent implements OnInit {
       if (this.list_company[i].idbusiness === Number(id_company)) {
         company_name = this.list_company[i].company_name;
         localStorage.removeItem('company_name');
+        localStorage.removeItem('company');
         localStorage.setItem('company_name', company_name);
+        localStorage.setItem('company', id_company);
         this.company_name = localStorage.getItem("company_name");
       }
     }

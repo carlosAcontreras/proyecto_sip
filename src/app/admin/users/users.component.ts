@@ -49,17 +49,10 @@ export class UsersComponent implements OnInit {
   public user_identification;
   public btn_save: boolean;
   public btn_update: boolean;
-<<<<<<< HEAD
-  public data;
-  public result;
-
-
-=======
   public img_base = "../../assets/images/users.png";
   public url_image = this.img_base;
   public contracts: Contracts;
   public list_type_contracts;
->>>>>>> dd5a3f64091ed71f2438c1b3144d1245051305e7
 
   constructor(private AutocompleteService: AutocompleteService, private UserService: UserService, private SerializerService: SerializerService, private _PermitsService: PermitsService, private CompanyService: CompanyService, private ListService: ListService) {
     this.employees = new Employees();
@@ -521,20 +514,12 @@ export class UsersComponent implements OnInit {
   }
 
 
-<<<<<<< HEAD
-  upload_image() {
-=======
   upload_image(message) {
->>>>>>> dd5a3f64091ed71f2438c1b3144d1245051305e7
     var result;
     this.UserService.upload_image(this.filesToUploads).then((response) => {
       result = response;
       if (result.data) {
-<<<<<<< HEAD
-        swal("", "usuario creado correctamente", "success")
-=======
         swal("", message, "success")
->>>>>>> dd5a3f64091ed71f2438c1b3144d1245051305e7
       } else {
         swal("", "la foto del usuario no fue almacenada, comuniquese con el area de sistemas", "info");
         return false;
@@ -544,8 +529,6 @@ export class UsersComponent implements OnInit {
         console.log(error);
       })
   }
-<<<<<<< HEAD
-=======
 
   update_user() {
     let permisos = JSON.parse(localStorage.getItem('users'));
@@ -601,7 +584,6 @@ export class UsersComponent implements OnInit {
       swal("", "no tiene permisos para registrar usuarios", "error");
     }
   }
->>>>>>> dd5a3f64091ed71f2438c1b3144d1245051305e7
 }
 
 
