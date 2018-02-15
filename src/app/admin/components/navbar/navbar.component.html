@@ -1,6 +1,5 @@
 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse bg-faded fixed-top shadow2">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand navbar__icon" href="#">SIP</a>
@@ -29,7 +28,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="administration">
                     <a class="dropdown-item" [routerLink]="['/admin/usuarios']">Usuario</a>
-                    <a class="dropdown-item" href="#">Perfil</a>
+                    <a class="dropdown-item" [routerLink]="['/admin/permisos']">Permisos</a>
                     <a class="dropdown-item" [routerLink]="['/admin/proveedores']">Proveedores</a>
                     <a class="dropdown-item" [routerLink]="['/admin/contratos']">Contratos</a>
                     <a class="dropdown-item" [routerLink]="['/admin/empresas']">Empresas</a>
@@ -98,8 +97,7 @@
     <form class="form">
         <div class="form-group">
             <label>cambiar empresa</label>
-            <select name="" id="" #id_company="ngModel" class="form-control input-modified" (change)="get_contracts(id_company.value)"
-                name="id_company" [(ngModel)]="cambio.id_company">
+            <select name="" id="" #id_company="ngModel" class="form-control input-modified" (change)="get_contracts(id_company.value)" name="id_company" [(ngModel)]="cambio.id_company">
                 <option *ngFor="let company of list_company" value="{{company.idbusiness}}" [selected]="company.idbusiness == cambio.id_company">{{company.company_name}}</option>
             </select>
         </div>
