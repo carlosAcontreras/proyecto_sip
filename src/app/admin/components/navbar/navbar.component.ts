@@ -19,6 +19,10 @@ export class NavbarComponent implements OnInit {
   public contract_name;
   public id_company;
   public id_contract;
+  public cambio = {
+    'id_company': 0,
+    'id_contract': 0
+  }
 
   constructor(private router: Router, private _CompanyService: CompanyService, private _ListService: ListService) {
     this.id_company = Number(localStorage.getItem('company'));
@@ -50,9 +54,9 @@ export class NavbarComponent implements OnInit {
   }
 
   fnConfig() {
-    this.id_company = Number(localStorage.getItem('company'));
-    this.id_contract = Number(localStorage.getItem('contract'));
-    this.get_contracts(this.id_company);
+    this.cambio.id_company = Number(localStorage.getItem('company'));
+    this.get_contracts(this.cambio.id_company);
+    this.cambio.id_contract = Number(localStorage.getItem('contract'));
     if (this.contador === 1) {
       $('.config').animate({
         right: 0
