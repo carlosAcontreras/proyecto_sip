@@ -18,4 +18,13 @@ export class CompanyService {
     return this.http.get(this.url).map(res => res.json());
   }
 
+
+  verify_permises_company_contract(params) {
+    this.url = this.constantes.getRouterGlobal() + 'user/change';
+    let headers = new Headers({ 'content-type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.url, params, options).map(res => res.json());
+  }
+
+
 }

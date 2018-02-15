@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import $ from 'jquery';
 import { CompanyService } from '../../../services/login/company.service';
 import { ListService } from '../../../services/list/list.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -95,8 +96,23 @@ export class NavbarComponent implements OnInit {
   }
 
   change_company(company, contract) {
-    this.localCompany(company);
-    this.localContract(company, contract);
+    let documento = JSON.parse(localStorage.getItem('user'));
+    let identification = documento.identification;
+    let params = { 'company': company, 'contract': contract, 'identification': identification };
+    this._CompanyService.verify_permises_company_contract(params).subscribe(
+      response => {
+        if (response.data) {
+          this.localCompany(company);
+          this.localContract(company, contract);
+        } else {
+          swal("", "el usuario no tiene permiso para realizar el cambio", "error")
+          return false;
+        }
+      }, error => {
+        console.log(error)
+      }
+    )
+
   }
 
   localCompany(company) {
