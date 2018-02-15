@@ -216,7 +216,7 @@ export class MassiveWithdrawalsComponent implements OnInit {
 
   }
 
-  search_massive_refund(){
+  search_massive_refund() {
     let table = $("#search_massive").serializeObject();
 
     console.log(table);
