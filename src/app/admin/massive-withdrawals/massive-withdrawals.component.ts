@@ -33,6 +33,7 @@ export class MassiveWithdrawalsComponent implements OnInit {
   public cellar;
   public company;
   public data = [];
+  public data2 = [];
   public datos;
   public selectedName;
   public rowDatatable = [];;
@@ -123,6 +124,18 @@ export class MassiveWithdrawalsComponent implements OnInit {
     this.datatables.reInitDatatable("#massive_refound");
   }
 
+  public addRow_search(datos): void {
+    this.data2 = [];
+
+    let data1;
+    let json = datos;
+    for (data1 of json) {
+      this.data2.push(data1);
+    }
+    this.datatables.reInitDatatable("#table_search_massive");
+  }
+
+
   public selectRow(index: number, row: any) {
     this.selectedName = row.cod_mater;
 
@@ -200,6 +213,28 @@ export class MassiveWithdrawalsComponent implements OnInit {
 
       }
     )
+
+  }
+
+  search_massive_refund(){
+    let table = $("#search_massive").serializeObject();
+
+    console.log(table);
+
+
+    this.datatableservice
+      .get_datatables(table, "refund/search_massive")
+      .subscribe(
+        response => {
+          this.datos = response.search_massive;
+
+          this.addRow_search(this.datos);
+
+        },
+        error => {
+          console.log(error);
+        }
+      );
 
   }
 
