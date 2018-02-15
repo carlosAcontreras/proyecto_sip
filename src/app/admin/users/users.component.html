@@ -238,6 +238,7 @@
                     <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_usuarios.valid || btn_save" (click)="insert_user()">Guardar</button>
                     <button class="btn btn_primary btn-sm mr-3 my-3" [disabled]="!form_usuarios.valid || btn_update" (click)="update_user()">Actualizar</button>
                     <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#crear_contrato" [disabled]="!employees.idemployees">Crear contrato</button>
+                    <button class="btn btn_primary btn-sm mr-3 my-3" data-toggle="modal" data-target="#ver_contrato">Ver contratos</button>
                 </div>
             </div>
         </div>
@@ -246,62 +247,72 @@
 
 
 <!--  CONTRATOS -->
-<div class="container-fluid container-modified">
+<!--<div class="container-fluid container-modified">
     <div class="row">
         <div class="col-12">
             <h1 class="mb-3 title">Contratos</h1>
         </div>
-        <div class="col-12">
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Modificar</th>
-                        <th>Tipo</th>
-                        <th>Contrato</th>
-                        <th>Prorrogas</th>
-                        <th>Fecha</th>
-                        <th>Inicio</th>
-                        <th>Fecha</th>
-                        <th>Terminacion</th>
-                        <th>Cargo</th>
-                        <th>Salario</th>
-                        <th>Aux</th>
-                        <th>Transporte</th>
-                        <th>Aux</th>
-                        <th>AD</th>
-                        <th>Aux</th>
-                        <th>OT</th>
-                        <th>Empresa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                        <td>item #</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div>
-                <button class="btn_add" (click)='addrowtable()' [disabled]="buttonaddrow">
+        
+    </div>
+</div>-->
+
+<!-- modal para ver crear nuevos contratos -->
+<div class="modal fade" id="ver_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Crear Contrato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 modal-table-contracts">
+                        <table class="table table-striped table-bordered table-hover table-contracts">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Empresa</th>
+                                    <th>T/contrato</th>
+                                    <th>F/inicial</th>
+                                    <th>F/final</th>
+                                    <th>Cargo</th>
+                                    <th>Salario</th>
+                                    <th>Aux/lejania</th>
+                                    <th>Aux/rodamiento</th>
+                                    <th>Bonificacion</th>
+                                    <th>modificar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td>item #</td>
+                                    <td class="text-center"><button class="btn btn-sm btn_success" data-toggle="modal" data-target="#crear_contrato">modificar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            <button class="btn_add" (click)='addrowtable()' [disabled]="buttonaddrow">
                         <i class="fa fa-plus"></i>
                     </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_danger btn-sm" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn_success btn-sm" data-dismiss="modal">Guardar</button>
             </div>
         </div>
     </div>

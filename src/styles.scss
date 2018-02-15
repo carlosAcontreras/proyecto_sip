@@ -239,6 +239,15 @@ table thead tr>th {
     }
 }
 
+.modal-table-contracts {
+    overflow-x: auto;
+    min-height: 400px;
+}
+
+.table-contracts {
+    min-width: 1700px;
+}
+
 //estilos para las datatables 
 .data-tables {
     margin: 2em;
@@ -303,7 +312,7 @@ input[type="file"]::-webkit-file-upload-button {
     color: $colorwhite;
     flex-direction: column;
     &>.btn-config {
-        background:rgba(255, 255, 255, .5);
+        background: rgba(255, 255, 255, .5);
         width: 40px;
         height: 40px;
         position: absolute;

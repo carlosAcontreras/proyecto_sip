@@ -566,7 +566,6 @@ export class UsersComponent implements OnInit {
     permisos = permisos.update;
     if (permisos !== 1) {
       this.contracts.id_employee = this.employees.idemployees;
-      console.log(this.contracts);
       this.UserService.save_contracts(this.contracts).subscribe(
         response => {
           if (response.idcontrat !== '' || response.idcontrat !== null || response.idcontrat !== undefined) {
