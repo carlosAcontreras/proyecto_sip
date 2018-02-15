@@ -16,19 +16,20 @@ export class NavbarComponent implements OnInit {
   public contador = 1;
   public list_company;
   public list_contracts;
-  public selectedCompany: number;
   public contract_name;
+  public id_company;
+  public id_contract;
 
-  constructor(private router: Router, private _CompanyService: CompanyService, private _ListService: ListService) { }
+  constructor(private router: Router, private _CompanyService: CompanyService, private _ListService: ListService) {
+    this.id_company = Number(localStorage.getItem('company'));
+    this.id_contract = Number(localStorage.getItem('contract'));
+  }
 
 
   ngOnInit() {
-    this.selectedCompany = Number(localStorage.getItem('company'));
     this.ValidateSession();
     this.getUserNameAndCompanyName();
     this.getCompany();
-    this.get_contracts(this.selectedCompany);
-
   }
 
   ValidateSession() {
@@ -44,10 +45,14 @@ export class NavbarComponent implements OnInit {
   getUserNameAndCompanyName() {
     let name = JSON.parse(localStorage.getItem("user"));
     this.company_name = localStorage.getItem("company_name");
+    this.contract_name = localStorage.getItem('contract_name');
     this.user_name = name.name;
   }
 
   fnConfig() {
+    this.id_company = Number(localStorage.getItem('company'));
+    this.id_contract = Number(localStorage.getItem('contract'));
+    this.get_contracts(this.id_company);
     if (this.contador === 1) {
       $('.config').animate({
         right: 0
@@ -85,26 +90,43 @@ export class NavbarComponent implements OnInit {
     );
   }
 
-  change_company(id_company) {
-    let company_name: string;
-    console.log(id_company);
-    console.log(typeof (id_company));
-    for (let i = 0; i < this.list_company.length; i++) {
-      if (this.list_company[i].idbusiness === Number(id_company)) {
-        company_name = this.list_company[i].company_name;
-        localStorage.removeItem('company_name');
-        localStorage.removeItem('company');
-        localStorage.setItem('company_name', company_name);
-        localStorage.setItem('company', id_company);
-        this.company_name = localStorage.getItem("company_name");
-      }
-    }
+  change_company(company, contract) {
+    this.localCompany(company);
+    this.localContract(company, contract);
   }
 
-  /*
-  
-        localStorage.setItem('company', id_company);
- 
-  */
+  localCompany(company) {
+    let _company = { 'company': company }
+    this._ListService.company(_company).subscribe(
+      res => {
+        if (res.business !== null) {
+          localStorage.removeItem('company');
+          localStorage.removeItem('company_name');
+          localStorage.setItem('company_name', res.business.company_name);
+          localStorage.setItem('company', res.business.idbusiness);
+          this.company_name = localStorage.getItem('company_name');
+        }
+      },
+      error => {
+      }
+    )
+  }
+
+  localContract(company, contract) {
+    let _company = { 'company': company, 'contract': contract }
+    this._ListService.contract(_company).subscribe(
+      res => {
+        if (res.contract !== null) {
+          localStorage.removeItem('contract');
+          localStorage.removeItem('contract_name');
+          localStorage.setItem('contract_name', res.contract.contract_name);
+          localStorage.setItem('contract', res.contract.idcontract);
+          this.contract_name = localStorage.getItem('contract_name');
+        }
+      },
+      error => {
+      }
+    )
+  }
 
 }

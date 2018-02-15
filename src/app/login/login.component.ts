@@ -102,8 +102,6 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('company', company);
       },
       error => {
-
-
       }
     )
 
@@ -120,12 +118,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('contract', user.contract);
       },
       error => {
-
-
       }
     )
-
-
   }
 }
 
