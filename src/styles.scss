@@ -271,14 +271,15 @@ table thead tr>th {
     border: 1px solid #ddd;
 }
 
-.table-scroll {
+
+/*.table-scroll {
     min-height: 400px;
     width: 100%;
     overflow-x: scroll;
     &>table {
         min-width: 4000px;
     }
-}
+}*/
 
 input[type="file"]::-webkit-file-upload-button {
     padding: 5px 10px;

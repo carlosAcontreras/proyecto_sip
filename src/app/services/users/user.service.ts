@@ -66,4 +66,18 @@ export class UserService {
     return this.http.post(this.url, params, options).map(res => res.json());
 
   }
+
+  getAll_contracts(params) {
+    this.url = this.constantes.getRouterGlobal() + 'employee/view_contract';
+    let headers = new Headers({ 'content-type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.url, params, options).map(res => res.json());
+  }
+
+  getId_contract(params) {
+    this.url = this.constantes.getRouterGlobal() + 'employee/request_contract';
+    let headers = new Headers({ 'content-type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.url, params, options).map(res => res.json());
+  }
 }

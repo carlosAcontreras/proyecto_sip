@@ -10,6 +10,7 @@ import { SerializerService } from "../../services/serializer/serializer.service"
 import { UserService } from '../../services/users/user.service';
 import { AutocompleteService } from "../../services/autocomplete/autocomplete.service";
 import { Contracts } from '../../models/contracts_models';
+import { datatables } from "../../utilitis/datatables";
 
 export enum KEY_CODE {
   TECLA_F2 = 113
@@ -20,7 +21,7 @@ export enum KEY_CODE {
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
-  providers: [PermitsService, CompanyService, ListService, SerializerService, UserService, AutocompleteService, Contracts]
+  providers: [PermitsService, CompanyService, ListService, SerializerService, UserService, AutocompleteService, Contracts, datatables]
 })
 export class UsersComponent implements OnInit {
   public permisos;
@@ -49,16 +50,23 @@ export class UsersComponent implements OnInit {
   public user_identification;
   public btn_save: boolean;
   public btn_update: boolean;
+  public btn_modal_save: boolean;
+  public btn_modal_update: boolean;
   public img_base = "../../assets/images/users.png";
   public url_image = this.img_base;
   public contracts: Contracts;
   public list_type_contracts;
+  public datatables: datatables;
+  public data_table: any[];
+  public visible: boolean;
 
   constructor(private AutocompleteService: AutocompleteService, private UserService: UserService, private SerializerService: SerializerService, private _PermitsService: PermitsService, private CompanyService: CompanyService, private ListService: ListService) {
     this.employees = new Employees();
     this.btn_save = false;
     this.btn_update = true;
+    this.visible = true;
     this.contracts = new Contracts();
+    this.datatables = new datatables();
   }
 
   ngOnInit() {
@@ -83,7 +91,13 @@ export class UsersComponent implements OnInit {
     this.SerializerService.serializer();
     this.AutocompleteService.autocomplete_user(this.employees);
     this.get_type_contracts();
+    this.datatables.initDatatable("#table_contracts");
 
+  }
+  /*funcione para mostrar btn de guardar y actualizar*/
+  modify_btn_save(value: boolean) {
+    this.btn_modal_save = value;
+    this.btn_modal_update = !value;
   }
 
 
@@ -340,7 +354,6 @@ export class UsersComponent implements OnInit {
     this.ListService.get_list(url).subscribe(
       res => {
         this.list_type_contracts = res.type_contract;
-        console.log(this.list_type_contracts);
       },
       error => {
         console.log(error);
@@ -422,6 +435,8 @@ export class UsersComponent implements OnInit {
         console.log(error);
       }
     );
+    this.load_contracts();
+    this.visible = true;
   }
 
   //variables para almacenar el resultado de la imagen
@@ -532,7 +547,7 @@ export class UsersComponent implements OnInit {
 
   update_user() {
     let permisos = JSON.parse(localStorage.getItem('users'));
-    permisos = permisos.update;
+    permisos = Number(permisos.update);
     if (permisos !== 1) {
       swal("", "no tiene permisos para actualizar", "error")
     } else {
@@ -561,10 +576,11 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  save_contracts() {
+
+  save_contracts(data) {
     let permisos = JSON.parse(localStorage.getItem('users'));
-    permisos = permisos.update;
-    if (permisos !== 1) {
+    permisos = Number(permisos.save);
+    if (permisos === 1) {
       this.contracts.id_employee = this.employees.idemployees;
       this.UserService.save_contracts(this.contracts).subscribe(
         response => {
@@ -580,8 +596,62 @@ export class UsersComponent implements OnInit {
         }
       )
     } else {
-      swal("", "no tiene permisos para registrar usuarios", "error");
+      swal("", "no tiene permisos para crear contratos", "error");
     }
+  }
+
+  /**
+   * function para carlgar los datos de la tabla
+   */
+
+  // funciones del datatable
+  public addRow(datos): void {
+    console.log(datos);
+    this.data_table = [];
+    for (let llenar_data of datos) {
+      this.data_table.push(llenar_data);
+    }
+    this.datatables.reInitDatatable("#table_contracts");
+  }
+
+  /**
+   * funcion mara mostrar los contratos
+   */
+
+  load_contracts() {
+    this.visible = false;
+    let params = { 'id_employee': this.employees.idemployees }
+    this.UserService.getAll_contracts(params).subscribe(
+      response => {
+        this.addRow(response.contract);
+      },
+      error => {
+        console.log(error);
+      }
+    )
+
+  }
+
+  modify_contract(value, id) {
+    this.modify_btn_save(value);
+    let params = { 'id_contract': id }
+    this.UserService.getId_contract(params).subscribe(
+      response => {
+        if (response.contract !== '' || response.contract !== undefined || response.contract !== null) {
+          this.contracts = response.contract[0];
+
+        } else {
+          console.log("error al cargar el contrato");
+        }
+      }, error => {
+        console.log(error)
+      }
+    )
+    console.log(this.contracts);
+  }
+
+  update_contracts() {
+    console.log(this.contracts);
   }
 }
 

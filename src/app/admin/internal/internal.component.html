@@ -1,0 +1,26 @@
+<div class="container-fluid container-modified">
+    <div class="col-12">
+        <h3 class="mb-3 title">Internas</h3>
+    </div>
+
+    <div class="col-12">
+        contenido de los permisos
+    </div>
+</div>
+
+<div class="container-fluid container-modified">
+    <div class="col-12">
+        <ul>
+            <li><a [routerLink]="['/admin/internas/obra']">obra</a></li>
+            <li><a [routerLink]="['/admin/internas/detalles']">detalles</a></li>
+            <li><a [routerLink]="['/admin/internas/items']">items</a></li>
+            <li><a [routerLink]="['/admin/internas/materiales']">materiales</a></li>
+            <li><a [routerLink]="['/admin/internas/actividades']">actividades</a></li>
+            <li><a [routerLink]="['/admin/internas/quejas']">quejas</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container-fluid container-modified">
+    <router-outlet></router-outlet>
+</div>
