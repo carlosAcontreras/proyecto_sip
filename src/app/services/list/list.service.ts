@@ -64,6 +64,12 @@ export class ListService {
     return this.http.post(this.url, params).map(res => res.json());
   }
 
+  list_profiles(params) {
+
+    this.url = this.constantes.getRouterGlobal() + 'list/list_profiles';
+    return this.http.post(this.url, params).map(res => res.json());
+  }
+
 
   get_list(url, params = null) {
     this.url = this.constantes.getRouterGlobal() + url;

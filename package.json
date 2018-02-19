@@ -27,6 +27,7 @@
         "datatables.net-bs4": "^1.10.16",
         "jquery": "^3.2.1",
         "jquery-ui": "^1.12.1",
+        "ng2-tree": "^2.0.0-rc.6",
         "ng2-validation": "^4.2.0",
         "rxjs": "^5.5.2",
         "sweetalert2": "^7.3.5",

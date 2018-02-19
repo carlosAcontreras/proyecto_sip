@@ -50,4 +50,15 @@ export class PermitsService {
     }
   }
 
+  search_submenu(params) {
+
+    this.url = this.constantes.getRouterGlobal() + 'permission/profile_search';
+    return this.http.post(this.url, params).map(res => res.json());
+  }
+
+  search_update(params) {
+
+    this.url = this.constantes.getRouterGlobal() + 'permission/update_permisos';
+    return this.http.post(this.url, params).map(res => res.json());
+  }
 }

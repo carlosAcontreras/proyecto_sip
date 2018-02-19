@@ -4,6 +4,26 @@
     </div>
 
     <div class="col-12">
-        contenido de los permisos
+        <select (change)="select($event)">
+            <option *ngFor="let select of rowselect; let i=index" value="{{select.idP_profiles}}">{{select.name}}</option>
+        </select>
+
+
+        <ul *ngFor="let newrow of rowDatatable; let i=index"> {{newrow.name_sudmenu}}
+            <li>
+                <input type="checkbox" [checked]="newrow.save" (change)="chebox(newrow.idP_profiles,'save',newrow.id_permiso,$event)">
+            </li>
+            <li>
+                <input type="checkbox" [checked]="newrow.update" (change)="chebox(newrow.idP_profiles,'update',newrow.id_permiso,$event)">
+            </li>
+            <li>
+                <input type="checkbox" [checked]="newrow.delete" (change)="chebox(newrow.idP_profiles,'delete',newrow.id_permiso,$event)">
+            </li>
+
+
+        </ul>
+
+
+
     </div>
 </div>
