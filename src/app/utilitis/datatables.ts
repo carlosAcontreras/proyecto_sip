@@ -37,7 +37,6 @@ export class datatables {
     if (this.tableWidget) {
       this.tableWidget.destroy()
       this.tableWidget = null
-
     }
     setTimeout(() => this.initDatatable(table), 0)
   }

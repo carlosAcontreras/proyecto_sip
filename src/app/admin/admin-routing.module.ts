@@ -23,6 +23,7 @@ const routes: Routes = [
       { path: 'bodegas', loadChildren: './wineries/wineries.module#WineriesModule' },
       { path: 'item_cobro', loadChildren: './collection-item/collection-item.module#CollectionItemModule' },
       { path: 'listas_maestras', loadChildren: './master-lists/master-lists.module#MasterListsModule' },
+      { path: 'internas', loadChildren: './internal/internal.module#InternalModule' }
     ]
   }
 ]

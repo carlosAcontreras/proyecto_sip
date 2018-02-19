@@ -11,3 +11,5 @@ export class Contracts {
     public fixed_bonus: number;
     public id_employee: number;
 }
+
+
