@@ -1,0 +1,28 @@
+.tap {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 2px;
+}
+
+.tap_items>a {
+    padding: .3em .8em;
+    text-decoration: none;
+    color: #2b3643;
+    transition: all .4s ease-in-out;
+    border-top: 1px solid#eee;
+    border-left: 1px solid#eee;
+    border-right: 1px solid#eee;
+    ;
+}
+
+.tap_items>a:hover,
+.active-link {
+    background: #32c5d2;
+    color: #fff !important;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+}
