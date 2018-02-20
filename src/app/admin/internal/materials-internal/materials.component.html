@@ -1,10 +1,59 @@
-<div class="row">
-    <div class="col-9">tablas</div>
-    <div class="col-3">observaciones</div>
-</div>
+<form id="form" #form_materials="ngForm" class="pl-3">
+    <div class="row">
+        <div class="col-9">
+            <h1 class="sub-title">Datos/cliente</h1>
+            <div class="form-group row">
+                <label for="" class="col-1 col-form-label">Pedido</label>
+                <div class="col-3">
+                    <input class="form-control input-modified" type="text">
+                </div>
+                <label for="" class="col-1 col-form-label">OT SVC</label>
+                <div class="col-3">
+                    <input class="form-control input-modified" type="text">
+                </div>
+                <label for="" class="col-1 col-form-label">Instalación</label>
+                <div class="col-3">
+                    <input class="form-control input-modified" type="text">
+                </div>
+            </div>
 
-<div class="row">
-    <div class="col-12">
+            <div class="form-group row">
+                <label for="" class="col-1 col-form-label">Cedula</label>
+                <div class="col-3">
+                    <input class="form-control input-modified" type="text">
+                </div>
+                <label for="" class="col-1 col-form-label">Solicitante</label>
+                <div class="col-3">
+                    <input class="form-control input-modified" type="text">
+                </div>
+                <label for="" class="col-1 col-form-label">Municipio</label>
+                <div class="col-3">
+                    <input class="form-control input-modified" type="text">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="" class="col-1 col-form-label">Dirección</label>
+                <div class="col-3">
+                    <input class="form-control input-modified" type="text">
+                </div>
+                <label for="" class="col-1 col-form-label">Estado/Pedidos</label>
+                <div class="col-3">
+                    <input class="form-control input-modified" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <h1 class="sub-title">Observaciones</h1>
+            <div class="col-12">
+                <textarea name="" id="" class="form-control input-modified textarea-modified"></textarea>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row mt-3">
+    <div class="col-12 table-min-heigth">
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>

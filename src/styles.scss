@@ -115,6 +115,13 @@ h6 {
     }
 }
 
+.sub-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    background: #eceeef;
+}
+
 
 /*general style for input*/
 
@@ -330,6 +337,13 @@ input[type="file"]::-webkit-file-upload-button {
     &>.form {
         flex-basis: 100%;
     }
+}
+
+.table-min-heigth {
+    min-height: 250px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    margin-bottom: 1.5em;
 }
 
 @keyframes rotate {
