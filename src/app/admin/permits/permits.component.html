@@ -4,26 +4,42 @@
     </div>
 
     <div class="col-12">
-        <select (change)="select($event)">
+        <select (change)="select($event)" class="form-control input-modified w-25">
             <option *ngFor="let select of rowselect; let i=index" value="{{select.idP_profiles}}">{{select.name}}</option>
         </select>
+    </div>
 
+    <div class="row mt-3">
+        <div class="col-4">
+            <table class="table table-striped table-bordered table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>Submenu</th>
+                        <th>Guardar</th>
+                        <th>Actualizar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let newrow of rowDatatable; let i=index">
+                        <td>{{newrow.name_sudmenu}}</td>
+                        <td><input type="checkbox" [checked]="newrow.save" (change)="chebox(newrow.idP_profiles,'save',newrow.id_permiso,$event)"></td>
+                        <td><input type="checkbox" [checked]="newrow.update" (change)="chebox(newrow.idP_profiles,'update',newrow.id_permiso,$event)"></td>
+                        <td><input type="checkbox" [checked]="newrow.delete" (change)="chebox(newrow.idP_profiles,'delete',newrow.id_permiso,$event)"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="table-permisos">
+                <li>
 
-        <ul *ngFor="let newrow of rowDatatable; let i=index"> {{newrow.name_sudmenu}}
-            <li>
-                <input type="checkbox" [checked]="newrow.save" (change)="chebox(newrow.idP_profiles,'save',newrow.id_permiso,$event)">
-            </li>
-            <li>
-                <input type="checkbox" [checked]="newrow.update" (change)="chebox(newrow.idP_profiles,'update',newrow.id_permiso,$event)">
-            </li>
-            <li>
-                <input type="checkbox" [checked]="newrow.delete" (change)="chebox(newrow.idP_profiles,'delete',newrow.id_permiso,$event)">
-            </li>
+                </li>
+                <li>
 
+                </li>
+                <li>
 
-        </ul>
-
-
-
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
