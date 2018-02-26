@@ -255,7 +255,14 @@ table thead tr>th {
     min-width: 1700px;
 }
 
-//estilos para las datatables 
+.table-travel {
+    overflow-x: scroll;
+    padding-right: .8em;
+    table {
+        min-width: 4000px;
+        margin-bottom: 2em;
+    }
+} //estilos para las datatables 
 .data-tables {
     margin: 2em;
 }
