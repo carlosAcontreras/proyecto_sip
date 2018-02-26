@@ -85,12 +85,12 @@ sans-serif;
 /*general style*/
 
 body {
-    background: $colorlightgrey;
+    background: $colorwhite;
 }
 
 .container-modified {
     width: 95%;
-    background: $colorwhite;
+    background: #eceeef;
     padding: 1em;
     margin: 20px auto;
     @include box-shadow();
@@ -118,8 +118,8 @@ h6 {
 .sub-title {
     font-size: 18px;
     margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    background: #eceeef;
+    border-bottom: 1px solid rgba(0, 0, 0, .12) !important;
+    background: $colorwhiteopacity;
 }
 
 
@@ -278,15 +278,13 @@ table thead tr>th {
     border: 1px solid #ddd;
 }
 
-
-/*.table-scroll {
-    min-height: 400px;
-    width: 100%;
+.scroll-x {
     overflow-x: scroll;
-    &>table {
-        min-width: 4000px;
+    padding-bottom: 1em;
+    table {
+        min-width: 150%;
     }
-}*/
+}
 
 input[type="file"]::-webkit-file-upload-button {
     padding: 5px 10px;

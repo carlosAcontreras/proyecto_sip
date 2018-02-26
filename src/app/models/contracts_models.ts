@@ -10,6 +10,8 @@ export class Contracts {
     public per_bearing: number;
     public fixed_bonus: number;
     public id_employee: number;
+    public reason_end: string;
+    public id_contract: number;
 }
 
 

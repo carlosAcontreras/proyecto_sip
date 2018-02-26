@@ -23,7 +23,12 @@ const routes: Routes = [
       { path: 'bodegas', loadChildren: './wineries/wineries.module#WineriesModule' },
       { path: 'item_cobro', loadChildren: './collection-item/collection-item.module#CollectionItemModule' },
       { path: 'listas_maestras', loadChildren: './master-lists/master-lists.module#MasterListsModule' },
-      { path: 'internas', loadChildren: './internal/internal.module#InternalModule' }
+      { path: 'internas', loadChildren: './internal/internal.module#InternalModule' },
+      { path: 'acta_materiales', loadChildren: './record-material/record-material.module#RecordMaterialModule' },
+      { path: 'pago_actividades', loadChildren: './payment-activities/payment-activities.module#PaymentActivitiesModule' },
+      { path: 'subir_obra', loadChildren: './upload-work/upload-work.module#UploadWorkModule' },
+      { path: 'recorrido', loadChildren: './travel/travel.module#TravelModule' },
+      { path: 'documentos_epm', loadChildren: './epm-documents/epm-documents.module#EpmDocumentsModule' }
     ]
   }
 ]

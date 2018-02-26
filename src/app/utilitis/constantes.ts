@@ -1,37 +1,44 @@
 export class constantes {
     public routeGlobal = '/api/';
 
-    public Materiales = 1;
-    public Compras = 2;
-    public Ingresos = 3;
-    public Despachos = 4;
-    public Reintegros = 5;
-    public Reintegros_Masivos = 6;
-    public Devoluciones = 7;
-    public Traslados = 8;
-    public Control_Series = 9;
+    public SUBMENUS = {
+        'Materiales': 1,
+        'Compras': 2,
+        'Ingresos': 3,
+        'Despachos': 4,
+        'Reintegros': 5,
+        'Reintegros_Masivos': 6,
+        'Devoluciones': 7,
+        'Traslados': 8,
+        'Control_Series': 9,
 
-    public Usuario = 10;
-    public Permisos = 11;
-    public Proveedores = 12;
-    public Contratos = 13;
-    public Empresas = 14;
-    public Bodegas = 15;
+        'Usuario': 10,
+        'Permisos': 11,
+        'Proveedores': 12,
+        'Contratos': 13,
+        'Empresas': 14,
+        'Bodegas': 15,
 
-    public Item_Cobro = 20;
-    public Listas_Maestras = 21;
+        'Item_Cobro': 20,
+        'Listas_Maestras': 21,
 
-    public Documentos_Epm = 30;
-    public Obras_Internas = 31;
-    public Obras_Externas = 32;
-    public Operaciones = 33;
-    public Asignación_de_Encargados = 34;
-    public Programación_Masiva = 35;
-    public Importar_Obra = 36;
-    public Pago_Actividades = 37;
-    public Impresion = 38;
-    public Extraer_Datos = 39;
-    public Programación = 40;
+        'Documentos_Epm': 30,
+        'Obras_Internas': 31,
+        'Obras_Externas': 32,
+        'Operaciones': 33,
+        'Asignación_de_Encargados': 34,
+        'Programación_Masiva': 35,
+        'Importar_Obra': 36,
+        'Pago_Actividades': 37,
+        'Impresion': 38,
+        'Extraer_Datos': 39,
+        'Programación': 40,
+    }
+
+
+    public KEYBOARD = {
+        'TECLA_F2': 113
+    }
 
     constructor() { }
 
