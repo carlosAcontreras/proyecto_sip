@@ -28,7 +28,9 @@ const routes: Routes = [
       { path: 'pago_actividades', loadChildren: './payment-activities/payment-activities.module#PaymentActivitiesModule' },
       { path: 'subir_obra', loadChildren: './upload-work/upload-work.module#UploadWorkModule' },
       { path: 'recorrido', loadChildren: './travel/travel.module#TravelModule' },
-      { path: 'documentos_epm', loadChildren: './epm-documents/epm-documents.module#EpmDocumentsModule' }
+      { path: 'documentos_epm', loadChildren: './epm-documents/epm-documents.module#EpmDocumentsModule' },
+      { path: 'obra_externa', loadChildren: './external/external.module#ExternalModule' },
+      { path: 'operaciones', loadChildren: './operations/operations.module#OperationsModule' }
     ]
   }
 ]

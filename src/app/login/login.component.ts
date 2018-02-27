@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit {
     this.login.login_autch(user).subscribe(
       response => {
         this.validate_auth(response, user.company);
-        console.log(response);
         return false;
       },
       error => {
@@ -84,7 +83,6 @@ export class LoginComponent implements OnInit {
 
   validate_session() {
     let _user = localStorage.getItem('user');
-    console.log(_user);
     if (_user)
       this.router.navigate(['/admin']);
     else
