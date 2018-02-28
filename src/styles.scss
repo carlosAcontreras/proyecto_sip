@@ -361,7 +361,6 @@ input[type="file"]::-webkit-file-upload-button {
     padding-bottom: 2px;
 }
 
-.nav-item>a,
 .tap_items>a {
     padding: .3em .8em;
     text-decoration: none;
@@ -372,9 +371,6 @@ input[type="file"]::-webkit-file-upload-button {
     border-right: 1px solid rgba(0, 0, 0, .12);
 }
 
-.nav-item>a:hover,
-.nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active,
 .tap_items>a:hover,
 .active-link {
     background: #32c5d2;

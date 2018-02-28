@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '', component: ExternalComponent, children: [
       { path: 'obra', loadChildren: './external-work/external-work.module#ExternalWorkModule' },
       { path: 'detalles_obra', loadChildren: './external-details/external-details.module#ExternalDetailsModule' },
-      { path: 'quejas', loadChildren: './complaints/complaints.module#ComplaintsModule' }
+      { path: 'quejas', loadChildren: '../internal/complaints/complaints.module#ComplaintsModule' }
     ]
   }
 ]
