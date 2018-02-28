@@ -6,12 +6,12 @@ import { OperationsComponent } from './operations.component';
 export const routes: Routes = [
   {
     path: '', component: OperationsComponent, children: [
-      { path: 'obra', loadChildren: './work/work.module#WorkModule' },
+      { path: 'obra', loadChildren: '../internal/work/work.module#WorkModule' },
       { path: 'detalles', loadChildren: './details-operations/details-operations.module#DetailsOperationsModule' },
-      { path: 'items', loadChildren: './items/items.module#ItemsModule' },
-      { path: 'materiales', loadChildren: './materials-internal/materials.module#MaterialsModule' },
-      { path: 'quejas', loadChildren: './complaints/complaints.module#ComplaintsModule' },
-      { path: 'actividades', loadChildren: './activities/activities.module#ActivitiesModule' }
+      { path: 'items', loadChildren: '../internal/items/items.module#ItemsModule' },
+      { path: 'materiales', loadChildren: '../internal/materials-internal/materials.module#MaterialsModule' },
+      { path: 'quejas', loadChildren: '../internal/complaints/complaints.module#ComplaintsModule' },
+      { path: 'actividades', loadChildren: '../internal/activities/activities.module#ActivitiesModule' }
     ]
   }
 ]
